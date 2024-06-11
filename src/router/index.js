@@ -1,19 +1,21 @@
 
 import { createRouter, createWebHistory } from 'vue-router'
+import Main from '@/pages/Main.vue'
 import Home from '@/pages/Home.vue'
-import Input from '@/pages/Input.vue'
-import Input2 from '@/pages/Input2.vue'
-import List from '@/pages/List.vue'
-import Update from '@/pages/Update.vue'
+import History from '@/pages/History.vue'
+import Product from '@/pages/Product.vue'
+import Culture from '@/pages/Culture.vue'
+import MeetingAccount from '@/pages/MeetingAccount.vue'
 
 const router = createRouter({
     history: createWebHistory(),
     routes : [
-        { path: '/', name: "Home", component: Home },
-        { path: '/list', name: "List", component: List },
-        { path: '/input', name: "Input", component: Input },
-        { path: '/input2', name: "Input2", component: Input2 },
-        { path: '/update', name: "Update", component: Update },
+        { path: '/', name: "Main", component: Main },
+        { path: '/home', name: "Home", component: Home },
+        { path: '/history', name: "History", component: History }, // transaction history
+        { path: '/product', name: "Product", component: Product },
+        { path: '/culture', name: "Culture", component: Culture },
+        { path: '/meeting-account', name: "MeetingAccount", component: MeetingAccount },
     ]
 })
 

@@ -7,7 +7,7 @@
         <!--begin::Main-->
         <!--begin::Root-->
         <div class="d-flex flex-column flex-root">
-            <!--begin::Page-->
+            <!--begin::Page-->ㄹ``
             <div class="page d-flex flex-row flex-column-fluid">
                 <!--begin::Aside-->
                 <div id="kt_aside" class="aside aside-default aside-hoverable" data-kt-drawer="true"
@@ -17,14 +17,16 @@
                     <!--begin::Brand-->
                     <div class="aside-logo flex-column-auto px-10 pt-9 pb-5" id="kt_aside_logo">
                         <!--begin::Logo-->
-                        <a href="index.html">
+                        <!-- 로고 버튼 시작 -->
+                        <router-link to="/">
                             <img alt="Logo" src="@/assets/media/logos/logo-default.svg"
                                 class="max-h-50px logo-default theme-light-show" />
                             <img alt="Logo" src="@/assets/media/logos/logo-default-dark.svg"
                                 class="max-h-50px logo-default theme-dark-show" />
                             <img alt="Logo" src="@/assets/media/logos/logo-minimize.svg"
                                 class="max-h-50px logo-minimize" />
-                        </a>
+                        </router-link>
+                        <!-- 로고 버튼 끝 -->
                         <!--end::Logo-->
                     </div>
                     <!--end::Brand-->
@@ -43,6 +45,7 @@
                                 <!-- -->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
+                                    <!-- 홈 화면 메뉴 링크 -->
                                     <a class="menu-link"
                                         href="https://preview.keenthemes.com/html/craft/docs/base/utilities"
                                         target="_blank">
@@ -52,7 +55,7 @@
                                                 <span class="path2"></span>
                                             </i>
                                         </span>
-                                        <span class="menu-title">Components</span>
+                                        <router-link class="menu-title" to="/home">홈</router-link>
                                     </a>
                                     <!--end:Menu link-->
                                 </div>
@@ -60,6 +63,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
+                                    <!-- 거래 내역 버튼 -->
                                     <a class="menu-link" href="https://preview.keenthemes.com/html/craft/docs"
                                         target="_blank">
                                         <span class="menu-icon">
@@ -68,7 +72,7 @@
                                                 <span class="path2"></span>
                                             </i>
                                         </span>
-                                        <span class="menu-title">Documentation</span>
+                                        <router-link class="menu-title" to="/history">거래 내역</router-link>
                                     </a>
                                     <!--end:Menu link-->
                                 </div>
@@ -76,6 +80,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
+                                    <!-- 추천 상품 버튼 -->
                                     <a class="menu-link"
                                         href="https://preview.keenthemes.com/craft/layout-builder.html">
                                         <span class="menu-icon">
@@ -84,7 +89,7 @@
                                                 <span class="path2"></span>
                                             </i>
                                         </span>
-                                        <span class="menu-title">Layout Builder</span>
+                                        <router-link class="menu-title" to="/product">추천 상품</router-link>
                                     </a>
                                     <!--end:Menu link-->
                                 </div>
@@ -92,20 +97,33 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
+                                    <!-- 문화 버튼 -->
                                     <a class="menu-link"
-                                        href="https://preview.keenthemes.com/html/craft/docs/getting-started/changelog"
-                                        target="_blank">
+                                        href="https://preview.keenthemes.com/craft/layout-builder.html">
                                         <span class="menu-icon">
-                                            <i class="ki-duotone ki-code fs-2">
+                                            <i class="ki-duotone ki-abstract-13 fs-2">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
-                                                <span class="path3"></span>
-                                                <span class="path4"></span>
                                             </i>
                                         </span>
-                                        <span class="menu-title">Changelog
-                                            <span
-                                                class="badge badge-changelog badge-light-success bg-hover-danger text-hover-white fw-bold fs-9 px-2 ms-2">v1.1.5</span></span>
+                                        <router-link class="menu-title" to="/culture">문화</router-link>
+                                    </a>
+                                    <!--end:Menu link-->
+                                </div>
+                                <!--end:Menu item-->
+                                <!--begin:Menu item-->
+                                <div class="menu-item">
+                                    <!--begin:Menu link-->
+                                    <!-- 모임 통장 버튼 -->
+                                    <a class="menu-link"
+                                        href="https://preview.keenthemes.com/craft/layout-builder.html">
+                                        <span class="menu-icon">
+                                            <i class="ki-duotone ki-abstract-13 fs-2">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </span>
+                                        <router-link class="menu-title" to="/meeting-account">모임 통장</router-link>
                                     </a>
                                     <!--end:Menu link-->
                                 </div>
@@ -1213,11 +1231,6 @@
                         <!--end::Container-->
                     </div>
                     <!--end::Header-->
-
-
-                    <!-- 가운데 컨테이너 -->
-                    <div class="content fs-6 d-flex flex-column flex-column-fluid" id="kt_content">
-                    </div>
 
                     <!--begin::Footer-->
                     <!-- <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
