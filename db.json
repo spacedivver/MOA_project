@@ -1,0 +1,26 @@
+{
+    "users": [
+      { "id": 1, "userId": "aaa", "name": "홍길동", "email": "aaa@example.com", "password": "password123", "asset" : "30000" },
+      { "id": 2, "userId": "bbb", "name": "박길동", "email": "bbb@example.com", "password": "password456", "asset" : "30000" },
+      { "id": 3, "userId": "ccc", "name": "고길동", "email": "ccc@example.com", "password": "password789", "asset" : "30000" }
+    ],  
+    "groups": [
+      { "groupId": 1, "groupName": "주말 여행", "startDate": "2024-06-12", "endDate": "2024-06-12", "members": ["aaa", "bbb"], "memo": "산으로 떠나는 여행" },
+      { "groupId": 2, "groupName": "회사 회식", "startDate": "2024-06-12", "endDate": "2024-06-12", "members": ["aaa", "ccc"], "memo": "연말 회사 회식" }
+    ],
+    "groupHistory": [
+      { "id": 1, "groupId": 1,  "date": "2024-06-12", "amount": 150000, "type": "지출", "category": "숙박", "memo": "호텔 예약" },
+      { "id": 2, "groupId": 1,  "date": "2024-06-12", "amount": 750000, "type": "지출", "category": "식사", "memo": "저녁 식사" },
+      { "id": 3, "groupId": 2,  "date": "2024-06-12", "amount": 200000, "type": "지출", "category": "케이터링", "memo": "연말 케이터링"}
+    ],
+    "personalHistory": [
+      { "id": 1, "userId": "aaa", "date": "2024-06-12", "amount": 1000000, "type": "수입", "category": "월급", "memo": "월급 수령" },
+      { "id": 2, "userId": "aaa", "date": "2024-06-12", "amount": 100000, "type": "지출", "category": "식료품", "memo": "주간 식료품 구입" },
+      { "id": 3, "userId": "bbb", "date": "2024-06-12", "amount": 500000, "type": "수입", "category": "프리랜서", "memo": "프리랜서 프로젝트" }
+    ],
+    "cardRecommendations": [
+      { "id": 1, "bankName": "신한카드", "cardName": "올인원 카드", "category": "쇼핑", "memo": "쇼핑을 위해 추천되는 카드" },
+      { "id": 2, "bankName": "국민카드", "cardName": "생활비 카드", "category": "식료품", "memo": "식사를 위해 추천되는 카드" },
+      { "id": 3, "bankName": "하나카드", "cardName": "여행 카드", "category": "여행", "memo": "여행을 위해 추천되는 카드" }
+    ]
+  }
