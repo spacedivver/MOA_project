@@ -2,17 +2,30 @@
   <div id="kt_body"
     class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled aside-fixed aside-default-enabled">
     <div class="d-flex flex-column flex-root">
-      <Header />
-      <!-- 가운데 컨테이너 -->
-          <router-view></router-view>
-      <Footer />
+      <Header v-if="!isPage" />
+    <router-view />
+      <Footer v-if="!isPage" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+
+const route = useRoute()
+const isPage = ref(false)
+
+watch(
+  () => route.path,
+  (newPath) => {
+    isPage.value = newPath === '/signup' || newPath === '/login';
+  },
+  { immediate: true }
+);
+
 </script>
 
 <style>

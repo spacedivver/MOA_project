@@ -6,6 +6,8 @@ import History from '@/pages/History.vue'
 import Product from '@/pages/Product.vue'
 import Culture from '@/pages/Culture.vue'
 import MeetingAccount from '@/pages/MeetingAccount.vue'
+import SignUp from '@/pages/SignUp.vue'
+import Login from '@/pages/Login.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -16,6 +18,9 @@ const router = createRouter({
         { path: '/product', name: "Product", component: Product },
         { path: '/culture', name: "Culture", component: Culture },
         { path: '/meeting-account', name: "MeetingAccount", component: MeetingAccount },
+        { path: '/signup', name: "SignUp", component: SignUp },
+        { path: '/login', name: "Login", component: Login },
+        
     ]
 })
 
