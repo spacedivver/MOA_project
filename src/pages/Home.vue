@@ -124,7 +124,8 @@
             <!--begin::Row-->
             <div class="row g-xl-8">
               <!--begin::Col-->
-              <div class="col-xxl-8">
+              <div class="col-xxl-12">
+
                 <!--begin::Row-->
                 <div class="row g-xl-8">
                   <!--begin::Col-->
@@ -152,7 +153,8 @@
                         </div>
                         <!--begin::Chart-->
                         <div class="pt-1">
-                          <div id="kt_chart_widget_1_chart" class="card-rounded-bottom h-125px"></div>
+                          <Monthly />
+                          <!-- <div id="kt_chart_widget_1_chart" class="card-rounded-bottom h-125px"></div> -->
                         </div>
                         <!--end::Chart-->
                       </div>
@@ -178,6 +180,7 @@
                         <!-- 목표 달성도 차트 그리기 시작 -->
                         <!--begin::Chart-->
                         <div class="d-flex flex-center position-relative">
+                          <!-- <Monthly /> -->
                         </div>
                         <!--end::Chart-->
                         <!-- 목표 달성도 차트 그리기 끝 -->
@@ -928,6 +931,7 @@
 <script setup>
 import { ref } from 'vue';
 import Achievement from '@/components/widgets/Achievement.vue'
+import Monthly from '@/components/widgets/Monthly.vue'
 
 const date = new Date();
 let month = ref(date.getMonth() + 1);

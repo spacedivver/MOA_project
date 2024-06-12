@@ -1,4 +1,3 @@
-<!-- ChartComponent.vue -->
 <template>
     <div>
         <div id="achievement_chart"></div>
