@@ -7,7 +7,7 @@
         <!--begin::Main-->
         <!--begin::Root-->
         <div class="d-flex flex-column flex-root">
-            <!--begin::Page-->ㄹ``
+            <!--begin::Page-->
             <div class="page d-flex flex-row flex-column-fluid">
                 <!--begin::Aside-->
                 <div id="kt_aside" class="aside aside-default aside-hoverable" data-kt-drawer="true"

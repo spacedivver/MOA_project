@@ -4,11 +4,7 @@
     <div class="d-flex flex-column flex-root">
       <Header />
       <!-- 가운데 컨테이너 -->
-      <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-        <div class="content fs-6 d-flex flex-column flex-column-fluid" id="kt_content">
-          <router-view></router-view>
-        </div>
-      </div>
+      <router-view></router-view>
       <Footer />
     </div>
   </div>
