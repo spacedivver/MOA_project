@@ -5,17 +5,36 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import ApexCharts from 'apexcharts';
 
+
 onMounted(() => {
+    const createCategories = () => {
+        const date = new Date();
+        let currentMonth = date.getMonth() + 1;
+        let monthList = [currentMonth + '월'];
+
+        for (let i = 0; i < 5; i++) {
+            currentMonth -= 1;
+            if (currentMonth == 0) {
+                currentMonth = 12;
+            }
+            monthList.push(currentMonth + '월');
+        }
+        console.log(monthList);
+        return monthList.reverse();
+    };
+
+    const categories = createCategories();
+
     var options = {
         series: [{
             name: 'Net Profit',
             data: [50, 70, 90, 117, 80, 65],
         }, {
             name: 'Revenue',
-            data:  [50, 70, 90, 117, 80, 65],
+            data: [50, 70, 90, 117, 80, 65],
         }],
         chart: {
             fontFamily: 'inherit',
@@ -44,7 +63,7 @@ onMounted(() => {
             colors: ['transparent']
         },
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            categories: categories,
             axisBorder: {
                 show: false,
             },
@@ -111,6 +130,10 @@ onMounted(() => {
             }
         }
     };
+
+    // {y: 65, fillColor: '#FF5733'}
+    // options.series[0].color = '#FF5733';
+    // options.series[0].data[5] = { y: 65, fillcolor: '#FF5733' };
     new ApexCharts(document.querySelector("#monthly_chart"), options).render();
 });
 </script>

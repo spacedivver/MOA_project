@@ -42,7 +42,7 @@
                         <div class="card-body p-9">
                           <div class="fs-4 fw-semibold text-gray-500">총 자산</div>
                           <div>
-                            <span class="fs-2hx fw-bold">{{ 300000 }}</span>
+                            <span class="fs-2hx fw-bold">{{ addComma(300000) }}</span>
                             <span class="fs-1hx">원</span>
                           </div>
                           <div class="fs-6 d-flex justify-content-between mt-4 mb-4">
@@ -140,8 +140,8 @@
                       <!-- <div class="col-lg-6 col-xxl-4"> -->
                       <div class="card h-100">
                         <div class="card-body p-9">
-                          <div class="fs-4 fw-bold">{{ month }}월에는 9만원 덜 썼어요</div>
-                          <div class="fs-4 fw-semibold text-gray-500">한 달에 평균 34만원 정도 써요</div>
+                          <div class="fs-2 fw-bold">{{ month }}월에는 9만원 덜 썼어요</div>
+                          <div class="fs-6 fw-semibold text-gray-500">한 달에 평균 34만원 정도 써요</div>
                           <!-- 현재 자산 카드 끝 -->
 
                           <!--begin::Text-->
@@ -935,5 +935,9 @@ import Monthly from '@/components/widgets/Monthly.vue'
 
 const date = new Date();
 let month = ref(date.getMonth() + 1);
+
+const addComma = (number) => {
+  return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+}
 
 </script>
