@@ -4,7 +4,7 @@
     <div class="d-flex flex-column flex-root">
       <Header />
       <!-- 가운데 컨테이너 -->
-      <router-view></router-view>
+          <router-view></router-view>
       <Footer />
     </div>
   </div>
