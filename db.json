@@ -14,13 +14,17 @@
       { "id": 3, "groupId": 2,  "date": "2024-06-12", "amount": 200000, "type": "지출", "category": "케이터링", "memo": "연말 케이터링"}
     ],
     "personalHistory": [
-      { "id": 1, "userId": "aaa", "date": "2024-06-12", "amount": 1000000, "type": "수입", "category": "월급", "memo": "월급 수령" },
-      { "id": 2, "userId": "aaa", "date": "2024-06-12", "amount": 100000, "type": "지출", "category": "식료품", "memo": "주간 식료품 구입" },
-      { "id": 3, "userId": "bbb", "date": "2024-06-12", "amount": 500000, "type": "수입", "category": "프리랜서", "memo": "프리랜서 프로젝트" }
+      { "id": 1, "userId": "aaa", "date": "2024-06-12", "amount": 1000000, "type": "수입", "category": "여행", "memo": "여행 자금" },
+      { "id": 2, "userId": "aaa", "date": "2024-06-12", "amount": 100000, "type": "지출", "category": "쇼핑", "memo": "주간 식료품 구입" },
+      { "id": 3, "userId": "bbb", "date": "2024-06-12", "amount": 500000, "type": "수입", "category": "문화", "memo": "프리랜서 프로젝트" }, 
+      { "id": 4, "userId": "aaa", "date": "2024-06-12", "amount": 500000, "type": "수입", "category": "문화", "memo": "프리랜서 프로젝트" }, 
+      { "id": 5, "userId": "aaa", "date": "2024-06-12", "amount": 500000, "type": "지출", "category": "문화", "memo": "프리랜서 프로젝트" }, 
+      { "id": 6, "userId": "aaa", "date": "2024-06-12", "amount": 500000, "type": "지출", "category": "교통", "memo": "버스비" }
     ],
     "cardRecommendations": [
-      { "id": 1, "bankName": "신한카드", "cardName": "올인원 카드", "category": "쇼핑", "memo": "쇼핑을 위해 추천되는 카드" },
-      { "id": 2, "bankName": "국민카드", "cardName": "생활비 카드", "category": "식료품", "memo": "식사를 위해 추천되는 카드" },
-      { "id": 3, "bankName": "하나카드", "cardName": "여행 카드", "category": "여행", "memo": "여행을 위해 추천되는 카드" }
+      { "id": 1, "bankName": "국민카드", "cardName": "트래블러스 체크카드", "category": "여행", "memo": "- 해외 이용 수수료 1.25% 면제 \n- 철도 5,000원 할인 \n- 전국 맛집 5,000원 할인" },
+      { "id": 2, "bankName": "국민카드", "cardName": "쿠팡 와우 카드", "category": "쇼핑", "memo": "-쿠팡, 쿠팡이프, 쿠팡플레이 2% 쿠팡캐시 적립 \n- 국내 회 가맹점 0.2% 쿠팡캐시 적립" },
+      { "id": 3, "bankName": "국민카드", "cardName": "K-패스 카드", "category": "교통", "memo": "- 대중교통 10% 할인 \n- 생활서비스 5%할인 \n- KB Pay이용시 생활서비스 5% 추가 할인" }, 
+      { "id": 4, "bankName": "국민카드", "cardName": "탄탄대로 온리유 티타늄 카드", "category": "문화", "memo": "전 주유소 130~200점/L 적립 \n- 다이렉트 자동차보험 1만원 청구할인(연 1회) \n- 차량 정비, 주차/세차장 10% 포인트 적립" }
     ]
   }

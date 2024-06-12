@@ -36,7 +36,7 @@
                     
                 </div>
 
-                <div class="card card-xl-stretch mb-5 mb-xl-8" style="flex: 1; height: 270px;">
+                <div class="card card-xl-stretch mb-5 mb-xl-8 p-3" style="flex: 1; height: 270px;">
                     <div class="card-body p-0 d-flex justify-content-between flex-column overflow-hidden">
                         <div class="d-flex flex-stack flex-grow-1 px-9 pb-3 mt-3">
                             <div class="symbol symbol-45px">
@@ -76,38 +76,23 @@
                             </div>
                         </div>
                     </div>
-                    
                 
-                    <hr style="border-width: 2px; border-color: white;">
-                
-                    <div class="d-flex justify-content-between">
-                        <h4>브랜드 : master</h4>
-                        <h4>연회비 : 없음</h4>
-                    </div>
                 </div>
                 
 
                 
-                <div class="card card-xl-stretch p-4" style="flex: 1;">
-                    
-                    <div class="card-body p-0 d-flex justify-content-between flex-column overflow-hidden">
-                        <div class="d-flex flex-stack flex-grow-1 px-9 pt-9 pb-3">
-                            
-                            <div class="symbol symbol-45px p-4 mb-4 d-flex align-items-center flex-column" style="border: 1px solid rgb(233, 233, 233);">
-                                <img src="https://search.pstatic.net/sunny?src=https%3A%2F%2Fpng.pngtree.com%2Fpng-vector%2F20191127%2Fourmid%2Fpngtree-briefcase-vector-icon-png-image_2043498.jpg&type=fff208_208" width="50px">
-                                <h3 style="margin-top: 2px;">직장인</h3>
-                                # 재태크의 신으로
-                            </div>
-                           
-                            <div class="d-flex flex-column text-end " style="padding-right: 30px;">
-                                거래 실적에 따른 다양한 혜택
-                                <h3>KB 국민 ONE 통장</h3>
-                                <button style="border: 1px solid rgb(194, 194, 194);">자세히 보기</button>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
+                <div class="card h-100 p-5" style="flex: 1; background-color: rgb(228, 237, 250);">
+                  <div class="d-flex">
+                      <img src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/09564_img.png" class="rotated-image" style="margin-top: 20px;">
+                      <div class="discount-info" style="margin-top: 10px; padding-left: 50px;">
+                          <div v-for="card in cardRecommendations" :key="card.id">
+                              <h2>{{ card.bankName }} {{ card.cardName }}</h2>
+                              <h6 v-for="item in card.memo.split('\n')" :key="item">{{ item }}</h6>
+                          </div>
+                      </div>
+                  </div>
+              
+              </div>
                 
             </div>
 
@@ -169,7 +154,7 @@ export default {
       ],
       movies: [], 
       cardRecommendations: [
-        { id: 1, bankName: "국민카드", cardName: "트래블러스 체크카드", category: "여행", memo: "- 해외 이용 수수요 1.25% 면제\n- 철도 5,000원 할인\n -전국 맛집 5,000원 할인" },
+        { id: 1, bankName: "국민카드", cardName: "트래블러스 체크카드", category: "여행", memo: "- 해외 이용 수수료 1.25% 면제\n- 철도 5,000원 할인\n -전국 맛집 5,000원 할인" },
       ],
     };
   },
@@ -254,7 +239,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .sub1 {
     display: flex;
     align-items: center; 
