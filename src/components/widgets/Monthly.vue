@@ -58,7 +58,6 @@ onMounted(() => {
                 }
             });
         }
-        console.log(monthlyExpenses.value);
 
         var options = {
             series: [{
@@ -169,7 +168,5 @@ onMounted(() => {
         new ApexCharts(document.querySelector("#monthly_chart"), options).render();
     }
     setMonthlyData();
-}
-);
-
+});
 </script>

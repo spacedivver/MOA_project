@@ -131,7 +131,7 @@
                       <!-- 목표 달성도 차트 그리기 시작 -->
                       <div class="card-body d-flex flex-column pt-0">
                         <div class="d-flex flex-center position-relative">
-                          <CategoryChart />
+                          <CategoryChart :userId="userId"/>
                         </div>
                       </div>
                       <!-- 목표 달성도 차트 그리기 끝 -->

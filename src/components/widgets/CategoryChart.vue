@@ -7,188 +7,255 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import * as am5radar from "@amcharts/amcharts5/radar";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import axios from "axios";
 
 export default {
     name: 'CategoryChart',
+    props: {
+        userId: String // vue2에서의 props
+    },
     mounted() {
-        // Create root element
-        let root = am5.Root.new(this.$refs.categoryChart);
-        // Set themes
-        root.setThemes([am5themes_Animated.new(root)]);
+        const setMonthlyData = async () => { // 사용자의 카테고리별 소비 총액
+            console.log("userId: " + this.userId);
 
-        // am5.ready(function () {
-        // Create chart
-        // https://www.amcharts.com/docs/v5/charts/radar-chart/
-        var chart = root.container.children.push(
-            am5radar.RadarChart.new(root, {
-                panX: false,
-                panY: false,
-                wheelX: "panX",
-                wheelY: "zoomX",
-                innerRadius: am5.percent(20),
-                startAngle: -90,
-                endAngle: 180,
-            })
-        );
+            const BASE_URL = "http://localhost:3001";
+            const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + this.userId);
 
-        // Data
-        var data = [
-            {
-                category: "교통비",
-                value: 80,
-                full: 100,
-                columnSettings: {
-                    fillOpacity: 1,
-                    fill: am5.color('#7239EA'),
-                },
-            },
-            {
-                category: "문화 생활비",
-                value: 35,
-                full: 100,
-                columnSettings: {
-                    fillOpacity: 1,
-                    fill: am5.color('#F1416C'),
-                },
-            },
-            {
-                category: "저축",
-                value: 92,
-                full: 100,
-                columnSettings: {
-                    fillOpacity: 1,
-                    fill: am5.color('#00A3FF'),
-                },
-            },
-            {
-                category: "식비",
-                value: 68,
-                full: 100,
-                columnSettings: {
-                    fillOpacity: 1,
-                    fill: am5.color('#50CD89'),
-                },
-            },
-        ];
+            const categoryAmount = [
+                {category: '여행', amount: 0},
+                {category: '쇼핑', amount: 0},
+                {category: '문화', amount: 0},
+                {category: '교통', amount: 0},
+                {category: '숙박', amount: 0},
+                {category: '식사', amount: 0},
+                {category: '케이터링', amount: 0}
+            ];
+            const colors = ['#7239EA', '#F1416C', '#00A3FF', '#50CD89', '#FF8040']; // 최고 지출 top5
+            const data = [];
 
-        // Add cursor
-        // https://www.amcharts.com/docs/v5/charts/radar-chart/#Cursor
-        // var cursor = chart.set(
-        //     "cursor",
-        //     am5radar.RadarCursor.new(root, {
-        //         behavior: "zoomX",
-        //     })
-        // );
+            const date = new Date();
+            const currentYear = date.getFullYear();
+            const currentMonth = date.getMonth() + 1;
 
-        // cursor.lineY.set("visible", false);
+            response.data.forEach(element => {
+                const elementYear = Number(element.date.split('-')[0]);
+                const elementMonth = Number(element.date.split('-')[1]);
 
-        // Create axes and their renderers
-        // https://www.amcharts.com/docs/v5/charts/radar-chart/#Adding_axes
-        var xRenderer = am5radar.AxisRendererCircular.new(root, {
-            //minGridDistance: 50
-        });
+                if (elementYear == currentYear && elementMonth == currentMonth && element.type == "지출") { // 이번달 지출 카테고리 데이터
+                    for (let i = 0; i < categoryAmount.length; i++) {
+                        if (categoryAmount[i].category == element.category) {
+                            categoryAmount[i].amount += element.amount;
+                        }
+                    }
+                }
+            });
+            
+            categoryAmount.sort((a, b) => b.amount - a.amount);
+            const totalAmount = categoryAmount.reduce((acc, cur) => acc + cur.amount, 0);
+            console.log('totalAmount');
+            console.log(totalAmount);
 
-        xRenderer.labels.template.setAll({
-            radius: 10
-        });
+            for (let i = 0; i < 5; i++) {
+                data.push(
+                    {
+                        category: categoryAmount[i].category,
+                        value: parseInt(categoryAmount[i].amount / totalAmount * 100) * 2,
+                        full: 100,
+                        columnSettings: {
+                            fillOpacity: 1,
+                            fill: am5.color(colors[i]),
+                        },
+                    }
+                )
+            }
 
-        xRenderer.grid.template.setAll({
-            forceHidden: true,
-        });
+            // Create root element
+            let root = am5.Root.new(this.$refs.categoryChart);
+            // Set themes
+            root.setThemes([am5themes_Animated.new(root)]);
 
-        var xAxis = chart.xAxes.push(
-            am5xy.ValueAxis.new(root, {
-                renderer: xRenderer,
-                min: 0,
-                max: 100,
-                strictMinMax: true,
-                numberFormat: "#'%'",
-                tooltip: am5.Tooltip.new(root, {})
-            })
-        );
+            // am5.ready(function () {
+            // Create chart
+            // https://www.amcharts.com/docs/v5/charts/radar-chart/
+            var chart = root.container.children.push(
+                am5radar.RadarChart.new(root, {
+                    panX: false,
+                    panY: false,
+                    wheelX: "panX",
+                    wheelY: "zoomX",
+                    innerRadius: am5.percent(20),
+                    startAngle: -90,
+                    endAngle: 180,
+                })
+            );
 
-        xAxis.get("renderer").labels.template.setAll({
-            fill: am5.color('#EBEBEB'),
-            fontWeight: "500",
-            fontSize: 16,
-        });
+            // Data
+            // var data = [
+            //     {
+            //         category: "교통비",
+            //         value: 80,
+            //         full: 100,
+            //         columnSettings: {
+            //             fillOpacity: 1,
+            //             fill: am5.color('#7239EA'),
+            //         },
+            //     },
+            //     {
+            //         category: "문화 생활비",
+            //         value: 35,
+            //         full: 100,
+            //         columnSettings: {
+            //             fillOpacity: 1,
+            //             fill: am5.color('#F1416C'),
+            //         },
+            //     },
+            //     {
+            //         category: "저축",
+            //         value: 92,
+            //         full: 100,
+            //         columnSettings: {
+            //             fillOpacity: 1,
+            //             fill: am5.color('#00A3FF'),
+            //         },
+            //     },
+            //     {
+            //         category: "식비",
+            //         value: 68,
+            //         full: 100,
+            //         columnSettings: {
+            //             fillOpacity: 1,
+            //             fill: am5.color('#50CD89'),
+            //         },
+            //     },
+            //     {
+            //         category: "숙박비",
+            //         value: 68,
+            //         full: 100,
+            //         columnSettings: {
+            //             fillOpacity: 1,
+            //             fill: am5.color('#50CD89'),
+            //         },
+            //     },
+            // ];
 
-        var yRenderer = am5radar.AxisRendererRadial.new(root, {
-            minGridDistance: 20,
-        });
+            // Add cursor
+            // https://www.amcharts.com/docs/v5/charts/radar-chart/#Cursor
+            // var cursor = chart.set(
+            //     "cursor",
+            //     am5radar.RadarCursor.new(root, {
+            //         behavior: "zoomX",
+            //     })
+            // );
 
-        yRenderer.labels.template.setAll({
-            centerX: am5.p100,
-            fontWeight: "500",
-            fontSize: 18,
-            fill: am5.color('#EBEBEB'),
-            templateField: "columnSettings",
-        });
+            // cursor.lineY.set("visible", false);
 
-        yRenderer.grid.template.setAll({
-            forceHidden: true,
-        });
+            // Create axes and their renderers
+            // https://www.amcharts.com/docs/v5/charts/radar-chart/#Adding_axes
+            var xRenderer = am5radar.AxisRendererCircular.new(root, {
+                //minGridDistance: 50
+            });
 
-        var yAxis = chart.yAxes.push(
-            am5xy.CategoryAxis.new(root, {
-                categoryField: "category",
-                renderer: yRenderer,
-            })
-        );
+            xRenderer.labels.template.setAll({
+                radius: 10
+            });
 
-        yAxis.data.setAll(data);
+            xRenderer.grid.template.setAll({
+                forceHidden: true,
+            });
 
-        // Create series
-        // https://www.amcharts.com/docs/v5/charts/radar-chart/#Adding_series
-        var series1 = chart.series.push(
-            am5radar.RadarColumnSeries.new(root, {
-                xAxis: xAxis,
-                yAxis: yAxis,
-                clustered: false,
-                valueXField: "full",
-                categoryYField: "category",
-                fill: root.interfaceColors.get("alternativeBackground"),
-            })
-        );
+            var xAxis = chart.xAxes.push(
+                am5xy.ValueAxis.new(root, {
+                    renderer: xRenderer,
+                    min: 0,
+                    max: 100,
+                    strictMinMax: true,
+                    numberFormat: "#'%'",
+                    tooltip: am5.Tooltip.new(root, {})
+                })
+            );
 
-        series1.columns.template.setAll({
-            width: am5.p100,
-            fillOpacity: 0.08,
-            strokeOpacity: 0,
-            cornerRadius: 20,
-        });
+            xAxis.get("renderer").labels.template.setAll({
+                fill: am5.color('#EBEBEB'),
+                fontWeight: "500",
+                fontSize: 16,
+            });
 
-        series1.data.setAll(data);
+            var yRenderer = am5radar.AxisRendererRadial.new(root, {
+                minGridDistance: 20,
+            });
 
-        var series2 = chart.series.push(
-            am5radar.RadarColumnSeries.new(root, {
-                xAxis: xAxis,
-                yAxis: yAxis,
-                clustered: false,
-                valueXField: "value",
-                categoryYField: "category",
-            })
-        );
+            yRenderer.labels.template.setAll({
+                centerX: am5.p100,
+                fontWeight: "500",
+                fontSize: 18,
+                fill: am5.color('#EBEBEB'),
+                templateField: "columnSettings",
+            });
 
-        series2.columns.template.setAll({
-            width: am5.p100,
-            strokeOpacity: 0,
-            tooltipText: "{category}: {valueX}%",
-            cornerRadius: 20,
-            templateField: "columnSettings",
-        });
+            yRenderer.grid.template.setAll({
+                forceHidden: true,
+            });
 
-        series2.data.setAll(data);
+            var yAxis = chart.yAxes.push(
+                am5xy.CategoryAxis.new(root, {
+                    categoryField: "category",
+                    renderer: yRenderer,
+                })
+            );
 
-        // Animate chart and series in
-        // https://www.amcharts.com/docs/v5/concepts/animations/#Initial_animation
-        series1.appear(1000);
-        series2.appear(1000);
-        chart.appear(1000, 100);
-        // });
+            yAxis.data.setAll(data);
+
+            // Create series
+            // https://www.amcharts.com/docs/v5/charts/radar-chart/#Adding_series
+            var series1 = chart.series.push(
+                am5radar.RadarColumnSeries.new(root, {
+                    xAxis: xAxis,
+                    yAxis: yAxis,
+                    clustered: false,
+                    valueXField: "full",
+                    categoryYField: "category",
+                    fill: root.interfaceColors.get("alternativeBackground"),
+                })
+            );
+
+            series1.columns.template.setAll({
+                width: am5.p100,
+                fillOpacity: 0.08,
+                strokeOpacity: 0,
+                cornerRadius: 20,
+            });
+
+            series1.data.setAll(data);
+
+            var series2 = chart.series.push(
+                am5radar.RadarColumnSeries.new(root, {
+                    xAxis: xAxis,
+                    yAxis: yAxis,
+                    clustered: false,
+                    valueXField: "value",
+                    categoryYField: "category",
+                })
+            );
+
+            series2.columns.template.setAll({
+                width: am5.p100,
+                strokeOpacity: 0,
+                tooltipText: "{category}: {valueX}%",
+                cornerRadius: 20,
+                templateField: "columnSettings",
+            });
+
+            series2.data.setAll(data);
+
+            // Animate chart and series in
+            // https://www.amcharts.com/docs/v5/concepts/animations/#Initial_animation
+            series1.appear(1000);
+            series2.appear(1000);
+            chart.appear(1000, 100);
+        }
+        setMonthlyData();
     }
 }
-
 </script>
 
 <style scoped>
