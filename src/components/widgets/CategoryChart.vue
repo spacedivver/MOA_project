@@ -18,7 +18,7 @@ export default {
         const setMonthlyData = async () => { // 사용자의 카테고리별 소비 총액
             console.log("userId: " + this.userId);
 
-            const BASE_URL = "http://localhost:3001";
+            const BASE_URL = "http://localhost:3000";
             const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + this.userId);
 
             const categoryAmount = [

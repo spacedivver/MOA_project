@@ -43,7 +43,7 @@ const addComma = (number) => {
 
 onMounted(() => {
     const setMonthlyData = async () => { // 사용자의 모든 거래 일자
-        const BASE_URL = "http://localhost:3001";
+        const BASE_URL = "http://localhost:3000";
         const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + userId);
 
         for (let i = 0; i < 6; i++) {

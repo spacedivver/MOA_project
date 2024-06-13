@@ -58,7 +58,7 @@ const props = defineProps(['date', 'userId']);
 const date = props.date;
 const splitDate = date.split('-');
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "http://localhost:3000";
 const userId = props.userId;
 
 const historys = ref([]);
