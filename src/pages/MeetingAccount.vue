@@ -4,14 +4,15 @@
 		<h3>모임 일정</h3>
 		<hr>
 		<!--begin::Card header-->
-		<div class="card-header">
+		<div class="card-header d-flex justify-content-between align-items-center">
 			<h2 class="card-title fw-bold">Calendar</h2>
 			<div class="card-toolbar">
-				<button class="btn btn-flex btn-primary" @click="addEvent">
-					<i class="ki-duotone ki-plus fs-2"></i>Add Event
-				</button>
+			  <button class="btn btn-flex btn-primary" @click="addEvent">
+				<i class="ki-duotone ki-plus fs-2"></i>Add Event
+			  </button>
 			</div>
-		</div>
+		  </div>
+		  <br>
 
 		<!--end::Card header-->
 		<!--begin::Card body-->
@@ -30,13 +31,13 @@
 		<!--begin::Body-->
 		<div class="card p-0">
 			<div class="container">
-				<div class="left-card">
+				<div class=" card left-card">
 					<!--begin::Header-->
 					<div class="px-9 pt-6 card-rounded h-250px w-100 bgi-no-repeat bgi-size-cover bgi-position-y-top h-200px"
 						style="background-color: skyblue;">
 						<!--begin::Heading-->
 						<div class="d-flex flex-stack">
-							<h3 class="m-0 text-black fw-bold fs-3">모임 금액</h3>
+							<h3 class="text-black fw-bold fs-3" style="margin-left: 170px;">모임 금액</h3>
 							<div class="ms-1">
 								<!--begin::Menu-->
 								<button type="button"
@@ -144,7 +145,7 @@
 						<!--end::Heading-->
 						<!--begin::Balance-->
 						<div class="fw-bold fs-7 text-center text-black pt-5">
-							<span class="fw-bolder fs-2hx d-block mt-n1">$37,562.00</span>
+							<span class="fw-bolder fs-2hx d-block mt-n1">₩ 37,562.00</span>
 						</div>
 						<!--end::Balance-->
 					</div>
@@ -154,10 +155,12 @@
 						style="margin-top: -100px">
 						<!--begin::Item-->
 						<div class="d-flex align-items-center mb-9">
-							<!--begin::Symbol-->
 							<div class="symbol symbol-40px me-5">
 								<span class="symbol-label">
-									<i class="ki-duotone ki-/compass text-gray-500 fs-2"></i>
+									<i class="ki-duotone ki-document text-gray-500 fs-2">
+										<span class="path1"></span>
+										<span class="path2"></span>
+									</i>
 								</span>
 							</div>
 							<!--end::Symbol-->
@@ -171,7 +174,7 @@
 								<!--end::Title-->
 								<!--begin::Label-->
 								<div class="d-flex align-items-center">
-									<div class="fw-bold fs-4 text-gray-800 pe-1">$2,000</div>
+									<div class="fw-bold fs-4 text-gray-800 pe-1">₩ 2,000</div>
 									<a href="#" class="btn btn-icon btn-sm me-n2">
 										<i class="ki-duotone ki-arrow-right fs-4 text-gray-500">
 											<span class="path1"></span>
@@ -208,7 +211,7 @@
 								<!--end::Title-->
 								<!--begin::Label-->
 								<div class="d-flex align-items-center">
-									<div class="fw-bold fs-4 text-gray-800 pe-1">$4,700</div>
+									<div class="fw-bold fs-4 text-gray-800 pe-1">₩ 4,700</div>
 									<a href="#" class="btn btn-icon btn-sm me-n2">
 										<i class="ki-duotone ki-arrow-right fs-4 text-gray-500">
 											<span class="path1"></span>
@@ -243,7 +246,7 @@
 								<!--end::Title-->
 								<!--begin::Label-->
 								<div class="d-flex align-items-center">
-									<div class="fw-bold fs-4 text-gray-800 pe-1">$830</div>
+									<div class="fw-bold fs-4 text-gray-800 pe-1">₩ 830</div>
 									<a href="#" class="btn btn-icon btn-sm me-n2">
 										<i class="ki-duotone ki-arrow-right fs-4 text-gray-500">
 											<span class="path1"></span>
@@ -278,7 +281,7 @@
 								<!--end::Title-->
 								<!--begin::Label-->
 								<div class="d-flex align-items-center">
-									<div class="fw-bold fs-4 text-gray-800 pe-1">$27,300</div>
+									<div class="fw-bold fs-4 text-gray-800 pe-1">₩ 27,300</div>
 									<a href="#" class="btn btn-icon btn-sm me-n2">
 										<i class="ki-duotone ki-arrow-right fs-4 text-gray-500">
 											<span class="path1"></span>
@@ -421,7 +424,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">24,900</span>
+										<span class="text-gray-800 fw-bolder fs-3">₩ 24,900</span>
 										<!-- <span class="text-gray-500 fs-7 fw-semibold d-block">Sales</span> -->
 									</div>
 									<!--end::Info-->
@@ -455,7 +458,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">70,380</span>
+										<span class="text-gray-800 fw-bolder fs-3">₩ 70,380</span>
 										<!-- <span class="text-gray-500 fs-7 fw-semibold d-block">Sales</span> -->
 									</div>
 									<!--end::Info-->
@@ -489,7 +492,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">7,200</span>
+										<span class="text-gray-800 fw-bolder fs-3">₩ 7,200</span>
 										<!-- <span class="text-gray-500 fs-7 fw-semibold d-block">Sales</span> -->
 									</div>
 									<!--end::Info-->
@@ -523,7 +526,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">36,450</span>
+										<span class="text-gray-800 fw-bolder fs-3">₩ 36,450</span>
 										<!-- <span class="text-gray-500 fs-7 fw-semibold d-block">Sales</span> -->
 									</div>
 									<!--end::Info-->

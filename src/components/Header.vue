@@ -19,8 +19,7 @@
                         <!--begin::Logo-->
                         <!-- 로고 버튼 시작 -->
                         <router-link to="/">
-                            <img alt="Logo" src="@/assets/media/logos/logo-default.svg"
-                                class="max-h-50px logo-default theme-light-show" />
+                            <img alt="Logo" src="@/assets/media/logos/logo-default.png" style="width:140px">
                             <img alt="Logo" src="@/assets/media/logos/logo-default-dark.svg"
                                 class="max-h-50px logo-default theme-dark-show" />
                             <img alt="Logo" src="@/assets/media/logos/logo-minimize.svg"
@@ -1024,7 +1023,7 @@
                                         <div class="cursor-pointer symbol symbol-35px symbol-lg-35px"
                                             data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                                             data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                                            <img alt="Pic" src="@/assets/media/avatars/300-1.jpg" />
+                                            <img @click="goToSetting" alt="Pic" src="@/assets/media/avatars/300-1.jpg" />
                                         </div>
                                         <!--begin::User account menu-->
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
@@ -1034,7 +1033,7 @@
                                                 <div class="menu-content d-flex align-items-center px-3">
                                                     <!--begin::Avatar-->
                                                     <div class="symbol symbol-50px me-5">
-                                                        <img alt="Logo" src="@/assets/media/avatars/300-1.jpg" />
+                                                        <img @click="goToSetting" alt="Logo" src="@/assets/media/avatars/300-1.jpg" />
                                                     </div>
                                                     <!--end::Avatar-->
                                                     <!--begin::Username-->
@@ -1243,12 +1242,21 @@
         </div>
     </body>
 </template>
-<script>
+<script setup>
 // import 'https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700'
 import '@/assets/plugins/custom/leaflet/leaflet.bundle.css'
 import '@/assets/plugins/custom/datatables/datatables.bundle.css'
 import '@/assets/plugins/global/plugins.bundle.css'
 import '@/assets/css/style.bundle.css'
+
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const goToSetting = () => {
+  router.push({ name: 'Setting' });
+};
+
 
 // 스크립트 추가
 var defaultThemeMode = "light";

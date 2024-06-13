@@ -104,7 +104,7 @@
   const submitForm = () => {
     let personalHistory = {
       date: date.value,
-      amount: amount.value,
+      amount: Number(amount.value),
       category: category.value,
       type: type.value,
       payment: payment.value,

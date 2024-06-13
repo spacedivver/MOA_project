@@ -9,6 +9,7 @@ import MeetingAccount from '@/pages/MeetingAccount.vue'
 import SignUp from '@/pages/SignUp.vue'
 import Login from '@/pages/Login.vue'
 import AddLog from '@/pages/AddLog.vue'
+import Setting from '@/pages/Setting.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -22,6 +23,7 @@ const router = createRouter({
         { path: '/signup', name: "SignUp", component: SignUp },
         { path: '/login', name: "Login", component: Login },
         { path: '/addlog', name: "AddLog", component: AddLog },
+        { path: '/setting', name: "Setting", component: Setting },
     ]
 })
 
