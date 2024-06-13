@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-    <div class="content fs-6 d-flex flex-column flex-column-fluid" id="kt_content">
+    <div class="content fs-6 d-flex flex-column flex-column-fluid p-5" id="kt_content">
       <!-- 전시 정보 -->
       <div style="display: block;">
-        <div class="sub1">
+        <div class="sub1 pt-3">
         <h1>공연 소식</h1>
         <h4>관심있을 만한 공연, 영화 정보를 확인할 수 있어요</h4>
       </div>

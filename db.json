@@ -84,7 +84,7 @@
     {
       "id": "1",
       "userId": "aaa",
-      "date": "2024-06-12",
+      "date": "2024-01-12",
       "amount": 1000000,
       "type": "수입",
       "category": "여행",
@@ -95,7 +95,7 @@
     {
       "id": "2",
       "userId": "aaa",
-      "date": "2024-06-12",
+      "date": "2024-02-12",
       "amount": 100000,
       "type": "지출",
       "category": "쇼핑",
@@ -106,7 +106,7 @@
     {
       "id": "3",
       "userId": "aaa",
-      "date": "2024-06-12",
+      "date": "2024-03-12",
       "amount": 500000,
       "type": "수입",
       "category": "문화",
@@ -117,7 +117,7 @@
     {
       "id": "4",
       "userId": "aaa",
-      "date": "2024-06-12",
+      "date": "2024-04-12",
       "amount": 500000,
       "type": "수입",
       "category": "문화",
@@ -128,7 +128,7 @@
     {
       "id": "5",
       "userId": "aaa",
-      "date": "2024-06-12",
+      "date": "2024-05-12",
       "amount": 500000,
       "type": "지출",
       "category": "문화",
@@ -161,12 +161,32 @@
     {
       "id": "714b",
       "date": "2024-06-13",
-      "amount": "5000",
+      "amount": 5000,
       "category": "교통",
       "type": "지출",
       "payment": "현금",
       "fix": false,
       "memo": "지하철 환승 2번"
+    },
+    {
+      "id": "2d0b",
+      "date": "2024-06-14",
+      "amount": 100000,
+      "category": "저축",
+      "type": "수입",
+      "payment": "현금",
+      "fix": false,
+      "memo": "6월 용돈"
+    },
+    {
+      "id": "4a87",
+      "date": "2024-06-14",
+      "amount": 20000,
+      "category": "세금/공과금",
+      "type": "지출",
+      "payment": "현금",
+      "fix": false,
+      "memo": "6월 전기세"
     }
   ],
   "cardRecommendations": [
@@ -196,7 +216,7 @@
       "bankName": "국민카드",
       "cardName": "탄탄대로 온리유 티타늄 카드",
       "category": "문화",
-      "memo": "전 주유소 130~200점/L 적립 \n- 다이렉트 자동차보험 1만원 청구할인(연 1회) \n- 차량 정비, 주차/세차장 10% 포인트 적립"
+      "memo": "- 전 주유소 130~200점/L 적립 \n- 다이렉트 자동차보험 1만원 청구할인(연 1회) \n- 차량 정비, 주차/세차장 10% 포인트 적립"
     }
   ],
   "exhibitions": [
@@ -380,5 +400,11 @@
       "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242850_240612_131151.gif",
       "area": "경기도"
     }
-  ]
+  ],
+  "meetingAccount":[
+      {"id":1, "category":"고깃집","price":"55000", "Date":"24/05/20"},
+      {"id":2,"category":"노래방","price":"13000", "Date":"24/05/27"},
+      {"id":3,"category":"당구","price":"20000", "Date":"24/06/02"},
+      {"id":4,"category":"박물관 관람비","price":"16000", "Date":"24/06/10"}
+    ]
 }

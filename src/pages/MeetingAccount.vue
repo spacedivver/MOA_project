@@ -1,17 +1,18 @@
 <template>
 	<!--begin::Card-->
-	<div class="card-2" style="width: 800px; margin-right: 300px;">
+	<div class="card-2" style="width: 800px; margin-left: 400px;">
 		<h3>모임 일정</h3>
 		<hr>
 		<!--begin::Card header-->
-		<div class="card-header">
+		<div class="card-header d-flex justify-content-between align-items-center">
 			<h2 class="card-title fw-bold">Calendar</h2>
 			<div class="card-toolbar">
-				<button class="btn btn-flex btn-primary" @click="addEvent">
-					<i class="ki-duotone ki-plus fs-2"></i>Add Event
-				</button>
+			  <button class="btn btn-flex btn-primary" @click="addEvent">
+				<i class="ki-duotone ki-plus fs-2"></i>Add Event
+			  </button>
 			</div>
-		</div>
+		  </div>
+		  <br>
 
 		<!--end::Card header-->
 		<!--begin::Card body-->
@@ -30,7 +31,7 @@
 		<!--begin::Body-->
 		<div class="card p-0">
 			<div class="container">
-				<div class="left-card">
+				<div class=" card left-card">
 					<!--begin::Header-->
 					<div class="px-9 pt-6 card-rounded h-250px w-100 bgi-no-repeat bgi-size-cover bgi-position-y-top h-200px"
 						style="background-color: skyblue;">
@@ -144,7 +145,7 @@
 						<!--end::Heading-->
 						<!--begin::Balance-->
 						<div class="fw-bold fs-7 text-center text-black pt-5">
-							<span class="fw-bolder fs-2hx d-block mt-n1">$37,562.00</span>
+							<span class="fw-bolder fs-2hx d-block mt-n1">₩ 37,562.00</span>
 						</div>
 						<!--end::Balance-->
 					</div>
@@ -162,7 +163,7 @@
 							</div>
 							<!--end::Symbol-->
 							<!--begin::Description-->
-							<div class="d-flex align-items-center flex-wrap w-100">
+							<div class="align-items-center flex-wrap w-100">
 								<!--begin::Title-->
 								<div class="mb-1 pe-3 flex-grow-1">
 									<a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder">고깃집</a>
@@ -286,13 +287,9 @@
 										</i>
 									</a>
 								</div>
-								<!--end::Label-->
 							</div>
-							<!--end::Description-->
 						</div>
-						<!--end::Item-->
 					</div>
-					<!--end::Items-->
 				</div>
 
 				
@@ -537,16 +534,17 @@
 					<!--end::List Widget 2-->
 				</div>
 
+				</div>
 			</div>
 		</div>
-	</div>
 </template>
 
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
+import axios from 'axios';
 
 export default {
 	name: 'MeetingAccount',
@@ -568,15 +566,38 @@ export default {
 			alert('Add Event button clicked!')
 		}
 
+		const meetingAccounts = ref([]);
+
+		const fetchMeetingAccountData = async () => {
+			try {
+				const response = await axios.get('/db.json');
+				if (response.data && response.data.meetingAccounts) {
+					meetingAccounts.value = response.data.meetingAccounts.map(meetingAccount => ({
+						id: meetingAccount.id,
+						category: meetingAccount.category,
+						price: meetingAccount.price,
+					}));
+				} else {
+					console.error('API 응답에서 필요한 구조가 존재하지 않습니다.');
+				}
+			} catch (error) {
+				console.error('전시 정보를 불러오는 중 오류가 발생했습니다:', error);
+			}
+		};
+
+		onMounted(() => {
+			fetchMeetingAccountData();
+		});
+
 		return {
 			calendarOptions,
-			addEvent
+			addEvent,
+			meetingAccounts
 		}
 	}
 }
-
-
 </script>
+
 
 <style scoped>
 .card {

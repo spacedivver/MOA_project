@@ -14,7 +14,7 @@
                   <div class="card-body p-9">
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="fs-2hx fw-bold">총 자산 : {{ formattedTotalAssets }}</div>
-                      <button class="btn btn-primary fs-7" style="width: 100px; height: 40px; display: flex; justify-content: center; align-items: center;">자세히 보기</button>
+                      <button @click="goToHistory" class="btn btn-primary fs-7" style="width: 100px; height: 40px; display: flex; justify-content: center; align-items: center;">자세히 보기</button>
                     </div>
                     <br>
                     <div v-for="transaction in userTransactions.slice(-4)" :key="transaction.id" class="fs-6 d-flex justify-content-between mb-4">
@@ -37,10 +37,10 @@
 
                 <div class="card card-xl-stretch mb-5 mb-xl-8 p-3" style="flex: 1; height: 270px;">
                     <div class="card-body p-0 d-flex justify-content-between flex-column overflow-hidden">
-                        <div class="d-flex flex-stack flex-grow-1 px-9 pb-3 mt-3">
+                        <div class="d-flex flex-stack flex-grow-1 px-9 mt-3">
                             <div class="symbol symbol-45px">
                                 <div class="symbol-label">
-                                    <img src="https://www.pngall.com/wp-content/uploads/8/Green-Check-Mark-PNG-Free-Download.png" style="width: 40px; padding-bottom: 5px;">
+                                    <img @click="goToHome" src="https://www.pngall.com/wp-content/uploads/8/Green-Check-Mark-PNG-Free-Download.png" style="width: 40px; padding-bottom: 5px;">
                                 </div>
                             </div>
                             <div class="d-flex flex-column text-end">
@@ -50,7 +50,9 @@
                         </div>
 
                         
-                         <Monthly/>
+                         <div style="margin-left:30px; height:80%">
+                            <canvas id="myChart"></canvas>
+                         </div>
                         
                     </div>
                 </div>
@@ -70,15 +72,13 @@
 
               <div class="card-grid de-felex justify-content-center align-items-center">
                 <div class="card" v-for="card in recommendedCards.slice(0, 2)" :key="card.id">
-                  <img class="m-5" :src="getImageUrl(card.category)" alt="카드 이미지" /><br>
+                  <img @click="goToProduct" class="m-5" :src="getImageUrl(card.category)" alt="카드 이미지" /><br>
                   <div class="discount-info de-felex justify-content-center align-items-center pb-3">
                     <h2>{{ card.bankName }} {{ card.cardName }}</h2><br>
                     <p v-html="formatMemo(card.memo)"></p>
                   </div>
                 </div>
               </div>
-
-              
                 
             </div>
         
@@ -91,18 +91,18 @@
             <hr style="border-style: solid; border-color: purple; border-width: 1px;">
 
             <div style="display: flex;">
-                <div v-for="movie in movies" :key="movie.movieCd" class="card" style="width: 400px; flex: 1;">
-                    <img src="https://cdn.econovill.com/news/photo/202204/572149_493911_1955.jpg" class="card-img-top" alt="Card image">
-                    <div class="card-body">
-                        <h4 class="card-title">{{ movie.movieNm }}</h4>
-                        <p class="card-text">
-                            순위 : {{ movie.rank }}위 <br>
-                            누적 : {{ movie.audiAcc }}명<br>
-                            개봉 : {{ movie.openDt }}
-                        </p>
-                        <a :href="movie.link" class="btn btn-primary">보러가기</a>
-                    </div>
+              <div v-for="(movie, index) in movies" :key="movie.movieCd" class="card">
+                <img :src="getMoviePoster(index + 1)" class="card-img-top" alt="Movie Poster">
+                <div class="card-body">
+                  <h4 class="card-title">{{ movie.movieNm }}</h4>
+                  <p class="card-text">
+                    순위: {{ movie.rank }}위 <br>
+                    누적: {{ movie.audiAcc }}명<br>
+                    개봉: {{ movie.openDt }}
+                  </p>
+                  <a @click="goToCulture" :href="movie.link" class="btn btn-primary">보러가기</a>
                 </div>
+              </div>
             </div>
 
               
@@ -113,7 +113,26 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import Monthly from '@/components/widgets/Monthly.vue';
+import Chart from 'chart.js/auto';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const goToHistory = () => {
+  router.push({ name: 'History' });
+};
+
+const goToHome = () => {
+  router.push({ name: 'Home' });
+};
+
+const goToCulture = () => {
+  router.push({ name: 'Culture' });
+};
+
+const goToProduct = () => {
+  router.push({ name: 'Product' });
+}; 
 
 const formattedTotalAssets = ref(0);
 const userTransactions = ref([]);
@@ -235,7 +254,7 @@ const fetchBoxOfficeData = async() => {
           rank:movie.rank,
           boxofficeType:movie.boxofficeType,
           audiAcc: movie.audiAcc,
-          posterUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.econovill.com%2Fnews%2FarticleView.html%3Fidxno%3D572149&psig=AOvVaw0y7myo1oXDnajuPho4CIpW&ust=1718251022135000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPiPrr6W1YYDFQAAAAAdAAAAABAE', // 실제 포스터 URL을 API에서 제공하지 않으면 별도로 관리해야 합니다.
+          //posterUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.econovill.com%2Fnews%2FarticleView.html%3Fidxno%3D572149&psig=AOvVaw0y7myo1oXDnajuPho4CIpW&ust=1718251022135000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPiPrr6W1YYDFQAAAAAdAAAAABAE', // 실제 포스터 URL을 API에서 제공하지 않으면 별도로 관리해야 합니다.
           link: '#'
         })).slice(0, 3); 
       } catch (error) {
@@ -245,6 +264,58 @@ const fetchBoxOfficeData = async() => {
 
 onMounted(fetchBoxOfficeData);
 
+const getMoviePoster = (index) => {
+  return `./src/assets/images/${index}.jpg`;
+};
+
+const chartInstance = ref(null);
+
+const getRandomData = () => Array.from({ length: 7 }, () => Math.floor(Math.random() * 201) - 100);
+
+const data = {
+  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: getRandomData(),
+      borderColor: 'red',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+    {
+      label: 'Dataset 2',
+      data: getRandomData(),
+      borderColor: 'blue',
+      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+    }
+  ]
+};
+
+const config = {
+  type: 'bar',
+  data: data,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '수입/지출 증감'
+      }
+    }
+  },
+};
+
+
+onMounted(() => {
+  try {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    chartInstance.value = new Chart(ctx, config);
+  } catch (error) {
+    console.error('Error initializing the chart:', error);
+  }
+});
 
 </script>
 
