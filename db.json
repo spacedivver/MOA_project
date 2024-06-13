@@ -20,7 +20,8 @@
       { "id": 4, "userId": "aaa", "date": "2024-06-12", "amount": 500000, "type": "수입", "category": "문화", "memo": "프리랜서 프로젝트" }, 
       { "id": 5, "userId": "aaa", "date": "2024-06-12", "amount": 500000, "type": "지출", "category": "문화", "memo": "프리랜서 프로젝트" }, 
       { "id": 6, "userId": "aaa", "date": "2024-06-12", "amount": 500000, "type": "지출", "category": "교통", "memo": "버스비" },
-      { "id": 7, "userId": "aaa", "date": "2024-06-11", "amount": 500000, "type": "지출", "category": "교통", "memo": "버스비" }
+      { "id": 7, "userId": "aaa", "date": "2024-06-11", "amount": 500000, "type": "수입", "category": "문화", "memo": "프리랜서 프로젝트" },
+      { "id": 8, "userId": "aaa", "date": "2024-05-11", "amount": 500000, "type": "지출", "category": "문화", "memo": "프리랜서 프로젝트" }
     ],
     "cardRecommendations": [
       { "id": 1, "bankName": "국민카드", "cardName": "트래블러스 체크카드", "category": "여행", "memo": "- 해외 이용 수수료 1.25% 면제 \n- 철도 5,000원 할인 \n- 전국 맛집 5,000원 할인" },
