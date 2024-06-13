@@ -1,6 +1,6 @@
 <template>
 	<!--begin::Card-->
-	<div class="card-2" style="width: 800px; margin-right: 300px;">
+	<div class="card-2" style="width: 800px; margin-left: 400px;">
 		<h3>모임 일정</h3>
 		<hr>
 		<!--begin::Card header-->
@@ -37,7 +37,7 @@
 						style="background-color: skyblue;">
 						<!--begin::Heading-->
 						<div class="d-flex flex-stack">
-							<h3 class="text-black fw-bold fs-3" style="margin-left: 170px;">모임 금액</h3>
+							<h3 class="m-0 text-black fw-bold fs-3">모임 금액</h3>
 							<div class="ms-1">
 								<!--begin::Menu-->
 								<button type="button"
@@ -155,17 +155,15 @@
 						style="margin-top: -100px">
 						<!--begin::Item-->
 						<div class="d-flex align-items-center mb-9">
+							<!--begin::Symbol-->
 							<div class="symbol symbol-40px me-5">
 								<span class="symbol-label">
-									<i class="ki-duotone ki-document text-gray-500 fs-2">
-										<span class="path1"></span>
-										<span class="path2"></span>
-									</i>
+									<i class="ki-duotone ki-/compass text-gray-500 fs-2"></i>
 								</span>
 							</div>
 							<!--end::Symbol-->
 							<!--begin::Description-->
-							<div class="d-flex align-items-center flex-wrap w-100">
+							<div class="align-items-center flex-wrap w-100">
 								<!--begin::Title-->
 								<div class="mb-1 pe-3 flex-grow-1">
 									<a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bolder">고깃집</a>
@@ -174,7 +172,7 @@
 								<!--end::Title-->
 								<!--begin::Label-->
 								<div class="d-flex align-items-center">
-									<div class="fw-bold fs-4 text-gray-800 pe-1">₩ 2,000</div>
+									<div class="fw-bold fs-4 text-gray-800 pe-1">$2,000</div>
 									<a href="#" class="btn btn-icon btn-sm me-n2">
 										<i class="ki-duotone ki-arrow-right fs-4 text-gray-500">
 											<span class="path1"></span>
@@ -211,7 +209,7 @@
 								<!--end::Title-->
 								<!--begin::Label-->
 								<div class="d-flex align-items-center">
-									<div class="fw-bold fs-4 text-gray-800 pe-1">₩ 4,700</div>
+									<div class="fw-bold fs-4 text-gray-800 pe-1">$4,700</div>
 									<a href="#" class="btn btn-icon btn-sm me-n2">
 										<i class="ki-duotone ki-arrow-right fs-4 text-gray-500">
 											<span class="path1"></span>
@@ -246,7 +244,7 @@
 								<!--end::Title-->
 								<!--begin::Label-->
 								<div class="d-flex align-items-center">
-									<div class="fw-bold fs-4 text-gray-800 pe-1">₩ 830</div>
+									<div class="fw-bold fs-4 text-gray-800 pe-1">$830</div>
 									<a href="#" class="btn btn-icon btn-sm me-n2">
 										<i class="ki-duotone ki-arrow-right fs-4 text-gray-500">
 											<span class="path1"></span>
@@ -281,7 +279,7 @@
 								<!--end::Title-->
 								<!--begin::Label-->
 								<div class="d-flex align-items-center">
-									<div class="fw-bold fs-4 text-gray-800 pe-1">₩ 27,300</div>
+									<div class="fw-bold fs-4 text-gray-800 pe-1">$27,300</div>
 									<a href="#" class="btn btn-icon btn-sm me-n2">
 										<i class="ki-duotone ki-arrow-right fs-4 text-gray-500">
 											<span class="path1"></span>
@@ -289,13 +287,9 @@
 										</i>
 									</a>
 								</div>
-								<!--end::Label-->
 							</div>
-							<!--end::Description-->
 						</div>
-						<!--end::Item-->
 					</div>
-					<!--end::Items-->
 				</div>
 
 				
@@ -424,7 +418,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">₩ 24,900</span>
+										<span class="text-gray-800 fw-bolder fs-3">24,900</span>
 										<!-- <span class="text-gray-500 fs-7 fw-semibold d-block">Sales</span> -->
 									</div>
 									<!--end::Info-->
@@ -458,7 +452,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">₩ 70,380</span>
+										<span class="text-gray-800 fw-bolder fs-3">70,380</span>
 										<!-- <span class="text-gray-500 fs-7 fw-semibold d-block">Sales</span> -->
 									</div>
 									<!--end::Info-->
@@ -492,7 +486,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">₩ 7,200</span>
+										<span class="text-gray-800 fw-bolder fs-3">7,200</span>
 										<!-- <span class="text-gray-500 fs-7 fw-semibold d-block">Sales</span> -->
 									</div>
 									<!--end::Info-->
@@ -526,7 +520,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">₩ 36,450</span>
+										<span class="text-gray-800 fw-bolder fs-3">36,450</span>
 										<!-- <span class="text-gray-500 fs-7 fw-semibold d-block">Sales</span> -->
 									</div>
 									<!--end::Info-->
@@ -540,16 +534,17 @@
 					<!--end::List Widget 2-->
 				</div>
 
+				</div>
 			</div>
 		</div>
-	</div>
 </template>
 
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
+import axios from 'axios';
 
 export default {
 	name: 'MeetingAccount',
@@ -571,15 +566,38 @@ export default {
 			alert('Add Event button clicked!')
 		}
 
+		const meetingAccounts = ref([]);
+
+		const fetchMeetingAccountData = async () => {
+			try {
+				const response = await axios.get('/db.json');
+				if (response.data && response.data.meetingAccounts) {
+					meetingAccounts.value = response.data.meetingAccounts.map(meetingAccount => ({
+						id: meetingAccount.id,
+						category: meetingAccount.category,
+						price: meetingAccount.price,
+					}));
+				} else {
+					console.error('API 응답에서 필요한 구조가 존재하지 않습니다.');
+				}
+			} catch (error) {
+				console.error('전시 정보를 불러오는 중 오류가 발생했습니다:', error);
+			}
+		};
+
+		onMounted(() => {
+			fetchMeetingAccountData();
+		});
+
 		return {
 			calendarOptions,
-			addEvent
+			addEvent,
+			meetingAccounts
 		}
 	}
 }
-
-
 </script>
+
 
 <style scoped>
 .card {
