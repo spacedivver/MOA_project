@@ -160,26 +160,17 @@
             </div>
             <!--end::Row-->
 
-
-            <!--begin::Row-->
+            <!-- 거래 내역 카드 시작 -->
             <div class="row g-xl-8">
-              <!--begin::Col-->
               <div class="col-xxl-12">
-                <!--begin::Row-->
                 <div class="row g-xl-12">
-                  <!-- 현재 자산 카드 시작 -->
                   <div class="col-xl-12">
-                    <div class="card card-xl-stretch mb-5 mb-xl-8">
-                      <div class="card-body d-flex flex-column pt-0">
-                        <div class="d-flex flex-center position-relative">
-                          <TransactionCard />
-                        </div>
-                      </div>
-                    </div>
+                    <TransactionCard />
                   </div>
                 </div>
               </div>
             </div>
+            <!-- 거래 내역 카드 끝 -->
           </div>
           <!--end::Container-->
         </div>

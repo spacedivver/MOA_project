@@ -1,7 +1,6 @@
 <template>
-    <!-- 거래 내역 아이템 하나 시작 -->
     <!--begin::Timeline content-->
-    <div class="timeline-content mb-10 mt-n2">
+    <div class="timeline-content mb-10 mt-n2 w-full">
         <!--begin::Timeline heading-->
         <div class="overflow-auto pe-3">
             <!--begin::Title-->
@@ -25,7 +24,7 @@
         <!--end::Timeline heading-->
     </div>
     <!--end::Timeline content-->
-    <!-- 거래 내역 아이템 하나 끝 -->
 </template>
 <script>
+const 
 </script>
