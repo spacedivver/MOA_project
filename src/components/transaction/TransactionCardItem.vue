@@ -4,20 +4,14 @@
         <!--begin::Timeline heading-->
         <div class="overflow-auto pe-3">
             <!--begin::Title-->
-            <div class="fs-5 fw-semibold mb-2">Invitation for crafting engaging designs that
-                speak human workshop</div>
+            <div class="fs-5 fw-semibold mb-2">
+                <div class="deposit" v-if="history.type == '수입'">+{{ addComma(history.amount) }}원</div>
+                <div v-else>-{{ addComma(history.amount) }}원</div>
+            </div>
             <!--end::Title-->
             <!--begin::Description-->
             <div class="d-flex align-items-center mt-1 fs-6">
-                <!--begin::Info-->
-                <div class="text-muted me-2 fs-7">Sent at 4:23 PM by</div>
-                <!--end::Info-->
-                <!--begin::User-->
-                <div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window"
-                    data-bs-placement="top" title="Alan Nilson">
-                    <img src="@/assets/media/avatars/300-1.jpg" alt="img" />
-                </div>
-                <!--end::User-->
+                <div class="text-muted me-2 fs-7">{{ history.memo }}</div>
             </div>
             <!--end::Description-->
         </div>
@@ -25,5 +19,18 @@
     </div>
     <!--end::Timeline content-->
 </template>
-<script>
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps(['history']);
+const history = JSON.parse(JSON.stringify(props)).history;
+
+const addComma = (number) => {
+    return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+}
 </script>
+<style scoped>
+.deposit{
+    color: #00A3FF;
+}
+</style>

@@ -164,8 +164,8 @@
             <div class="row g-xl-8">
               <div class="col-xxl-12">
                 <div class="row g-xl-12">
-                  <div class="col-xl-12">
-                    <TransactionCard />
+                  <div class="col-xl-12" v-for="date in dateList" :key="date">
+                    <TransactionCard :date="date" :userId="userId"/>
                   </div>
                 </div>
               </div>
@@ -183,7 +183,9 @@
 </template>
 
 <script setup>
+import axios from 'axios';
 import { ref } from 'vue';
+
 import Achievement from '@/components/widgets/Achievement.vue'
 import Monthly from '@/components/widgets/Monthly.vue'
 import CategoryChart from '@/components/widgets/CategoryChart.vue'
@@ -196,4 +198,23 @@ const addComma = (number) => {
   return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
 }
 
+const BASE_URL = "http://localhost:3001";
+const userId = 'aaa';
+const dateList = ref([]);
+
+const setDateList = async () => { // 사용자의 모든 거래 일자
+  const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + userId);
+  const dateSet = new Set();
+
+  response.data.forEach(element => {
+    dateSet.add(element.date);
+  });
+
+  dateList.value = [...dateSet];
+
+  dateList.value = dateList.value.sort((a, b) => {
+    return b.localeCompare(a);
+  });
+}
+setDateList();
 </script>

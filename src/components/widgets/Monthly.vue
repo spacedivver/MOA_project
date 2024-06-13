@@ -22,7 +22,6 @@ onMounted(() => {
             }
             monthList.push(currentMonth + '월');
         }
-        console.log(monthList);
         return monthList.reverse();
     };
 
