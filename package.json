@@ -12,6 +12,7 @@
     "@amcharts/amcharts5": "^5.9.11",
     "@fullcalendar/core": "^6.1.14",
     "@fullcalendar/daygrid": "^6.1.14",
+    "@fullcalendar/interaction": "^6.1.14",
     "@fullcalendar/vue3": "^6.1.14",
     "apexcharts": "^3.49.1",
     "axios": "^1.7.2",

@@ -20,9 +20,31 @@
                 <div class="container-xxl">
                     <!--begin::details View-->
                     <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
-                        <!--begin::Card body-->
-                        <PersonalAsset :data="data"/>
-                        <!--end::Card body-->
+                      <div class="card-header cursor-pointer" v-if="user">
+                        <!--begin::Card title-->
+                        <div class="card-title m-0">
+                            <h3 class="fw-bold m-0">{{ user.name }}님의 보유 자산은 {{ user.asset }}원 입니다.</h3>
+                        </div>
+                        <!--end::Card title-->
+                        <!--begin::Action-->
+                        <a href="account/settings.html" class="btn btn-sm btn-primary align-self-center">자산 정보 수정</a>
+                        <!--end::Action-->
+                    </div>
+                    <div class="card-body p-9">
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">{{ currentMonth }}월의 소비 금액은 ㅇㅇㅇ 입니다.</label>
+                            <div class="col-lg-8">
+                                <!-- <span class="fw-bold fs-6 text-gray-800">{{ item. }}</span> -->
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+                      <div class="card-body">
+                          <!--begin::Calendar-->
+                          <FullCalendar :options="calendarOptions" />
+                          <!--end::Calendar-->
+                      </div>
                     </div>
                     <!--end::details View-->
                     <!--begin::Row-->
@@ -43,42 +65,45 @@
                                     <div class="card-toolbar">
                                         <!--begin::Filters-->
                                         <div class="d-flex flex-stack flex-wrap gap-4">
-                                            <!--begin::Destination-->
-                                            <div class="d-flex align-items-center fw-bold">
-                                                <!--begin::Label-->
-                                                <div class="text-muted fs-7 me-2">카테고리</div>
-                                                <!--end::Label-->
-                                                <!--begin::Select-->
-                                                <select class="form-select form-select-transparent text-gray-900 fs-7 lh-1 fw-bold py-0 ps-3 w-auto" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-150px" data-placeholder="Select an option">
-                                                    <option></option>
-                                                    <option value="Show All" selected="selected">전체</option>
-                                                    <option value="a">문화/생활</option>
-                                                    <option value="b">세금/공과금</option>
-                                                    <option value="c">식비</option>
-                                                </select>
-                                                <!--end::Select-->
-                                            </div>
-                                            <!--end::Destination-->
-                                            
-                                            <!--begin::Status-->
-                                            <div class="d-flex align-items-center fw-bold">
-                                                <!--begin::Label-->
-                                                <div class="text-muted fs-7 me-2">선택</div>
-                                                <!--end::Label-->
-                                                <!--begin::Select-->
-                                                <select class="form-select form-select-transparent text-gray-900 fs-7 lh-1 fw-bold py-0 ps-3 w-auto" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-150px" data-placeholder="Select an option" data-kt-table-widget-5="filter_status">
-                                                    <option></option>
-                                                    <option value="Show All" selected="selected">전체</option>
-                                                    <option value="Income">수입</option>
-                                                    <option value="Expenditure">지출</option>
-                                                </select>
-                                                <!--end::Select-->
-                                            </div>
-                                            <!--end::Status-->
-                                            <!--begin::Search-->
-                                            <a href="apps/ecommerce/catalog/products.html" class="btn btn-light btn-sm">View Stock</a>
-                                            <!--end::Search-->
-                                        </div>
+                                    <!-- 카테고리 -->
+                                    <div class="d-flex align-items-center fw-bold" style="white-space: nowrap;">
+                                        <div class="text-muted fs-7 me-2">카테고리</div>
+                                        <select class="form-select form-select-transparent text-gray-900 fs-7 lh-1 fw-bold py-0 ps-3 w-auto"
+                                                v-model="selectedCategory"
+                                                @change="filterData"
+                                                data-control="select2"
+                                                data-hide-search="true"
+                                                data-dropdown-css-class="w-150px"
+                                                data-placeholder="전체">
+                                            <option value="All" selected="selected">전체</option>
+                                            <option value="여행">여행</option>
+                                            <option value="쇼핑">쇼핑</option>
+                                            <option value="문화">문화</option>
+                                            <option value="교통">교통</option>
+                                            <!-- '지출'이 선택되면 카테고리를 전체로 설정 -->
+                                            <option v-if="selectedType !== '지출'" value="수입">수입</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 수입/지출 -->
+                                    <div class="d-flex align-items-center fw-bold" style="white-space: nowrap;">
+                                        <div class="text-muted fs-7 me-2">선택</div>
+                                        <select class="form-select form-select-transparent text-gray-900 fs-7 lh-1 fw-bold py-0 ps-3 w-auto"
+                                                v-model="selectedType"
+                                                @change="filterData"
+                                                data-control="select2"
+                                                data-hide-search="true"
+                                                data-dropdown-css-class="w-150px"
+                                                data-placeholder="전체">
+                                            <option value="All" selected="selected">전체</option>
+                                            <option value="수입">수입</option>
+                                            <option value="지출">지출</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 검색 버튼 -->
+                                    <button class="btn btn-light btn-sm" @click="filterData">검색</button>
+                                </div>
                                         <!--begin::Filters-->
                                     </div>
                                     <!--end::Actions-->
@@ -87,7 +112,7 @@
                                 <!--begin::Card body-->
                                 <div class="card-body">
                                 <!--begin::Timeline-->
-								<div class="card">
+                                <div class="card">
 									<!--begin::Card head-->
 									<div class="card-header card-header-stretch">
 										<!--begin::Title-->
@@ -100,1049 +125,223 @@
 												<span class="path5"></span>
 												<span class="path6"></span>
 											</i>
-											<h3 class="fw-bold m-0 text-gray-800">Jan 23, 2024</h3>
+											<h3 class="fw-bold m-0 text-gray-800">{{ formattedCurrentDate }}</h3>
 										</div>
 										<!--end::Title-->
 										<!--begin::Toolbar-->
-										<div class="card-toolbar m-0">
-											<!--begin::Tab nav-->
-											<ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
-												<li class="nav-item" role="presentation">
-													<a id="kt_activity_today_tab" class="nav-link justify-content-center text-active-gray-800 active" data-bs-toggle="tab" role="tab" href="#kt_activity_today">Today</a>
-												</li>
-												<li class="nav-item" role="presentation">
-													<a id="kt_activity_week_tab" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_activity_week">Week</a>
-												</li>
-												<li class="nav-item" role="presentation">
-													<a id="kt_activity_month_tab" class="nav-link justify-content-center text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_activity_month">Month</a>
-												</li>
-											</ul>
-											<!--end::Tab nav-->
-										</div>
-										<!--end::Toolbar-->
-									</div>
-									<!--end::Card head-->
-									<!--begin::Card body-->
-									<div class="card-body">
-										<!--begin::Tab Content-->
-										<div class="tab-content">
-											<!--begin::Tab panel-->
-											<div id="kt_activity_today" class="card-body p-0 tab-pane fade show active" role="tabpanel" aria-labelledby="kt_activity_today_tab">
-												<!--begin::Table-->
-                                                <table class="table align-middle table-row-dashed fs-6 gy-3" id="kt_table_widget_5_table">
-                                                    <!--begin::Table head-->
-                                                    <thead>
-                                                        <!--begin::Table row-->
-                                                        <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                                                            <th class="min-w-150px">날짜</th>
-                                                            <th class="text-end pe-3 min-w-100px">금액</th>
-                                                            <th class="text-end pe-3 min-w-150px">수입/지출</th>
-                                                            <th class="text-end pe-3 min-w-150px">카테고리</th>
-                                                            <th class="text-end pe-3 min-w-200px">메모</th>
-                                                        </tr>
-                                                        <!--end::Table row-->
-                                                    </thead>
-                                                    <!--end::Table head-->
-                                                    <PersonalTable :data="data" />
-                                                </table>
-                                                <!--end::Table-->
-											</div>
-											<!--end::Tab panel-->
-											<!--begin::Tab panel-->
-											<div id="kt_activity_week" class="card-body p-0 tab-pane fade show" role="tabpanel" aria-labelledby="kt_activity_week_tab">
-												<!--begin::Timeline-->
-												<div class="timeline timeline-border-dashed">
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon me-4">
-															<i class="ki-duotone ki-flag fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n2">
-															<!--begin::Timeline heading-->
-															<div class="overflow-auto pe-3">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">Invitation for crafting engaging designs that speak human workshop</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Sent at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Alan Nilson">
-																		<img src="@/assets/media/avatars/300-1.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-disconnect fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-																<span class="path3"></span>
-																<span class="path4"></span>
-																<span class="path5"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="mb-5 pe-3">
-																<!--begin::Title-->
-																<a href="#" class="fs-5 fw-semibold text-gray-800 text-hover-primary mb-2">3 New Incoming Project Files:</a>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Sent at 10:30 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Jan Hummer">
-																		<img src="@/assets/media/avatars/300-23.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-															<!--begin::Timeline details-->
-															<div class="overflow-auto pb-5">
-																<div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-5">
-																	<!--begin::Item-->
-																	<div class="d-flex flex-aligns-center pe-10 pe-lg-20">
-																		<!--begin::Icon-->
-																		<img alt="" class="w-30px me-3" src="@/assets/media/svg/files/pdf.svg" />
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		<div class="ms-1 fw-semibold">
-																			<!--begin::Desc-->
-																			<a href="apps/projects/project.html" class="fs-6 text-hover-primary fw-bold">Finance KPI App Guidelines</a>
-																			<!--end::Desc-->
-																			<!--begin::Number-->
-																			<div class="text-gray-500">1.9mb</div>
-																			<!--end::Number-->
-																		</div>
-																		<!--begin::Info-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="d-flex flex-aligns-center pe-10 pe-lg-20">
-																		<!--begin::Icon-->
-																		<img alt="apps/projects/project.html" class="w-30px me-3" src="@/assets/media/svg/files/doc.svg" />
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		<div class="ms-1 fw-semibold">
-																			<!--begin::Desc-->
-																			<a href="#" class="fs-6 text-hover-primary fw-bold">Client UAT Testing Results</a>
-																			<!--end::Desc-->
-																			<!--begin::Number-->
-																			<div class="text-gray-500">18kb</div>
-																			<!--end::Number-->
-																		</div>
-																		<!--end::Info-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="d-flex flex-aligns-center">
-																		<!--begin::Icon-->
-																		<img alt="apps/projects/project.html" class="w-30px me-3" src="@/assets/media/svg/files/css.svg" />
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		<div class="ms-1 fw-semibold">
-																			<!--begin::Desc-->
-																			<a href="#" class="fs-6 text-hover-primary fw-bold">Finance Reports</a>
-																			<!--end::Desc-->
-																			<!--begin::Number-->
-																			<div class="text-gray-500">20mb</div>
-																			<!--end::Number-->
-																		</div>
-																		<!--end::Icon-->
-																	</div>
-																	<!--end::Item-->
-																</div>
-															</div>
-															<!--end::Timeline details-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-abstract-26 fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">Task 
-																<a href="#" class="text-primary fw-bold me-1">#45890</a>merged with 
-																<a href="#" class="text-primary fw-bold me-1">#45890</a>in “Ads Pro Admin Dashboard project:</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Initiated at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Nina Nilson">
-																		<img src="@/assets/media/avatars/300-14.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-pencil fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">3 new application design concepts added:</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Created at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Marcus Dotson">
-																		<img src="@/assets/media/avatars/300-2.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-															<!--begin::Timeline details-->
-															<div class="overflow-auto pb-5">
-																<div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-7">
-																	<!--begin::Item-->
-																	<div class="overlay me-10">
-																		<!--begin::Image-->
-																		<div class="overlay-wrapper">
-																			<img alt="img" class="rounded w-150px" src="@/assets/media/stock/600x400/img-29.jpg" />
-																		</div>
-																		<!--end::Image-->
-																		<!--begin::Link-->
-																		<div class="overlay-layer bg-dark bg-opacity-10 rounded">
-																			<a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
-																		</div>
-																		<!--end::Link-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="overlay me-10">
-																		<!--begin::Image-->
-																		<div class="overlay-wrapper">
-																			<img alt="img" class="rounded w-150px" src="@/assets/media/stock/600x400/img-31.jpg" />
-																		</div>
-																		<!--end::Image-->
-																		<!--begin::Link-->
-																		<div class="overlay-layer bg-dark bg-opacity-10 rounded">
-																			<a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
-																		</div>
-																		<!--end::Link-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="overlay">
-																		<!--begin::Image-->
-																		<div class="overlay-wrapper">
-																			<img alt="img" class="rounded w-150px" src="@/assets/media/stock/600x400/img-40.jpg" />
-																		</div>
-																		<!--end::Image-->
-																		<!--begin::Link-->
-																		<div class="overlay-layer bg-dark bg-opacity-10 rounded">
-																			<a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
-																		</div>
-																		<!--end::Link-->
-																	</div>
-																	<!--end::Item-->
-																</div>
-															</div>
-															<!--end::Timeline details-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-sms fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">New case 
-																<a href="#" class="text-primary fw-bold me-1">#67890</a>is assigned to you in Multi-platform Database Design project</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="overflow-auto pb-5">
-																	<!--begin::Wrapper-->
-																	<div class="d-flex align-items-center mt-1 fs-6">
-																		<!--begin::Info-->
-																		<div class="text-muted me-2 fs-7">Added at 4:23 PM by</div>
-																		<!--end::Info-->
-																		<!--begin::User-->
-																		<a href="#" class="text-primary fw-bold me-1">Alice Tan</a>
-																		<!--end::User-->
-																	</div>
-																	<!--end::Wrapper-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-												</div>
-												<!--end::Timeline-->
-											</div>
-											<!--end::Tab panel-->
-											<!--begin::Tab panel-->
-											<div id="kt_activity_month" class="card-body p-0 tab-pane fade show" role="tabpanel" aria-labelledby="kt_activity_month_tab">
-												<!--begin::Timeline-->
-												<div class="timeline timeline-border-dashed">
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-pencil fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">3 new application design concepts added:</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Created at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Marcus Dotson">
-																		<img src="@/assets/media/avatars/300-2.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-															<!--begin::Timeline details-->
-															<div class="overflow-auto pb-5">
-																<div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-7">
-																	<!--begin::Item-->
-																	<div class="overlay me-10">
-																		<!--begin::Image-->
-																		<div class="overlay-wrapper">
-																			<img alt="img" class="rounded w-150px" src="@/assets/media/stock/600x400/img-29.jpg" />
-																		</div>
-																		<!--end::Image-->
-																		<!--begin::Link-->
-																		<div class="overlay-layer bg-dark bg-opacity-10 rounded">
-																			<a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
-																		</div>
-																		<!--end::Link-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="overlay me-10">
-																		<!--begin::Image-->
-																		<div class="overlay-wrapper">
-																			<img alt="img" class="rounded w-150px" src="@/assets/media/stock/600x400/img-31.jpg" />
-																		</div>
-																		<!--end::Image-->
-																		<!--begin::Link-->
-																		<div class="overlay-layer bg-dark bg-opacity-10 rounded">
-																			<a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
-																		</div>
-																		<!--end::Link-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="overlay">
-																		<!--begin::Image-->
-																		<div class="overlay-wrapper">
-																			<img alt="img" class="rounded w-150px" src="@/assets/media/stock/600x400/img-40.jpg" />
-																		</div>
-																		<!--end::Image-->
-																		<!--begin::Link-->
-																		<div class="overlay-layer bg-dark bg-opacity-10 rounded">
-																			<a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
-																		</div>
-																		<!--end::Link-->
-																	</div>
-																	<!--end::Item-->
-																</div>
-															</div>
-															<!--end::Timeline details-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-sms fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">New case 
-																<a href="#" class="text-primary fw-bold me-1">#67890</a>is assigned to you in Multi-platform Database Design project</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="overflow-auto pb-5">
-																	<!--begin::Wrapper-->
-																	<div class="d-flex align-items-center mt-1 fs-6">
-																		<!--begin::Info-->
-																		<div class="text-muted me-2 fs-7">Added at 4:23 PM by</div>
-																		<!--end::Info-->
-																		<!--begin::User-->
-																		<a href="#" class="text-primary fw-bold me-1">Alice Tan</a>
-																		<!--end::User-->
-																	</div>
-																	<!--end::Wrapper-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-basket fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-																<span class="path3"></span>
-																<span class="path4"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">New order 
-																<a href="#" class="text-primary fw-bold me-1">#67890</a>is placed for Workshow Planning & Budget Estimation</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Placed at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<a href="#" class="text-primary fw-bold me-1">Jimmy Bold</a>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon me-4">
-															<i class="ki-duotone ki-flag fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n2">
-															<!--begin::Timeline heading-->
-															<div class="overflow-auto pe-3">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">Invitation for crafting engaging designs that speak human workshop</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Sent at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Alan Nilson">
-																		<img src="@/assets/media/avatars/300-1.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-disconnect fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-																<span class="path3"></span>
-																<span class="path4"></span>
-																<span class="path5"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="mb-5 pe-3">
-																<!--begin::Title-->
-																<a href="#" class="fs-5 fw-semibold text-gray-800 text-hover-primary mb-2">3 New Incoming Project Files:</a>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Sent at 10:30 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Jan Hummer">
-																		<img src="@/assets/media/avatars/300-23.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-															<!--begin::Timeline details-->
-															<div class="overflow-auto pb-5">
-																<div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-5">
-																	<!--begin::Item-->
-																	<div class="d-flex flex-aligns-center pe-10 pe-lg-20">
-																		<!--begin::Icon-->
-																		<img alt="" class="w-30px me-3" src="@/assets/media/svg/files/pdf.svg" />
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		<div class="ms-1 fw-semibold">
-																			<!--begin::Desc-->
-																			<a href="apps/projects/project.html" class="fs-6 text-hover-primary fw-bold">Finance KPI App Guidelines</a>
-																			<!--end::Desc-->
-																			<!--begin::Number-->
-																			<div class="text-gray-500">1.9mb</div>
-																			<!--end::Number-->
-																		</div>
-																		<!--begin::Info-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="d-flex flex-aligns-center pe-10 pe-lg-20">
-																		<!--begin::Icon-->
-																		<img alt="apps/projects/project.html" class="w-30px me-3" src="@/assets/media/svg/files/doc.svg" />
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		<div class="ms-1 fw-semibold">
-																			<!--begin::Desc-->
-																			<a href="#" class="fs-6 text-hover-primary fw-bold">Client UAT Testing Results</a>
-																			<!--end::Desc-->
-																			<!--begin::Number-->
-																			<div class="text-gray-500">18kb</div>
-																			<!--end::Number-->
-																		</div>
-																		<!--end::Info-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="d-flex flex-aligns-center">
-																		<!--begin::Icon-->
-																		<img alt="apps/projects/project.html" class="w-30px me-3" src="@/assets/media/svg/files/css.svg" />
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		<div class="ms-1 fw-semibold">
-																			<!--begin::Desc-->
-																			<a href="#" class="fs-6 text-hover-primary fw-bold">Finance Reports</a>
-																			<!--end::Desc-->
-																			<!--begin::Number-->
-																			<div class="text-gray-500">20mb</div>
-																			<!--end::Number-->
-																		</div>
-																		<!--end::Icon-->
-																	</div>
-																	<!--end::Item-->
-																</div>
-															</div>
-															<!--end::Timeline details-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-abstract-26 fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">Task 
-																<a href="#" class="text-primary fw-bold me-1">#45890</a>merged with 
-																<a href="#" class="text-primary fw-bold me-1">#45890</a>in “Ads Pro Admin Dashboard project:</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Initiated at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Nina Nilson">
-																		<img src="@/assets/media/avatars/300-14.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-												</div>
-												<!--end::Timeline-->
-											</div>
-											<!--end::Tab panel-->
-											<!--begin::Tab panel-->
-											<div id="kt_activity_year" class="card-body p-0 tab-pane fade show" role="tabpanel" aria-labelledby="kt_activity_year_tab">
-												<!--begin::Timeline-->
-												<div class="timeline timeline-border-dashed">
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-disconnect fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-																<span class="path3"></span>
-																<span class="path4"></span>
-																<span class="path5"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="mb-5 pe-3">
-																<!--begin::Title-->
-																<a href="#" class="fs-5 fw-semibold text-gray-800 text-hover-primary mb-2">3 New Incoming Project Files:</a>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Sent at 10:30 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Jan Hummer">
-																		<img src="@/assets/media/avatars/300-23.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-															<!--begin::Timeline details-->
-															<div class="overflow-auto pb-5">
-																<div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-5">
-																	<!--begin::Item-->
-																	<div class="d-flex flex-aligns-center pe-10 pe-lg-20">
-																		<!--begin::Icon-->
-																		<img alt="" class="w-30px me-3" src="@/assets/media/svg/files/pdf.svg" />
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		<div class="ms-1 fw-semibold">
-																			<!--begin::Desc-->
-																			<a href="apps/projects/project.html" class="fs-6 text-hover-primary fw-bold">Finance KPI App Guidelines</a>
-																			<!--end::Desc-->
-																			<!--begin::Number-->
-																			<div class="text-gray-500">1.9mb</div>
-																			<!--end::Number-->
-																		</div>
-																		<!--begin::Info-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="d-flex flex-aligns-center pe-10 pe-lg-20">
-																		<!--begin::Icon-->
-																		<img alt="apps/projects/project.html" class="w-30px me-3" src="@/assets/media/svg/files/doc.svg" />
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		<div class="ms-1 fw-semibold">
-																			<!--begin::Desc-->
-																			<a href="#" class="fs-6 text-hover-primary fw-bold">Client UAT Testing Results</a>
-																			<!--end::Desc-->
-																			<!--begin::Number-->
-																			<div class="text-gray-500">18kb</div>
-																			<!--end::Number-->
-																		</div>
-																		<!--end::Info-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="d-flex flex-aligns-center">
-																		<!--begin::Icon-->
-																		<img alt="apps/projects/project.html" class="w-30px me-3" src="@/assets/media/svg/files/css.svg" />
-																		<!--end::Icon-->
-																		<!--begin::Info-->
-																		<div class="ms-1 fw-semibold">
-																			<!--begin::Desc-->
-																			<a href="#" class="fs-6 text-hover-primary fw-bold">Finance Reports</a>
-																			<!--end::Desc-->
-																			<!--begin::Number-->
-																			<div class="text-gray-500">20mb</div>
-																			<!--end::Number-->
-																		</div>
-																		<!--end::Icon-->
-																	</div>
-																	<!--end::Item-->
-																</div>
-															</div>
-															<!--end::Timeline details-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-abstract-26 fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">Task 
-																<a href="#" class="text-primary fw-bold me-1">#45890</a>merged with 
-																<a href="#" class="text-primary fw-bold me-1">#45890</a>in “Ads Pro Admin Dashboard project:</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Initiated at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Nina Nilson">
-																		<img src="@/assets/media/avatars/300-14.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-pencil fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">3 new application design concepts added:</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Created at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<div class="symbol symbol-circle symbol-25px" data-bs-toggle="tooltip" data-bs-boundary="window" data-bs-placement="top" title="Marcus Dotson">
-																		<img src="@/assets/media/avatars/300-2.jpg" alt="img" />
-																	</div>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-															<!--begin::Timeline details-->
-															<div class="overflow-auto pb-5">
-																<div class="d-flex align-items-center border border-dashed border-gray-300 rounded min-w-700px p-7">
-																	<!--begin::Item-->
-																	<div class="overlay me-10">
-																		<!--begin::Image-->
-																		<div class="overlay-wrapper">
-																			<img alt="img" class="rounded w-150px" src="@/assets/media/stock/600x400/img-29.jpg" />
-																		</div>
-																		<!--end::Image-->
-																		<!--begin::Link-->
-																		<div class="overlay-layer bg-dark bg-opacity-10 rounded">
-																			<a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
-																		</div>
-																		<!--end::Link-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="overlay me-10">
-																		<!--begin::Image-->
-																		<div class="overlay-wrapper">
-																			<img alt="img" class="rounded w-150px" src="@/assets/media/stock/600x400/img-31.jpg" />
-																		</div>
-																		<!--end::Image-->
-																		<!--begin::Link-->
-																		<div class="overlay-layer bg-dark bg-opacity-10 rounded">
-																			<a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
-																		</div>
-																		<!--end::Link-->
-																	</div>
-																	<!--end::Item-->
-																	<!--begin::Item-->
-																	<div class="overlay">
-																		<!--begin::Image-->
-																		<div class="overlay-wrapper">
-																			<img alt="img" class="rounded w-150px" src="@/assets/media/stock/600x400/img-40.jpg" />
-																		</div>
-																		<!--end::Image-->
-																		<!--begin::Link-->
-																		<div class="overlay-layer bg-dark bg-opacity-10 rounded">
-																			<a href="#" class="btn btn-sm btn-primary btn-shadow">Explore</a>
-																		</div>
-																		<!--end::Link-->
-																	</div>
-																	<!--end::Item-->
-																</div>
-															</div>
-															<!--end::Timeline details-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-sms fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mb-10 mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">New case 
-																<a href="#" class="text-primary fw-bold me-1">#67890</a>is assigned to you in Multi-platform Database Design project</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="overflow-auto pb-5">
-																	<!--begin::Wrapper-->
-																	<div class="d-flex align-items-center mt-1 fs-6">
-																		<!--begin::Info-->
-																		<div class="text-muted me-2 fs-7">Added at 4:23 PM by</div>
-																		<!--end::Info-->
-																		<!--begin::User-->
-																		<a href="#" class="text-primary fw-bold me-1">Alice Tan</a>
-																		<!--end::User-->
-																	</div>
-																	<!--end::Wrapper-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-													<!--begin::Timeline item-->
-													<div class="timeline-item">
-														<!--begin::Timeline line-->
-														<div class="timeline-line"></div>
-														<!--end::Timeline line-->
-														<!--begin::Timeline icon-->
-														<div class="timeline-icon">
-															<i class="ki-duotone ki-basket fs-2 text-gray-500">
-																<span class="path1"></span>
-																<span class="path2"></span>
-																<span class="path3"></span>
-																<span class="path4"></span>
-															</i>
-														</div>
-														<!--end::Timeline icon-->
-														<!--begin::Timeline content-->
-														<div class="timeline-content mt-n1">
-															<!--begin::Timeline heading-->
-															<div class="pe-3 mb-5">
-																<!--begin::Title-->
-																<div class="fs-5 fw-semibold mb-2">New order 
-																<a href="#" class="text-primary fw-bold me-1">#67890</a>is placed for Workshow Planning & Budget Estimation</div>
-																<!--end::Title-->
-																<!--begin::Description-->
-																<div class="d-flex align-items-center mt-1 fs-6">
-																	<!--begin::Info-->
-																	<div class="text-muted me-2 fs-7">Placed at 4:23 PM by</div>
-																	<!--end::Info-->
-																	<!--begin::User-->
-																	<a href="#" class="text-primary fw-bold me-1">Jimmy Bold</a>
-																	<!--end::User-->
-																</div>
-																<!--end::Description-->
-															</div>
-															<!--end::Timeline heading-->
-														</div>
-														<!--end::Timeline content-->
-													</div>
-													<!--end::Timeline item-->
-												</div>
-												<!--end::Timeline-->
-											</div>
-											<!--end::Tab panel-->
-										</div>
-										<!--end::Tab Content-->
-									</div>
-									<!--end::Card body-->
-								</div>
-								<!--end::Timeline-->
+                                        <div class="card-toolbar m-0">
+                                        <!--begin::Tab nav-->
+                                        <!--end::Tab nav-->
+                                        </div>
+                                        </div>
+                                        <!--end::Toolbar-->
+                                        <!--begin::Card body-->
+                                        <div class="card-body">
+                                        <!--begin::Tab Content-->
+                                        <div class="tab-content">
+                                            <!--begin::Tab panel-->
+                                            <div id="kt_activity_today" class="card-body p-0 tab-pane fade show active" role="tabpanel" aria-labelledby="kt_activity_today_tab">
+                                            <!--begin::Table-->
+                                            <table class="table align-middle table-row-dashed fs-6 gy-3" id="kt_table_widget_5_table">
+                                                <!--begin::Table head-->
+                                                <thead>
+                                                <!--begin::Table row-->
+                                                <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                                                    <th class="min-w-100px">날짜</th>
+                                                    <th class="text-end pe-3 min-w-100px">금액</th>
+                                                    <th class="text-end pe-3 min-w-100px">수입/지출</th>
+                                                    <th class="text-end pe-3 min-w-100px">카테고리</th>
+                                                    <th class="text-end pe-3 min-w-150px">메모</th>
+                                                </tr>
+                                                <!--end::Table row-->
+                                                </thead>
+                                                <!--end::Table head-->
+                                                <PersonalTable :data="filteredData" />
+                                            </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!--end::Card body-->
                             </div>
-                            <!--end::Table Widget 5-->
                         </div>
-                        <!--end::Col-->
                     </div>
-                    <!--end::Row-->
                 </div>
-                <!--end::Container-->
             </div>
-            <!--end::Post-->
+            </div>
         </div>
-  </div>
+</div>
+                                    
 </template>
-<script setup>
+
+<script>
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
+import FullCalendar from '@fullcalendar/vue3';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 import PersonalTable from '@/components/PersonalTable.vue';
-import PersonalAsset from '@/components/PersonalAsset.vue';
+
+export default {
+  name: 'History',
+  components: {
+    FullCalendar,
+    PersonalTable
+  },
+  setup() {
+    const activeTab = ref('month'); // Use this for tab-based view
+    const data = ref([]);
+    const filteredData = ref([]);
+    const formattedCurrentDate = ref('');
+
+    const calendarOptions = ref({
+      plugins: [dayGridPlugin, interactionPlugin],
+      initialView: 'dayGridMonth',
+      dateClick: (info) => handleDateClick(info),
+      datesSet: (info) => handleDatesSet(info),
+      events: []
+    });
+
+    const user = ref(null);
+    const currentMonth = ref('');
+    const selectedType = ref(null);
+    const selectedCategory = ref(null);
+
+    // Fetch personal history data and calculate events
+    const fetchAndCalculateEvents = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/personalHistory');
+        data.value = response.data;
+        const events = calculateEvents(data.value);
+        calendarOptions.value.events = events;
+        // Update filtered data initially
+        filteredData.value = data.value;
+      } catch (error) {
+        console.error('Error fetching personal history:', error);
+      }
+    };
+
+    const handleDateClick = (info) => {
+      const clickedDate = info.dateStr;
+      filteredData.value = filterDataByDate(clickedDate);
+    };
+
+    const filterDataByDate = (dateStr) => {
+      return data.value.filter(item => item.date === dateStr);
+    };
+
+    const handleDatesSet = (info) => {
+      const startOfMonth = info.view.currentStart;
+      const endOfMonth = info.view.currentEnd;
+      filteredData.value = filterDataByMonth(startOfMonth, endOfMonth);
+    };
+
+    const filterDataByMonth = (startOfMonth, endOfMonth) => {
+      return data.value.filter(item => {
+        const date = new Date(item.date);
+        return date >= startOfMonth && date < endOfMonth;
+      }).sort((a, b) => new Date(a.date) - new Date(b.date));
+    };
+
+    const getList = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/users');
+        const users = response.data;
+        user.value = users.find(u => u.id === '1');
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    const getCurrentMonth = () => {
+      const date = new Date();
+      currentMonth.value = date.getMonth() + 1;
+    };
+
+    const calculateEvents = (personalHistory) => {
+      const events = [];
+      const transactionsByDate = groupTransactionsByDate(personalHistory);
+
+      for (const date in transactionsByDate) {
+        const transactions = transactionsByDate[date];
+        let totalPlus = 0;
+        let totalMinus = 0;
+        let classNames1 = '';
+        let classNames2 = '';
+
+        transactions.forEach(transaction => {
+          if (transaction.type === '수입') {
+            totalPlus += transaction.amount;
+          } else if (transaction.type === '지출') {
+            totalMinus += transaction.amount;
+          }
+        });
+
+        const title1 = `+${totalPlus.toLocaleString()}`;
+        const title2 = `-${totalMinus.toLocaleString()}`;
+        const start = date;
+
+        classNames1 = 'income-event';
+        classNames2 = 'expense-event';
+
+        if (totalPlus > 0) {
+          const event1 = { title: title1, start, classNames: classNames1 };
+          events.push(event1);
+        }
+        if (totalMinus > 0) {
+          const event2 = { title: title2, start, classNames: classNames2 };
+          events.push(event2);
+        }
+      }
+
+      return events;
+    };
+
+    const groupTransactionsByDate = (personalHistory) => {
+      const transactionsByDate = {};
+      personalHistory.forEach(transaction => {
+        const date = transaction.date;
+        if (!transactionsByDate[date]) {
+          transactionsByDate[date] = [];
+        }
+        transactionsByDate[date].push(transaction);
+      });
+      return transactionsByDate;
+    };
+
+    onMounted(() => {
+      fetchAndCalculateEvents();
+      getList().then(() => {
+        console.log("User loaded:", user.value);
+      });
+      getCurrentMonth();
+    });
+
+    return {
+      calendarOptions,
+      filteredData,
+      activeTab,
+      data,
+      formattedCurrentDate,
+      user,
+      currentMonth,
+      selectedType,
+      selectedCategory
+    };
+  }
+};
 </script>
+
+
+
+<style scoped>
+::v-deep .fc-event.income-event {
+  background-color: lightgreen; /* Example background color for income events */
+}
+
+::v-deep .fc-event.expense-event {
+  background-color: lightcoral; /* Example background color for expense events */
+}
+</style>
+
+
+
