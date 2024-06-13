@@ -3,10 +3,15 @@
     <div class="content fs-6 d-flex flex-column flex-column-fluid" id="kt_content">
       <!-- 전시 정보 -->
       <div style="display: block;">
-        <h1 style="margin-left: 150px;">Exhibition Information</h1>
+        <div class="sub1">
+        <h1>공연 소식</h1>
+        <h4>관심있을 만한 공연, 영화 정보를 확인할 수 있어요</h4>
+      </div>
+        <hr style="border-style: solid; border-color: purple; border-width: 1px;">
         <div class="exhibitions-container">
-          <div v-for="exhibition in exhibitions.slice(0, 4)" :key="exhibition.id" class="exhibition">
+          <div v-for="exhibition in exhibitions.slice(0, 4)" :key="exhibition.id" class="card">
             <div class="card-body">
+              <img :src="exhibition.poster" class="card-img-top" alt="Exhibition Poster"><br><br>
               <h4 class="card-title">{{ exhibition.title }}</h4>
               <p class="card-text">
                 공연 이름: {{ exhibition.title }} <br>
@@ -19,6 +24,8 @@
         </div>
       </div>
 
+      <br><br><br>
+
       <!-- 문화 정보 출력 -->
       <div class="sub1">
         <h1>문화 소식</h1>
@@ -28,8 +35,8 @@
 
       <!-- 영화 정보 그리드 -->
       <div class="card-grid-5x2">
-        <div v-for="movie in movies" :key="movie.movieCd" class="card">
-          <img :src="movie.posterUrl" class="card-img-top" alt="Movie Poster">
+        <div v-for="(movie, index) in movies" :key="movie.movieCd" class="card">
+          <img :src="getMoviePoster(index + 1)" class="card-img-top" alt="Movie Poster">
           <div class="card-body">
             <h4 class="card-title">{{ movie.movieNm }}</h4>
             <p class="card-text">
@@ -64,6 +71,7 @@ const fetchExhibitionData = async () => {
         FinishTime: exhibition.FinishTime,
         place: exhibition.place,
         area: exhibition.area,
+        poster: exhibition.poster,
       }));
     } else {
       console.error('API 응답에서 필요한 구조가 존재하지 않습니다.');
@@ -92,7 +100,7 @@ const fetchBoxOfficeData = async () => {
       rank: movie.rank,
       boxofficeType: movie.boxofficeType,
       audiAcc: movie.audiAcc,
-      posterUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.econovill.com%2Fnews%2FarticleView.html%3Fidxno%3D572149&psig=AOvVaw0y7myo1oXDnajuPho4CIpW&ust=1718251022135000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPiPrr6W1YYDFQAAAAAdAAAAABAE', // 실제 포스터 URL을 API에서 제공하지 않으면 별도로 관리해야 합니다.
+      // posterUrl: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.econovill.com%2Fnews%2FarticleView.html%3Fidxno%3D572149&psig=AOvVaw0y7myo1oXDnajuPho4CIpW&ust=1718251022135000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPiPrr6W1YYDFQAAAAAdAAAAABAE', // 실제 포스터 URL을 API에서 제공하지 않으면 별도로 관리해야 합니다.
       link: '#'
     })).slice(0, 10); // 최대 10개의 영화만 가져오도록 수정
   } catch (error) {
@@ -104,15 +112,18 @@ onMounted(async () => {
   fetchExhibitionData();
   fetchBoxOfficeData();
 });
+
+// 각 영화에 대한 포스터 이미지 URL 반환 함수
+const getMoviePoster = (index) => {
+  return `./src/assets/images/${index}.jpg`;
+};
 </script>
 
 <style scoped>
 .exhibitions-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-left: 150px;
-  width: 800px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 5x2 그리드 형식으로 변경 */
+  gap: 20px; /* 그리드 간격 설정 */
 }
 
 .exhibition {
@@ -142,5 +153,10 @@ onMounted(async () => {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* 5x2 그리드 형식으로 변경 */
   gap: 20px; /* 그리드 간격 설정 */
+}
+
+.card-img-top {
+  max-width: 100%; /* 이미지 최대 너비 설정 */
+  height: auto; /* 이미지 높이 자동 조정 */
 }
 </style>
