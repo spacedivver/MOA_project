@@ -26,5 +26,4 @@
     <!--end::Timeline content-->
 </template>
 <script>
-const 
 </script>
