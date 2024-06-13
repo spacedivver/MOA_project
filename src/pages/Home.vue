@@ -77,7 +77,7 @@
                       <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-start flex-column">
                           <span class="card-label fw-bolder text-gray-900 fs-2">이달의 목표 달성도</span>
-                          <span class="text-gray-500 mt-2 fw-semibold fs-6">{{ userName }}님의 목표 달성 금액을 확인해보세요</span>
+                          <span class="text-gray-500 mt-2 fw-semibold fs-5">{{ userName }}님의 목표 달성 금액을 확인해보세요</span>
                         </h3>
                       </div>
 
@@ -124,7 +124,11 @@
                       <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-start flex-column">
                           <span class="card-label fw-bolder text-gray-900 fs-2">카테고리별 소비</span>
-                          <span class="text-gray-500 mt-2 fw-semibold fs-6">{{ userName }}님은 {{ topSpendingCategory }} 지출이 가장 높아요</span>
+                          <span class="my-2">
+                            <span class="text-gray-500 mt-2 fw-semibold fs-5">{{ userName }}님은 </span>
+                            <span class="mt-2 fw-bold fs-5" style="color: #7239EA;">{{ topSpendingCategory }} </span>
+                            <span class="text-gray-500 mt-2 fw-semibold fs-5"> 지출이 가장 높아요</span>
+                          </span>
                         </h3>
                       </div>
 
@@ -186,6 +190,7 @@ const BASE_URL = "http://localhost:3000";
 
 const userId = 'aaa';
 const userName = ref('');
+
 const asset = ref('');
 const topSpendingCategory = ref('');
 const dateList = ref([]);
@@ -232,7 +237,6 @@ setAsset();
 
 // 사용자의 최대 지출 카테고리
 const findTopSpendingCategory = async () => {
-  const BASE_URL = "http://localhost:3000";
   const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + userId);
 
   const categoryAmount = [
@@ -268,4 +272,45 @@ const findTopSpendingCategory = async () => {
   topSpendingCategory.value = categoryAmount[0].category;
 }
 findTopSpendingCategory();
+
+// 평균 금액을 출력할 최근 6개월의 날짜 데이터
+const monthlyDateList = ref([]);
+const setMonthlyDateList = () => {
+    const date = new Date();
+    let currentMonth = date.getMonth() + 1;
+
+    monthlyDateList.value.push({ year: date.getFullYear(), month: currentMonth });
+
+    for (let i = 0; i < 5; i++) {
+        currentMonth -= 1;
+        if (currentMonth == 0) {
+            currentMonth = 12;
+            monthlyDateList.value.unshift({ year: date.getFullYear() - 1, month: currentMonth });
+        } else {
+            monthlyDateList.value.unshift({ year: date.getFullYear(), month: currentMonth });
+        }
+    }
+};
+setMonthlyDateList();
+
+// 한달 평균 사용 금액
+const monthlyAmount = ref([0, 0, 0, 0, 0, 0]);
+const setAverageMonthlyAmount = async () => {
+  const response = await axios.get(BASE_URL + '/users' + '?userId=' + userId);
+  let totalAmount = 0;
+
+  response.data.forEach(element => {
+    const elementYear = Number(element.date.split('-')[0]);
+    const elementMonth = Number(element.date.split('-')[1]);
+
+    for (let i = 0; i < monthlyDateList.value.length; i++) {
+      if (elementYear == monthlyDateList.value[i].year && elementMonth == monthlyDateList.value[i].month) {
+        monthlyAmount[i] += element.amount;
+        totalAmount += element.amount;
+      }
+    }
+  });
+}
+setAverageMonthlyAmount();
+console.log(monthlyAmount);
 </script>
