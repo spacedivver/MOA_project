@@ -1,6 +1,8 @@
 <template>
 	<!--begin::Card-->
 	<div class="card-2" style="width: 800px; margin-right: 300px;">
+		<h3>모임 일정</h3>
+		<hr>
 		<!--begin::Card header-->
 		<div class="card-header">
 			<h2 class="card-title fw-bold">Calendar</h2>
@@ -292,6 +294,9 @@
 					</div>
 					<!--end::Items-->
 				</div>
+
+				
+				<!-- 모임 인원 명단 코드 부분 -->
 				<!--end::Body-->
 				<div class="right-card">
 					<!--begin::List Widget 2-->
