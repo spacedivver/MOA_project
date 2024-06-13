@@ -1,6 +1,6 @@
 <template>
 	<!--begin::Card-->
-	<div class="card-2" style="width: 800px; margin-right: 300px;">
+	<div class="card-2" style="width: 800px; margin-left: 400px;">
 		<h3>모임 일정</h3>
 		<hr>
 		<!--begin::Card header-->
