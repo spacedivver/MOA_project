@@ -380,5 +380,11 @@
       "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242850_240612_131151.gif",
       "area": "경기도"
     }
-  ]
+  ],
+  "meetingAccount":[
+      {"id":1, "category":"고깃집","price":"55000"},
+      {"id":2,"category":"노래방","price":"13000"},
+      {"id":3,"category":"당구","price":"20000"},
+      {"id":4,"category":"박물관 관람비","price":"16000"}
+    ]
 }
