@@ -51,15 +51,8 @@
 						style="margin-top: -100px">
 						<!--begin::Item-->
 						<div class="d-flex align-items-center mb-9">
-							<!--begin::Symbol-->
-							<div class="symbol symbol-40px me-5">
-								<span class="symbol-label">
-									<i class="ki-duotone ki-/compass text-gray-500 fs-2"></i>
-								</span>
-							</div>
-							<!--end::Symbol-->
 							<!--begin::Description-->
-							<div class="d-flex align-items-center flex-wrap w-100">
+							<div class="align-items-center flex-wrap w-100">
 								<!--begin::Title-->
 								<div v-for="meetingAccount in meetingAccounts" :key="meetingAccount.id"	class="card">
 									<div class="card-body">

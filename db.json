@@ -382,9 +382,9 @@
     }
   ],
   "meetingAccount":[
-      {"id":1, "category":"고깃집","price":"55000"},
-      {"id":2,"category":"노래방","price":"13000"},
-      {"id":3,"category":"당구","price":"20000"},
-      {"id":4,"category":"박물관 관람비","price":"16000"}
+      {"id":1, "category":"고깃집","price":"55000", "Date":"24/05/20"},
+      {"id":2,"category":"노래방","price":"13000", "Date":"24/05/27"},
+      {"id":3,"category":"당구","price":"20000", "Date":"24/06/02"},
+      {"id":4,"category":"박물관 관람비","price":"16000", "Date":"24/06/10"}
     ]
 }
