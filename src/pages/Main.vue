@@ -11,28 +11,27 @@
 
             <div style="display: flex; align-items: stretch;">
                 <div class="card h-100" style="flex: 1;">
-                    <div class="card-body p-9">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="fs-2hx fw-bold">총 자산 : {{ formattedTotalAssets }}</div>
-                            <button class="btn btn-primary fs-7" style="width: 100px; height: 40px; display: flex; justify-content: center; align-items: center;">자세히 보기</button>
-                        </div>
-                        <br>
-                        <div v-for="transaction in userTransactions" :key="transaction.id" class="fs-6 d-flex justify-content-between mb-4">
-                            <div class="fw-semibold">{{transaction.category}} {{ transaction.memo }}</div>
-                            <div class="d-flex fw-bold">
-                                <i v-if="transaction.type === '지출'" class="ki-duotone ki-arrow-down-left fs-3 me-1 text-danger">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                <i v-else class="ki-duotone ki-arrow-up-right fs-3 me-1 text-success">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                {{ transaction.amount }} ₩
-                            </div>
-                        </div>
-                        
+                  <div class="card-body p-9">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="fs-2hx fw-bold">총 자산 : {{ formattedTotalAssets }}</div>
+                      <button class="btn btn-primary fs-7" style="width: 100px; height: 40px; display: flex; justify-content: center; align-items: center;">자세히 보기</button>
                     </div>
+                    <br>
+                    <div v-for="transaction in userTransactions.slice(-4)" :key="transaction.id" class="fs-6 d-flex justify-content-between mb-4">
+                      <div class="fw-semibold">{{ transaction.memo }}</div>
+                      <div class="d-flex fw-bold">
+                        <i v-if="transaction.type === '지출'" class="ki-duotone ki-arrow-down-left fs-3 me-1 text-danger">
+                          <span class="path1"></span>
+                          <span class="path2"></span>
+                        </i>
+                        <i v-else class="ki-duotone ki-arrow-up-right fs-3 me-1 text-success">
+                          <span class="path1"></span>
+                          <span class="path2"></span>
+                        </i>
+                        ₩ {{ transaction.amount }} 
+                      </div>
+                    </div>
+                  </div>
                     
                 </div>
 
@@ -49,15 +48,17 @@
                                 <span class="text-gray-500 fw-semibold fs-6"> Jan - Dec 2024</span>
                             </div>
                         </div>
-                        <div style="margin-left: 50px; margin-bottom:10px">
-                            <canvas ref="MyChart" style="height: 180px;"></canvas>
-                        </div>
+
+                        
+                         <Monthly/>
+                        
                     </div>
                 </div>
-                
+
             </div>
 
             <br>
+            
             <div class="sub1">
                 <h1>추천 상품</h1>
                 <h4>나의 소비 패턴에 맞는 카드와 통장 정보를 추천 받을 수 있어요</h4>
@@ -66,36 +67,21 @@
             <hr style="border-style: solid; border-color: purple; border-width: 1px;">
 
             <div style="display: flex;">
-                <div class="card h-100 p-5" style="flex: 1; background-color: rgb(228, 237, 250);">
-                    <div class="d-flex">
-                        <img src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/09564_img.png" class="rotated-image" style="margin-top: 20px;">
-                        <div class="discount-info" style="margin-top: 10px; padding-left: 50px;">
-                            <div v-for="card in cardRecommendations" :key="card.id">
-                                <h2>{{ card.bankName }} {{ card.cardName }}</h2>
-                                <h6 v-for="item in card.memo.split('\n')" :key="item">{{ item }}</h6>
-                            </div>
-                        </div>
-                    </div>
-                
-                </div>
-                
 
-                
-                <div class="card h-100 p-5" style="flex: 1; background-color: rgb(228, 237, 250);">
-                  <div class="d-flex">
-                      <img src="https://img1.kbcard.com/ST/img/cxc/kbcard/upload/img/product/09564_img.png" class="rotated-image" style="margin-top: 20px;">
-                      <div class="discount-info" style="margin-top: 10px; padding-left: 50px;">
-                          <div v-for="card in cardRecommendations" :key="card.id">
-                              <h2>{{ card.bankName }} {{ card.cardName }}</h2>
-                              <h6 v-for="item in card.memo.split('\n')" :key="item">{{ item }}</h6>
-                          </div>
-                      </div>
+              <div class="card-grid de-felex justify-content-center align-items-center">
+                <div class="card" v-for="card in recommendedCards.slice(0, 2)" :key="card.id">
+                  <img class="m-5" :src="getImageUrl(card.category)" alt="카드 이미지" /><br>
+                  <div class="discount-info de-felex justify-content-center align-items-center pb-3">
+                    <h2>{{ card.bankName }} {{ card.cardName }}</h2><br>
+                    <p v-html="formatMemo(card.memo)"></p>
                   </div>
-              
+                </div>
               </div>
+
+              
                 
             </div>
-
+        
             <br>
             <div class="sub1">
                 <h1>문화 소식</h1>
@@ -105,7 +91,7 @@
             <hr style="border-style: solid; border-color: purple; border-width: 1px;">
 
             <div style="display: flex;">
-                <div v-for="(movie, index) in movies.slice(0, 3)" :key="movie.movieCd" class="card" style="width: 400px; flex: 1;">
+                <div v-for="movie in movies" :key="movie.movieCd" class="card" style="width: 400px; flex: 1;">
                     <img src="https://cdn.econovill.com/news/photo/202204/572149_493911_1955.jpg" class="card-img-top" alt="Card image">
                     <div class="card-body">
                         <h4 class="card-title">{{ movie.movieNm }}</h4>
@@ -118,71 +104,128 @@
                     </div>
                 </div>
             </div>
+
               
         </div>
     </div>
 </template>
 
-<script>
-import { Chart, registerables } from 'chart.js';
+<script setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import Monthly from '@/components/widgets/Monthly.vue';
 
-Chart.register(...registerables);
+const formattedTotalAssets = ref(0);
+const userTransactions = ref([]);
+const user = ref({});
+const movies = ref([]);
+const recommendedCards = ref([]);
+const sortedCategories = ref([]);
 
-export default {
-  data() {
-    return {
-      chartConfig: {
-        type: 'bar',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-          datasets: []
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      },
-      userTransactions: [
-         { id: 1, date: '2024-01-01', amount: 10000, category: '식비', type: '지출', payment: '카드', memo: '점심' },
-         { id: 2, date: '2024-02-01', amount: 50000, category: '교통비', type: '지출', payment: '현금' },
-         { id: 3, date: '2024-03-01', amount: 200000, category: '저축', type: '수입', payment: '현금', memo: '월급' },
-         { id: 4, date: '2024-03-03', amount: 50000, category: '교통비', type: '지출', payment: '현금' },
-      ],
-      movies: [], 
-      cardRecommendations: [
-        { id: 1, bankName: "국민카드", cardName: "트래블러스 체크카드", category: "여행", memo: "- 해외 이용 수수료 1.25% 면제\n- 철도 5,000원 할인\n -전국 맛집 5,000원 할인" },
-      ],
-    };
-  },
-  mounted() {
-    this.fetchBoxOfficeData();
-    this.createChartData();
-    this.createChart();
-  },
-  computed: {
-    totalAssets() {
-      return this.userTransactions.reduce((total, transaction) => {
-        return total + (transaction.type === '수입' ? transaction.amount : -transaction.amount);
-      }, 0);
-    },
-    formattedTotalAssets() {
-      return this.totalAssets.toLocaleString() + ' ₩';
-    }
-  },
-  methods: {
-    async fetchBoxOfficeData() {
-      try {
+onMounted(async () => {
+  try {
+    const response = await axios.get('/db.json');
+    const personalHistory = response.data.personalHistory;
+
+    formattedTotalAssets.value = personalHistory.reduce((total, transaction) => {
+      return total + (transaction.type === '수입' ? transaction.amount : -transaction.amount);
+    }, 0);
+
+    userTransactions.value = personalHistory.map(transaction => ({
+      id: transaction.id,
+      memo: transaction.memo,
+      amount: transaction.amount,
+      type: transaction.type,
+    }));
+
+    const userId = 'aaa';
+    const users = response.data.users;
+    const cardRecommendations = response.data.cardRecommendations;
+
+    user.value = users.find(u => u.userId === userId);
+
+    const categoryCount = personalHistory
+      .filter(item => item.userId === userId)
+      .reduce((acc, item) => {
+        acc[item.category] = (acc[item.category] || 0) + 1;
+        return acc;
+      }, {});
+
+    const categoryArray = Object.keys(categoryCount).map(category => ({
+      category,
+      count: categoryCount[category]
+    }));
+
+    sortedCategories.value = categoryArray.sort((a, b) => b.count - a.count);
+
+    sortedCategories.value.forEach(item => {
+      const categoryCards = cardRecommendations.filter(card => card.category === item.category);
+      recommendedCards.value.push(...categoryCards);
+    });
+
+    console.log(recommendedCards.value);
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
+
+const formatMemo = (memo) => {
+  return memo.replace(/\n/g, '<br>');
+};
+
+const getImageUrl = (category) => {
+  return `./src/assets/images/${category}.png`;
+};
+
+const fetchUserData = async () => {
+  try {
+    const response = await axios.get('/db.json');
+    const userId = 'aaa';
+
+    const users = response.data.users;
+    const personalHistory = response.data.personalHistory;
+    const cardRecommendations = response.data.cardRecommendations;
+
+    user.value = users.find(u => u.userId === userId);
+
+    const categoryCount = personalHistory
+      .filter(item => item.userId === userId)
+      .reduce((acc, item) => {
+        acc[item.category] = (acc[item.category] || 0) + 1;
+        return acc;
+      }, {});
+
+    const categoryArray = Object.keys(categoryCount).map(category => ({
+      category,
+      count: categoryCount[category]
+    }));
+
+    sortedCategories.value = categoryArray.sort((a, b) => b.count - a.count);
+
+    sortedCategories.value.forEach(item => {
+      const categoryCards = cardRecommendations.filter(card => card.category === item.category);
+      recommendedCards.value.push(...categoryCards);
+    });
+
+    console.log(recommendedCards.value);
+
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+};
+
+onMounted(fetchUserData);
+
+const fetchBoxOfficeData = async() => {
+  try {
         const response = await axios.get('https://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json', {
           params: {
-            key: '7f257302868eb5ddfeda65e4098e5b6a', // 여기에 본인의 API 키를 입력하세요.
-            targetDt: '20240611' // 여기에 원하는 날짜를 입력하세요.
+            key: '7f257302868eb5ddfeda65e4098e5b6a', 
+            targetDt: '20240611'
           }
         });
-        this.movies = response.data.boxOfficeResult.dailyBoxOfficeList.map(movie => ({
+        movies.value = response.data.boxOfficeResult.dailyBoxOfficeList.map(movie => ({
           movieCd: movie.movieCd,
           movieNm: movie.movieNm,
           genre: movie.genreAlt,
@@ -198,46 +241,13 @@ export default {
       } catch (error) {
         console.error('Error fetching box office data:', error);
       }
-    },
-    createChartData() {
-      const monthlyTransactions = Array.from({ length: 12 }, () => ({ income: 0, expenditure: 0 }));
-
-      this.userTransactions.forEach(transaction => {
-        const month = new Date(transaction.date).getMonth();
-        if (transaction.type === '수입') {
-          monthlyTransactions[month].income += transaction.amount;
-        } else {
-          monthlyTransactions[month].expenditure += transaction.amount;
-        }
-      });
-
-      this.chartConfig.data.datasets.push({
-        label: '수입',
-        data: monthlyTransactions.map(data => data.income),
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1
-      });
-
-      this.chartConfig.data.datasets.push({
-        label: '지출',
-        data: monthlyTransactions.map(data => data.expenditure),
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1
-      });
-    },
-    createChart() {
-      new Chart(this.$refs.MyChart, {
-        type: this.chartConfig.type,
-        data: this.chartConfig.data,
-        options: this.chartConfig.options
-      });
-    }
-  }
 };
 
+onMounted(fetchBoxOfficeData);
+
+
 </script>
+
 
 <style scoped>
 .sub1 {
@@ -280,5 +290,11 @@ export default {
 
 .justify-content-between {
     justify-content: space-between;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 </style>
