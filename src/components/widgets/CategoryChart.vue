@@ -52,8 +52,6 @@ export default {
             
             categoryAmount.sort((a, b) => b.amount - a.amount);
             const totalAmount = categoryAmount.reduce((acc, cur) => acc + cur.amount, 0);
-            console.log('totalAmount');
-            console.log(totalAmount);
 
             for (let i = 0; i < 5; i++) {
                 data.push(
@@ -88,55 +86,6 @@ export default {
                     endAngle: 180,
                 })
             );
-
-            // Data
-            // var data = [
-            //     {
-            //         category: "교통비",
-            //         value: 80,
-            //         full: 100,
-            //         columnSettings: {
-            //             fillOpacity: 1,
-            //             fill: am5.color('#7239EA'),
-            //         },
-            //     },
-            //     {
-            //         category: "문화 생활비",
-            //         value: 35,
-            //         full: 100,
-            //         columnSettings: {
-            //             fillOpacity: 1,
-            //             fill: am5.color('#F1416C'),
-            //         },
-            //     },
-            //     {
-            //         category: "저축",
-            //         value: 92,
-            //         full: 100,
-            //         columnSettings: {
-            //             fillOpacity: 1,
-            //             fill: am5.color('#00A3FF'),
-            //         },
-            //     },
-            //     {
-            //         category: "식비",
-            //         value: 68,
-            //         full: 100,
-            //         columnSettings: {
-            //             fillOpacity: 1,
-            //             fill: am5.color('#50CD89'),
-            //         },
-            //     },
-            //     {
-            //         category: "숙박비",
-            //         value: 68,
-            //         full: 100,
-            //         columnSettings: {
-            //             fillOpacity: 1,
-            //             fill: am5.color('#50CD89'),
-            //         },
-            //     },
-            // ];
 
             // Add cursor
             // https://www.amcharts.com/docs/v5/charts/radar-chart/#Cursor

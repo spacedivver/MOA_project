@@ -81,11 +81,11 @@
                         </h3>
                       </div>
 
-                        <!-- 목표 달성도 차트 그리기 시작 -->
-                        <div class="d-flex flex-center position-relative">
-                          <Achievement />
-                        </div>
-                        <!-- 목표 달성도 차트 그리기 끝 -->
+                      <!-- 목표 달성도 차트 그리기 시작 -->
+                      <div class="d-flex flex-center position-relative">
+                        <Achievement />
+                      </div>
+                      <!-- 목표 달성도 차트 그리기 끝 -->
                     </div>
                   </div>
                   <!-- 목표 달성도 차트 끝 -->
@@ -109,7 +109,7 @@
                         </div>
                         <!-- 월별 지출 내역 평균 그래프 그리기 시작 -->
                         <div class="pt-1">
-                          <Monthly :userId="userId"/>
+                          <Monthly :userId="userId" />
                         </div>
                         <!-- 월별 지출 내역 평균 그래프 그리기 끝 -->
                       </div>
@@ -124,14 +124,14 @@
                       <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-start flex-column">
                           <span class="card-label fw-bolder text-gray-900 fs-2">카테고리별 소비</span>
-                          <span class="text-gray-500 mt-2 fw-semibold fs-6">{{ name }}님은 식비 지출이 가장 높아요</span>
+                          <span class="text-gray-500 mt-2 fw-semibold fs-6">{{ userName }}님은 {{ topSpendingCategory }} 지출이 가장 높아요</span>
                         </h3>
                       </div>
 
                       <!-- 목표 달성도 차트 그리기 시작 -->
                       <div class="card-body d-flex flex-column pt-0">
                         <div class="d-flex flex-center position-relative">
-                          <CategoryChart :userId="userId"/>
+                          <CategoryChart :userId="userId" />
                         </div>
                       </div>
                       <!-- 목표 달성도 차트 그리기 끝 -->
@@ -149,7 +149,7 @@
               <div class="col-xxl-12">
                 <div class="row g-xl-12">
                   <div class="col-xl-12" v-for="date in dateList" :key="date">
-                    <TransactionCard :date="date" :userId="userId"/>
+                    <TransactionCard :date="date" :userId="userId" />
                   </div>
                 </div>
               </div>
@@ -187,20 +187,24 @@ const BASE_URL = "http://localhost:3000";
 const userId = 'aaa';
 const userName = ref('');
 const asset = ref('');
+const topSpendingCategory = ref('');
 const dateList = ref([]);
 
 const deposit = ref(0);
 const withdraw = ref(0);
 
-const setDateList = async () => { // 사용자의 모든 거래 일자
+// 사용자의 모든 거래 일자
+const setDateList = async () => {
   const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + userId);
   const dateSet = new Set();
 
   response.data.forEach(element => {
     dateSet.add(element.date); // 거래 일자 리스트 생성
 
+    const elementYear = Number(element.date.split('-')[0]);
     const elementMonth = Number(element.date.split('-')[1]); // 수입, 지출 금액 계산
-    if (elementMonth == month.value) {
+
+    if (elementYear == date.getFullYear() && elementMonth == month.value) {
       if (element.type == "수입") {
         deposit.value += Number(element.amount);
       } else {
@@ -217,11 +221,51 @@ const setDateList = async () => { // 사용자의 모든 거래 일자
 }
 setDateList();
 
-const setAsset = async() => {
+// 사용자의 자산 총액
+const setAsset = async () => {
   const response = await axios.get(BASE_URL + '/users' + '?userId=' + userId);
-  
+
   userName.value = response.data[0].name;
   asset.value = response.data[0].asset;
 }
 setAsset();
+
+// 사용자의 최대 지출 카테고리
+const findTopSpendingCategory = async () => {
+  const BASE_URL = "http://localhost:3000";
+  const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + userId);
+
+  const categoryAmount = [
+    { category: '여행', amount: 0 },
+    { category: '쇼핑', amount: 0 },
+    { category: '문화', amount: 0 },
+    { category: '교통', amount: 0 },
+    { category: '숙박', amount: 0 },
+    { category: '식사', amount: 0 },
+    { category: '케이터링', amount: 0 }
+  ];
+
+  const date = new Date();
+  const currentYear = date.getFullYear();
+  const currentMonth = date.getMonth() + 1;
+
+  response.data.forEach(element => {
+    const elementYear = Number(element.date.split('-')[0]);
+    const elementMonth = Number(element.date.split('-')[1]);
+
+    if (elementYear == currentYear && elementMonth == currentMonth && element.type == "지출") { // 이번달 지출 카테고리 데이터
+      for (let i = 0; i < categoryAmount.length; i++) {
+        if (categoryAmount[i].category == element.category) {
+          categoryAmount[i].amount += element.amount;
+        }
+      }
+    }
+  });
+
+  categoryAmount.sort((a, b) => b.amount - a.amount);
+  console.log(categoryAmount[0].category);
+
+  topSpendingCategory.value = categoryAmount[0].category;
+}
+findTopSpendingCategory();
 </script>
