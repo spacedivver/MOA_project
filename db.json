@@ -27,6 +27,188 @@
       { "id": 1, "bankName": "국민카드", "cardName": "트래블러스 체크카드", "category": "여행", "memo": "- 해외 이용 수수료 1.25% 면제 \n- 철도 5,000원 할인 \n- 전국 맛집 5,000원 할인" },
       { "id": 2, "bankName": "국민카드", "cardName": "쿠팡 와우 카드", "category": "쇼핑", "memo": "-쿠팡, 쿠팡이프, 쿠팡플레이 2% 쿠팡캐시 적립 \n- 국내 회 가맹점 0.2% 쿠팡캐시 적립" },
       { "id": 3, "bankName": "국민카드", "cardName": "K-패스 카드", "category": "교통", "memo": "- 대중교통 10% 할인 \n- 생활서비스 5%할인 \n- KB Pay이용시 생활서비스 5% 추가 할인" }, 
-      { "id": 4, "bankName": "국민카드", "cardName": "탄탄대로 온리유 티타늄 카드", "category": "문화", "memo": "- 전 주유소 130~200점/L 적립 \n- 다이렉트 자동차보험 1만원 청구할인(연 1회) \n- 차량 정비, 주차/세차장 10% 포인트 적립" }
+      { "id": 4, "bankName": "국민카드", "cardName": "탄탄대로 온리유 티타늄 카드", "category": "문화", "memo": "전 주유소 130~200점/L 적립 \n- 다이렉트 자동차보험 1만원 청구할인(연 1회) \n- 차량 정비, 주차/세차장 10% 포인트 적립" }
+    ],
+    "exhibitions":[
+      {
+        "id":1,
+        "title": "K-Jazz의 향연, 구각노리",
+        "StartTime": "2024.06.29",
+        "FinishTime": "2024.06.29",
+        "place": "재즈런치",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242877_240612_150728.gif",
+        "area": "서울특별시"
+      },
+      {
+        "id":2,
+        "title": "제981회 목요예술무대: 세 번째 파장, 프롬",
+        "StartTime": "2024.06.27",
+        "FinishTime": "2024.06.27",
+        "place": "강남씨어터",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242875_240612_145005.gif",
+        "area": "서울특별시"
+      },
+      {
+        "id":3,
+        "title": "임주희 피아노 리사이틀",
+        "StartTime": "2024.07.20",
+        "FinishTime": "2024.07.20",
+        "place": "예술의전당 [서울]",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242874_240612_144503.gif",
+        "area": "서울특별시"
+      },
+      {
+        "id":4,
+        "title": "픽사 인 콘서트",
+        "StartTime": "2024.10.06",
+        "FinishTime": "2024.10.06",
+        "place": "롯데콘서트홀",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242873_240612_143939.gif",
+        "area": "서울특별시"
+      },
+      {
+        "id":5,
+        "title": "진천이 추천하는 진천 추천연극, 진천사는 추천석",
+        "StartTime": "2024.07.04",
+        "FinishTime": "2024.07.21",
+        "place": "여행자극장",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242871_240612_143042.gif",
+        "area": "서울특별시"
+      },
+      {
+        "id":6,
+        "title": "경남도립극단 음악극, 축제: 경상남도 무릉군 도원면 1994번지 [진주]",
+        "StartTime": "2024.07.06",
+        "FinishTime": "2024.07.07",
+        "place": "경상남도문화예술회관",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242870_240612_142442.gif",
+        "area": "경상남도"
+      },
+      {
+        "id":7,
+        "title": "이기동 체육관 (앵콜)",
+        "StartTime": "2024.07.25",
+        "FinishTime": "2024.09.05",
+        "place": "링크아트센터드림",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242869_240612_141559.gif",
+        "area": "서울특별시"
+      },
+      {
+        "id":8,
+        "title": "카운터테너 이동규 리사이틀, Dream Quilter: 꿈을 누비는 자",
+        "StartTime": "2024.08.28",
+        "FinishTime": "2024.08.28",
+        "place": "예술의전당 [서울]",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242867_240612_140424.gif",
+        "area": "서울특별시"
+      },
+      {
+        "id":9,
+        "title": "내가 농섬보다 외롭다, 사유의 시간 (06.22)",
+        "StartTime": "2024.06.22",
+        "FinishTime": "2024.06.22",
+        "place": "매향리 선착장",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242866_240612_140122.jpg",
+        "area": "경기도"
+      },
+      {
+        "id":10,
+        "title": "수성키즈클래식, Music Inside out",
+        "StartTime": "2024.07.13",
+        "FinishTime": "2024.07.13",
+        "place": "수성아트피아",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242865_240612_135018.jpg",
+        "area": "대구광역시"
+      },
+      {
+        "id":11,
+        "title": "꿀잼 어린이극장, 나는 기와입니다",
+        "StartTime": "2024.06.21",
+        "FinishTime": "2024.06.21",
+        "place": "성남아트리움 (구. 성남시민회관)",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242862_240612_134546.jpg",
+        "area": "경기도"
+      },
+      {
+        "id":12,
+        "title": "ACC SF 연극 시리즈 2, 거의 인간",
+        "StartTime": "2024.08.23",
+        "FinishTime": "2024.08.24",
+        "place": "국립아시아문화전당",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242861_240612_134351.jpg",
+        "area": "광주광역시"
+      },
+      {
+        "id":13,
+        "title": "격조콘, 허정혁 / 사람 또 사람",
+        "StartTime": "2024.06.30",
+        "FinishTime": "2024.06.30",
+        "place": "복합공간 에무",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242859_240612_133554.jpg",
+        "area": "서울특별시"
+      },
+      {
+        "id":14,
+        "title": "모두페스티벌, 똑, 똑, 똑 [대구]",
+        "StartTime": "2024.07.06",
+        "FinishTime": "2024.07.06",
+        "place": "소극장 함세상",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242857_240612_133121.png",
+        "area": "대구광역시"
+      },
+      {
+        "id":15,
+        "title": "밤이 없는 여름",
+        "StartTime": "2024.07.05",
+        "FinishTime": "2024.07.07",
+        "place": "아르코예술극장",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242856_240612_132924.gif",
+        "area": "서울특별시"
+      },
+      {
+        "id":16,
+        "title": "ACI 키즈 콘서트, 클랩 그림책 콘서트 Ⅳ: 알록달록 에릭 칼",
+        "StartTime": "2024.11.09",
+        "FinishTime": "2024.11.09",
+        "place":"아트센터 인천",
+        "poster":"http://www.kopis.or.kr/upload/pfmPoster/PF_PF242854_240612_132155.gif",
+        "area":"인천광역시"
+      },
+      {
+        "id":17,
+        "title": "ACI 키즈 콘서트, 클랩 그림책 콘서트 Ⅲ: 오싹오싹 할로윈",
+        "StartTime": "2024.10.19",
+        "FinishTime": "2024.10.19",
+        "place": "아트센터 인천",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242853_240612_131727.gif",
+        "area": "인천광역시"
+      },
+      {
+        "id":18,
+        "title": "ACC SF 연극 시리즈, 대리된 존엄",
+        "StartTime": "2024.07.12",
+        "FinishTime": "2024.07.13",
+        "place": "국립아시아문화전당",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242852_240612_131607.jpg",
+        "area": "광주광역시"
+      },
+      {
+        "id":19,
+        "title": "플루티스트 강주희가 들려주는 FRENCH MUSIC [경기]",
+        "StartTime": "2024.06.17",
+        "FinishTime": "2024.06.17",
+        "place": "티엘아이 아트센터",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242851_240612_131343.png",
+        "area": "경기도"
+      },
+      {
+        "id":20,
+        "title": "스프레이 [성남]",
+        "StartTime": "2024.07.13",
+        "FinishTime": "2024.07.13",
+        "place": "성남아트센터",
+        "poster": "http://www.kopis.or.kr/upload/pfmPoster/PF_PF242850_240612_131151.gif",
+        "area": "경기도"
+      }
     ]
   }
