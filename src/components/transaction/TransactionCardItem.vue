@@ -20,8 +20,6 @@
     <!--end::Timeline content-->
 </template>
 <script setup>
-import { defineProps } from 'vue';
-
 const props = defineProps(['history']);
 const history = JSON.parse(JSON.stringify(props)).history;
 

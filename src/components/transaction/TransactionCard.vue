@@ -52,7 +52,7 @@
 import TransactionCardItem from '@/components/transaction/TransactionCardItem.vue'
 import TimeLineIcon from '@/components/transaction/TimeLineIcon.vue'
 import axios from 'axios';
-import { ref, defineProps } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps(['date', 'userId']);
 const date = props.date;

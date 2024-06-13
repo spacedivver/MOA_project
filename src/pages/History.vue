@@ -334,11 +334,11 @@ export default {
 
 
 <style scoped>
-::v-deep .fc-event.income-event {
+:deep(.fc-event.income-event) {
   background-color: lightgreen; /* Example background color for income events */
 }
 
-::v-deep .fc-event.expense-event {
+:deep(.fc-event.expense-event) {
   background-color: lightcoral; /* Example background color for expense events */
 }
 </style>
