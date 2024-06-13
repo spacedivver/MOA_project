@@ -10,7 +10,7 @@
           <div class="d-flex flex-row align-items-center justify-content-start flex-wrap me-2">
             <span class="text-gray-900 my-1 fs-2">
               <img src="@/assets/images/profile-icon.png" alt="" style="width: auto; height: 50px; margin-right: 5px">
-              <b>김혜리</b> 님
+              <b>{{ userName }}</b> 님
             </span>
           </div>
         </div>
@@ -43,65 +43,49 @@
                         <div class="card-body p-9">
                           <div class="fs-4 fw-semibold text-gray-500">총 자산</div>
                           <div>
-                            <span class="fs-2hx fw-bold">{{ addComma(300000) }}</span>
+                            <span class="fs-2hx fw-bold">{{ addComma(asset) }}</span>
                             <span class="fs-1hx">원</span>
                           </div>
-                          <div class="fs-6 d-flex justify-content-between mt-4 mb-4">
+                          <div class="fs-4 d-flex justify-content-between mt-4 mb-4">
                             <div class="fw-semibold">입금</div>
                             <div class="d-flex fw-bold">
-                              <i class="ki-duotone ki-arrow-up-right fs-3 me-1 text-success">
+                              <i class="ki-duotone ki-arrow-up-right fs-4 me-1 text-success">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
-                              </i>$6,570
+                              </i> {{ addComma(deposit) }}원
                             </div>
                           </div>
                           <div class="separator separator-dashed"></div>
-                          <div class="fs-6 d-flex justify-content-between my-4">
+                          <div class="fs-4 d-flex justify-content-between my-4">
                             <div class="fw-semibold">출금</div>
                             <div class="d-flex fw-bold">
-                              <i class="ki-duotone ki-arrow-down-left fs-3 me-1 text-danger">
+                              <i class="ki-duotone ki-arrow-down-left fs-4 me-1 text-danger">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
-                              </i>$408
+                              </i>{{ addComma(withdraw) }}원
                             </div>
                           </div>
-                          <!--end::Budget-->
-                          <!-- 현재 자산 카드 끝 -->
-
-                          <!--begin::Text-->
-                          <!-- <div class="d-flex flex-column text-end">
-                            <span class="fw-bolder text-gray-800 fs-2">Orders</span>
-                            <span class="text-gray-500 fw-semibold fs-6">Sep 1 - Sep 16 2020</span>
-                          </div> -->
-                          <!--end::Text-->
-                        </div>
-                        <!--begin::Chart-->
-                        <div class="pt-1">
-                          <div id="kt_chart_widget_1_chart" class="card-rounded-bottom h-125px"></div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <!-- 현재 자산 카드 끝 -->
 
-
                   <!-- 목표 달성도 차트 시작 -->
                   <div class="col-xl-6">
-                    <div class="card card-xl-stretch mb-5 mb-xl-8">
+                    <div class="card card-xl-stretch">
                       <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-start flex-column">
                           <span class="card-label fw-bolder text-gray-900 fs-2">이달의 목표 달성도</span>
-                          <span class="text-gray-500 mt-2 fw-semibold fs-6">{{ name }}님의 목표 달성 금액을 확인해보세요</span>
+                          <span class="text-gray-500 mt-2 fw-semibold fs-6">{{ userName }}님의 목표 달성 금액을 확인해보세요</span>
                         </h3>
                       </div>
 
-                      <div class="card-body d-flex flex-column pt-0">
-                        <!-- 목표 달성도 차트 그리기 시작 -->
-                        <div class="d-flex flex-center position-relative">
-                          <Achievement />
-                        </div>
-                        <!-- 목표 달성도 차트 그리기 끝 -->
+                      <!-- 목표 달성도 차트 그리기 시작 -->
+                      <div class="d-flex flex-center position-relative">
+                        <Achievement />
                       </div>
+                      <!-- 목표 달성도 차트 그리기 끝 -->
                     </div>
                   </div>
                   <!-- 목표 달성도 차트 끝 -->
@@ -125,7 +109,7 @@
                         </div>
                         <!-- 월별 지출 내역 평균 그래프 그리기 시작 -->
                         <div class="pt-1">
-                          <Monthly />
+                          <Monthly :userId="userId" />
                         </div>
                         <!-- 월별 지출 내역 평균 그래프 그리기 끝 -->
                       </div>
@@ -140,14 +124,14 @@
                       <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-start flex-column">
                           <span class="card-label fw-bolder text-gray-900 fs-2">카테고리별 소비</span>
-                          <span class="text-gray-500 mt-2 fw-semibold fs-6">{{ name }}님은 식비 지출이 가장 높아요</span>
+                          <span class="text-gray-500 mt-2 fw-semibold fs-6">{{ userName }}님은 {{ topSpendingCategory }} 지출이 가장 높아요</span>
                         </h3>
                       </div>
 
                       <!-- 목표 달성도 차트 그리기 시작 -->
                       <div class="card-body d-flex flex-column pt-0">
                         <div class="d-flex flex-center position-relative">
-                          <CategoryChart />
+                          <CategoryChart :userId="userId" />
                         </div>
                       </div>
                       <!-- 목표 달성도 차트 그리기 끝 -->
@@ -165,7 +149,7 @@
               <div class="col-xxl-12">
                 <div class="row g-xl-12">
                   <div class="col-xl-12" v-for="date in dateList" :key="date">
-                    <TransactionCard :date="date" :userId="userId"/>
+                    <TransactionCard :date="date" :userId="userId" />
                   </div>
                 </div>
               </div>
@@ -198,23 +182,90 @@ const addComma = (number) => {
   return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
 }
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "http://localhost:3000";
+
 const userId = 'aaa';
+const userName = ref('');
+const asset = ref('');
+const topSpendingCategory = ref('');
 const dateList = ref([]);
 
-const setDateList = async () => { // 사용자의 모든 거래 일자
+const deposit = ref(0);
+const withdraw = ref(0);
+
+// 사용자의 모든 거래 일자
+const setDateList = async () => {
   const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + userId);
   const dateSet = new Set();
 
   response.data.forEach(element => {
-    dateSet.add(element.date);
+    dateSet.add(element.date); // 거래 일자 리스트 생성
+
+    const elementYear = Number(element.date.split('-')[0]);
+    const elementMonth = Number(element.date.split('-')[1]); // 수입, 지출 금액 계산
+
+    if (elementYear == date.getFullYear() && elementMonth == month.value) {
+      if (element.type == "수입") {
+        deposit.value += Number(element.amount);
+      } else {
+        withdraw.value += Number(element.amount);
+      }
+    }
   });
 
   dateList.value = [...dateSet];
 
-  dateList.value = dateList.value.sort((a, b) => {
+  dateList.value = dateList.value.sort((a, b) => { // 거래일자 -> 내림차순
     return b.localeCompare(a);
   });
 }
 setDateList();
+
+// 사용자의 자산 총액
+const setAsset = async () => {
+  const response = await axios.get(BASE_URL + '/users' + '?userId=' + userId);
+
+  userName.value = response.data[0].name;
+  asset.value = response.data[0].asset;
+}
+setAsset();
+
+// 사용자의 최대 지출 카테고리
+const findTopSpendingCategory = async () => {
+  const BASE_URL = "http://localhost:3000";
+  const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + userId);
+
+  const categoryAmount = [
+    { category: '여행', amount: 0 },
+    { category: '쇼핑', amount: 0 },
+    { category: '문화', amount: 0 },
+    { category: '교통', amount: 0 },
+    { category: '숙박', amount: 0 },
+    { category: '식사', amount: 0 },
+    { category: '케이터링', amount: 0 }
+  ];
+
+  const date = new Date();
+  const currentYear = date.getFullYear();
+  const currentMonth = date.getMonth() + 1;
+
+  response.data.forEach(element => {
+    const elementYear = Number(element.date.split('-')[0]);
+    const elementMonth = Number(element.date.split('-')[1]);
+
+    if (elementYear == currentYear && elementMonth == currentMonth && element.type == "지출") { // 이번달 지출 카테고리 데이터
+      for (let i = 0; i < categoryAmount.length; i++) {
+        if (categoryAmount[i].category == element.category) {
+          categoryAmount[i].amount += element.amount;
+        }
+      }
+    }
+  });
+
+  categoryAmount.sort((a, b) => b.amount - a.amount);
+  console.log(categoryAmount[0].category);
+
+  topSpendingCategory.value = categoryAmount[0].category;
+}
+findTopSpendingCategory();
 </script>
