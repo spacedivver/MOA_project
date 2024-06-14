@@ -4,14 +4,14 @@
         <!--begin::Timeline heading-->
         <div class="overflow-auto pe-3">
             <!--begin::Title-->
-            <div class="fs-5 fw-semibold mb-2">
-                <div class="deposit" v-if="history.type == '수입'">+{{ addComma(history.amount) }}원</div>
-                <div v-else>-{{ addComma(history.amount) }}원</div>
+            <div class="gothic-a1-bold-content mb-2">
+                <div class="deposit" v-if="history.type == '수입'">+ {{ addComma(history.amount) }}원</div>
+                <div v-else>- {{ addComma(history.amount) }}원</div>
             </div>
             <!--end::Title-->
             <!--begin::Description-->
             <div class="d-flex align-items-center mt-1 fs-6">
-                <div class="text-muted me-2 fs-7">{{ history.memo }}</div>
+                <div class="text-muted me-2 gothic-a1-bold-content">&nbsp;&nbsp;{{ history.memo }}</div>
             </div>
             <!--end::Description-->
         </div>
@@ -28,7 +28,14 @@ const addComma = (number) => {
 }
 </script>
 <style scoped>
-.deposit{
+.deposit {
     color: #00A3FF;
+}
+
+.gothic-a1-bold-content {
+    font-family: "Gothic A1";
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.2rem;
 }
 </style>
