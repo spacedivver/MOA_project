@@ -13,7 +13,7 @@
                 <div class="card h-100" style="flex: 1;">
                   <div class="card-body p-9">
                     <div class="d-flex justify-content-between align-items-center">
-                      <div class="fs-2hx fw-bold">총 자산 : {{ formattedTotalAssets }}</div>
+                      <span class="fs-2hx fw-bold">총 자산  : {{ addComma(formattedTotalAssets) }} 원</span>
                       <button @click="goToHistory" class="btn btn-primary fs-7" style="width: 100px; height: 40px; display: flex; justify-content: center; align-items: center;">자세히 보기</button>
                     </div>
                     <br>
@@ -115,6 +115,10 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Chart from 'chart.js/auto';
 import { useRouter } from 'vue-router';
+
+const addComma = (number) => {
+  return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+}
 
 const router = useRouter();
 
