@@ -8,24 +8,35 @@
                 </div>
                 <div class="user-info" style="margin-left: 45px;">
                     <h1>{{ user.name }}</h1>
-                    <div style="color: gray;"> ID : {{ user.userId }}</div>
-
+                    <div style="color: gray;">아이디 : {{ user.userId }}</div>
                 </div>
                 
-                <button @click="goToLogin" class="btn btn-danger" style="margin-left: 700px;">Log Out</button>
+                <button @click="goToLogin" class="btn btn-danger" style="margin-left: 700px;">로그 아웃</button>
             </div>
             <br>
 
             <div class="m-3">
-                <h4 class="mb-3">E-mail</h4>
-                <div class="card">{{user.email}}</div>
+                <h4 class="mb-3">이름</h4>
+                <input v-model="user.name" class="form-control" />
             </div>
+            
+            <div class="m-3">
+                <h4 class="mb-3">이메일</h4>
+                <input v-model="user.email" class="form-control" />
+            </div>
+      
+            <div class="m-3">
+                <h4 class="mb-3">보유 자산</h4>
+                <input v-model="user.asset" type="number" class="form-control" />
+            </div>
+      
+            <button @click="updateUserData" class="btn btn-primary m-3">Update</button>
       
             <br>
 
             <div>
                 <h4>Mode</h4>
-            <hr style="border-style: solid; border-color: rgb(36, 119, 245); border-width: 1px; margin-bottom:20px">
+                <hr style="border-style: solid; border-color: rgb(36, 119, 245); border-width: 1px; margin-bottom: 20px">
             </div>
             
             <div class="col-12 form-check form-switch">
@@ -54,10 +65,11 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
+// user 변수를 객체로 초기화
 const user = ref({});
-const alert=ref(true);
-const dark=ref(false);
-const simple=ref(false);
+const alert = ref(true);
+const dark = ref(false);
+const simple = ref(false);
 const router = useRouter();
 
 const goToLogin = () => {
@@ -66,20 +78,31 @@ const goToLogin = () => {
 
 const fetchUserData = async () => {
   try {
-    const response = await axios.get('/db.json');
-    const userId = 'aaa'; 
+    const response = await axios.get('http://localhost:3000/users');
+    const userId = 'aaa';
     
-    const users = response.data.users;
+    // 서버 응답 구조에 따라 'value' 부분을 조정하세요.
+    const users = response.data; // 또는 response.data.value
 
     user.value = users.find(u => u.userId === userId);
-} catch (error) {
+  } catch (error) {
     console.error('Error fetching user data:', error);
-}
+  }
+};
+
+const updateUserData = async () => {
+  try {
+    const userId = user.value.id;
+    await axios.put(`http://localhost:3000/users/${userId}`, user.value);
+    window.alert('성공적으로 수정했습니다.');
+  } catch (error) {
+    console.error('Error updating user data:', error);
+    window.alert('Failed to update user data');
+  }
 };
 
 onMounted(fetchUserData);
 </script>
 
 <style>
-
 </style>
