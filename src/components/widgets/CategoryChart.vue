@@ -54,11 +54,13 @@ export default {
             const totalAmount = categoryAmount.reduce((acc, cur) => acc + cur.amount, 0);
 
             for (let i = 0; i < 5; i++) {
+                let lineData = parseInt(categoryAmount[i].amount / totalAmount * 100) * 2; // 카테고리 차트상 표기를 위해 데이터를 2배로 설정함
+                const fullData = 100;
                 data.push(
                     {
                         category: categoryAmount[i].category,
-                        value: parseInt(categoryAmount[i].amount / totalAmount * 100) * 2,
-                        full: 100,
+                        value: lineData > fullData ? fullData : lineData,
+                        full: fullData,
                         columnSettings: {
                             fillOpacity: 1,
                             fill: am5.color(colors[i]),

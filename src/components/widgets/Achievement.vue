@@ -62,7 +62,4 @@ onMounted(() => {
 </script>
 
 <style scoped>
-#achievement_chart {
-    width: 100%;
-}
 </style>

@@ -22,6 +22,7 @@
               <small class="text-muted fs-6 fw-normal ms-1"></small>
             </h1>
           </div>
+          <!-- 소비 내역 제목 -->
         </div>
 
         <!--begin::Post-->
@@ -48,21 +49,26 @@
                           </div>
                           <div class="fs-4 d-flex justify-content-between mt-4 mb-4">
                             <div class="fw-semibold">입금</div>
-                            <div class="d-flex fw-bold">
-                              <i class="ki-duotone ki-arrow-up-right fs-4 me-1 text-success">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                              </i> {{ addComma(deposit) }}원
+                            <div class="d-flex justify-content-center">
+                              <div class="fw-bold text-center">
+                                <i class="ki-duotone ki-plus fs-4 me-1 text-success">
+                                  <span class="path1"></span>
+                                  <span class="path2"></span>
+                                </i> {{ addComma(deposit) }}원
+                              </div>
                             </div>
+
                           </div>
                           <div class="separator separator-dashed"></div>
                           <div class="fs-4 d-flex justify-content-between my-4">
                             <div class="fw-semibold">출금</div>
-                            <div class="d-flex fw-bold">
-                              <i class="ki-duotone ki-arrow-down-left fs-4 me-1 text-danger">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                              </i>{{ addComma(withdraw) }}원
+                            <div class="d-flex justify-content-center">
+                              <div class="fw-bold text-center">
+                                <i class="ki-duotone ki-minus fs-4 me-1 text-danger">
+                                  <span class="path1"></span>
+                                  <span class="path2"></span>
+                                </i> {{ addComma(withdraw) }}원
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -93,6 +99,13 @@
               </div>
             </div>
 
+            <!-- 소비 내역 제목 -->
+            <div class="flex-stack flex-wrap flex-sm-nowrap py-4 justify-content-center">
+              <h1 class="text-gray-900 fw-bold my-1 fs-2">{{ userName }}님의 지출 분석
+                <small class="text-muted fs-6 fw-normal ms-1"></small>
+              </h1>
+            </div>
+            <!-- 소비 내역 제목 -->
             <!--begin::Row-->
             <div class="row g-xl-8">
               <!--begin::Col-->
@@ -105,7 +118,7 @@
                       <div class="card h-100">
                         <div class="card-body p-9">
                           <div class="fs-2 fw-bold">{{ month }}월에는 {{ setDifferenceFromLastMonth() }}</div>
-                          <div class="fs-6 fw-semibold text-gray-500">한 달에 평균 {{ formatAverageMonthlyAmount() }} 정도 써요
+                          <div class="fs-6 fw-semibold text-gray-500">한 달에 평균 {{ setAverageMonthly() }} 정도 써요
                           </div>
                         </div>
                         <!-- 월별 지출 내역 평균 그래프 그리기 시작 -->
@@ -149,6 +162,13 @@
             </div>
             <!--end::Row-->
 
+            <!-- 소비 내역 제목 -->
+            <div class="flex-stack flex-wrap flex-sm-nowrap py-4 justify-content-center">
+              <h1 class="text-gray-900 fw-bold my-1 fs-2">최근 거래 내역
+                <small class="text-muted fs-6 fw-normal ms-1"></small>
+              </h1>
+            </div>
+            <!-- 소비 내역 제목 -->
             <!-- 거래 내역 카드 시작 -->
             <div class="row g-xl-8">
               <div class="col-xxl-12">
@@ -224,6 +244,8 @@ const setDateList = async () => {
   dateList.value = dateList.value.sort((a, b) => { // 거래일자 -> 내림차순
     return b.localeCompare(a);
   });
+
+  dateList.value = dateList.value.slice(0, 3);
 }
 setDateList();
 
@@ -324,15 +346,20 @@ const setDifferenceFromLastMonth = () => {
   let difference = monthlyAmount.value[lastIndex] - monthlyAmount.value[lastIndex - 1];
 
   if (difference > 0) {
-    return `${addComma(difference)}원 더 썼어요`
+    return `${formatSimpleAmount(difference)} 더 썼어요`
   } else if (difference < 0) {
-    return `${addComma(difference)}원 덜 썼어요`
+    return `${formatSimpleAmount(difference)} 덜 썼어요`
   }
   return "지난달과 소비 금액이 같아요"
 }
 
-const formatAverageMonthlyAmount = () => {
-  let result = parseInt(Number(totalAmount.value / monthlyAmount.value.length));
+const setAverageMonthly = () => {
+  let amount = Number(totalAmount.value / monthlyAmount.value.length);
+  return formatSimpleAmount(amount);
+}
+
+const formatSimpleAmount = (amount) => {
+  let result = parseInt(Number(amount));
   console.log('result');
   console.log(result);
 
