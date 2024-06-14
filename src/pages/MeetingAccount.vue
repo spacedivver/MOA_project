@@ -246,9 +246,18 @@ export default {
 			]
 		})
 
+	
+
 		const addEvent = () => {
-			alert('Add Event button clicked!')
-		}
+      const eventName = window.prompt('일정 이름을 입력하세요.');
+      if (eventName) {
+        const newEvent = {
+          title: eventName,
+          start: new Date().toISOString().slice(0, 10) // 오늘 날짜를 ISO 형식으로 저장
+        };
+        calendarOptions.value.events = [...calendarOptions.value.events, newEvent];
+      }
+    };
 
 		const meetingAccounts = ref([]);
 		const sortedMeetingAccounts = ref([]);
