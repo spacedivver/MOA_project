@@ -742,148 +742,28 @@
       "area": "경기도"
     }
   ],
-  "meetingAccounts": [
-    {
-      "id": "1",
-      "groupId": 1,
-      "userId": "aaa",
-      "amount": 100000,
-      "payment": "송금"
-    },
-    {
-      "id": "2",
-      "groupId": 1,
-      "userId": "bbb",
-      "amount": 150000,
-      "payment": "현금"
-    },
-    {
-      "id": "3",
-      "groupId": 2,
-      "userId": "ccc",
-      "amount": 200000,
-      "payment": "송금"
-    },
-    {
-      "id": "4",
-      "groupId": 2,
-      "userId": "ddd",
-      "amount": 50000,
-      "payment": "현금"
-    },
-    {
-      "id": "5",
-      "groupId": 3,
-      "userId": "aaa",
-      "amount": 100000,
-      "payment": "현금"
-    },
-    {
-      "id": "6",
-      "groupId": 3,
-      "userId": "bbb",
-      "amount": 150000,
-      "payment": "송금"
-    },
-    {
-      "id": "7",
-      "groupId": 1,
-      "userId": "ccc",
-      "amount": 30000,
-      "payment": "현금"
-    },
-    {
-      "id": "8",
-      "groupId": 1,
-      "userId": "ddd",
-      "amount": 40000,
-      "payment": "송금"
-    },
-    {
-      "id": "9",
-      "groupId": 2,
-      "userId": "eee",
-      "amount": 60000,
-      "payment": "현금"
-    },
-    {
-      "id": "10",
-      "groupId": 3,
-      "userId": "aaa",
-      "amount": 70000,
-      "payment": "송금"
-    },
-    {
-      "id": "11",
-      "groupId": 3,
-      "userId": "bbb",
-      "amount": 80000,
-      "payment": "현금"
-    },
-    {
-      "id": "12",
-      "groupId": 1,
-      "userId": "ccc",
-      "amount": 90000,
-      "payment": "송금"
-    },
-    {
-      "id": "13",
-      "groupId": 1,
-      "userId": "ddd",
-      "amount": 100000,
-      "payment": "현금"
-    },
-    {
-      "id": "14",
-      "groupId": 2,
-      "userId": "eee",
-      "amount": 110000,
-      "payment": "송금"
-    },
-    {
-      "id": "15",
-      "groupId": 3,
-      "userId": "aaa",
-      "amount": 120000,
-      "payment": "현금"
-    },
-    {
-      "id": "16",
-      "groupId": 3,
-      "userId": "bbb",
-      "amount": 130000,
-      "payment": "송금"
-    },
-    {
-      "id": "17",
-      "groupId": 1,
-      "userId": "ccc",
-      "amount": 140000,
-      "payment": "현금"
-    },
-    {
-      "id": "18",
-      "groupId": 1,
-      "userId": "ddd",
-      "amount": 150000,
-      "payment": "송금"
-    },
-    {
-      "id": "19",
-      "groupId": 2,
-      "userId": "eee",
-      "amount": 160000,
-      "payment": "현금"
-    },
-    {
-      "id": "20",
-      "groupId": 3,
-      "userId": "aaa",
-      "amount": 170000,
-      "payment": "송금"
-    }
-  ],
+  "partyAccounts":[
+      {"id":1,"category":"고깃집","price":"55,000", "day":"2024-01-10"},
+      {"id":2,"category":"노래방","price":"13,000", "day":"2024-01-10"},
+      {"id":3,"category":"당구","price":"20,000", "day":"2024-01-10"},
+      {"id":4,"category":"박물관 관람비","price":"16,000", "day":"2024-01-23"},
+      {"id":5, "category":"냉면","price":"40,000","day":"2024-01-23"},
+      {"id":6,"category":"공연 관람비","price":"80,000","day":"2024-02-11"},
+      {"id":7,"category":"고깃집","price":"75,000","day":"2024-02-11"},
+      {"id":8,"category":"맥주집","price":"60,000","day":"2024-02-11"},
+      {"id":9,"category":"앞집 막걸리","price":"43,000","day":"2024-03-09"},
+      {"id":10,"category":"나이스 펍","price":"51,000","day":"2024-03-17"},
+      {"id":11,"category":"클라이밍","price":"40,000","day":"2024-03-17"},
+      {"id":12,"category":"당구","price":"24,000","day":"2024-04-06"},
+      {"id":13,"category":"맥주집","price":"31,000","day":"2024-04-06"},
+      {"id":14,"category":"노래방","price":"5,000","day":"2024-04-06"},
+      {"id":15,"category":"볼링","price":"28,000","day":"2024-05-13"},
+      {"id":16,"category":"칵테일 바","price":"64,000","day":"2024-05-13"},
+      {"id":17,"category":"차량 렌트","price":"130,000","day":"2024-06-03"},
+      {"id":18,"category":"한식집","price":"60,000","day":"2024-06-03"},
+      {"id":19,"category":"스파게티 전문점","price":"43,000","day":"2024-06-13"},
+      {"id":20,"category":"앞집 막걸리","price":"52,000","day":"2024-06-13"}
+    ],
     "totalBalance":[
       {"id":1,"balance":100000}
     ],

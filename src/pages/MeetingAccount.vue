@@ -51,12 +51,12 @@
 					<div class="shadow-xs card-rounded mx-9 mb-9 px-6 py-9 position-relative z-index-1 bg-body"
 						style="margin-top: -100px">
 						<!--begin::Item-->
-						<div v-for="meetingAccount in sortedMeetingAccounts.slice(0,4)" :key="meetingAccount.id" class="d-flex align-items-center mb-4">
+						<div v-for="partyAccount in sortedPartyAccounts.slice(0,4)" :key="partyAccount.id" class="d-flex align-items-center mb-4">
 							<div class="fw-bold d-flex flex-column flex-grow-1">
-								<span class="text-gray-800">{{ meetingAccount.day }} {{ meetingAccount.category }}</span>
+								<span class="text-gray-800">{{ partyAccount.day }} {{ partyAccount.category }}</span>
 							</div>
 							<div class="text-gray-800 fw-bold">
-								{{ meetingAccount.price }}원
+								{{ partyAccount.price }}원
 							</div>
 						</div>
 						<!--end::Item-->
@@ -231,7 +231,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import axios from 'axios';
 
 export default {
-	name: 'MeetingAccount',
+	name: 'PartyAccount',
 	components: {
 		FullCalendar
 	},
@@ -259,20 +259,20 @@ export default {
       }
     };
 
-		const meetingAccounts = ref([]);
-		const sortedMeetingAccounts = ref([]);
+		const partyAccounts = ref([]);
+		const sortedPartyAccounts = ref([]);
 
-		const fetchMeetingAccountData = async () => {
+		const fetchPartyAccountData = async () => {
 			try {
 				const response = await axios.get('/db.json');
-				if (response.data && response.data.meetingAccounts) {
-					meetingAccounts.value = response.data.meetingAccounts.map(meetingAccount => ({
-						id: meetingAccount.id,
-						category: meetingAccount.category,
-						price: meetingAccount.price,
-						day: meetingAccount.day,
+				if (response.data && response.data.partyAccounts) {
+					partyAccounts.value = response.data.partyAccounts.map(partyAccount => ({
+						id: partyAccount.id,
+						category: partyAccount.category,
+						price: partyAccount.price,
+						day: partyAccount.day,
 					}));
-					sortedMeetingAccounts.value = meetingAccounts.value.sort((a, b) => new Date(b.day) - new Date(a.day));
+					sortedPartyAccounts.value = partyAccounts.value.sort((a, b) => new Date(b.day) - new Date(a.day));
 				} else {
 					console.error('API 응답에서 필요한 구조가 존재하지 않습니다.');
 				}
@@ -282,14 +282,14 @@ export default {
 		};
 
 		onMounted(() => {
-			fetchMeetingAccountData();
+			fetchPartyAccountData();
 		});
 
 		return {
 			calendarOptions,
 			addEvent,
-			meetingAccounts,
-			sortedMeetingAccounts
+			partyAccounts,
+			sortedPartyAccounts
 		}
 	}
 }
