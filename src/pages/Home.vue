@@ -104,8 +104,9 @@
                     <div class="card card-xl-stretch mb-5 mb-xl-8">
                       <div class="card h-100">
                         <div class="card-body p-9">
-                          <div class="fs-2 fw-bold">{{ month }}월에는 9만원 덜 썼어요</div>
-                          <div class="fs-6 fw-semibold text-gray-500">한 달에 평균 34만원 정도 써요</div>
+                          <div class="fs-2 fw-bold">{{ month }}월에는 {{ setDifferenceFromLastMonth() }}</div>
+                          <div class="fs-6 fw-semibold text-gray-500">한 달에 평균 {{ formatAverageMonthlyAmount() }} 정도 써요
+                          </div>
                         </div>
                         <!-- 월별 지출 내역 평균 그래프 그리기 시작 -->
                         <div class="pt-1">
@@ -276,41 +277,73 @@ findTopSpendingCategory();
 // 평균 금액을 출력할 최근 6개월의 날짜 데이터
 const monthlyDateList = ref([]);
 const setMonthlyDateList = () => {
-    const date = new Date();
-    let currentMonth = date.getMonth() + 1;
+  const date = new Date();
+  let currentMonth = date.getMonth() + 1;
 
-    monthlyDateList.value.push({ year: date.getFullYear(), month: currentMonth });
+  monthlyDateList.value.push({ year: date.getFullYear(), month: currentMonth });
 
-    for (let i = 0; i < 5; i++) {
-        currentMonth -= 1;
-        if (currentMonth == 0) {
-            currentMonth = 12;
-            monthlyDateList.value.unshift({ year: date.getFullYear() - 1, month: currentMonth });
-        } else {
-            monthlyDateList.value.unshift({ year: date.getFullYear(), month: currentMonth });
-        }
+  for (let i = 0; i < 5; i++) {
+    currentMonth -= 1;
+    if (currentMonth == 0) {
+      currentMonth = 12;
+      monthlyDateList.value.unshift({ year: date.getFullYear() - 1, month: currentMonth });
+    } else {
+      monthlyDateList.value.unshift({ year: date.getFullYear(), month: currentMonth });
     }
+  }
 };
 setMonthlyDateList();
 
 // 한달 평균 사용 금액
 const monthlyAmount = ref([0, 0, 0, 0, 0, 0]);
+const totalAmount = ref(0);
+
+// 한달 평균 사용 금액 계산
 const setAverageMonthlyAmount = async () => {
-  const response = await axios.get(BASE_URL + '/users' + '?userId=' + userId);
-  let totalAmount = 0;
+  const response = await axios.get(BASE_URL + '/personalHistory' + '?userId=' + userId);
 
   response.data.forEach(element => {
     const elementYear = Number(element.date.split('-')[0]);
     const elementMonth = Number(element.date.split('-')[1]);
 
     for (let i = 0; i < monthlyDateList.value.length; i++) {
-      if (elementYear == monthlyDateList.value[i].year && elementMonth == monthlyDateList.value[i].month) {
-        monthlyAmount[i] += element.amount;
-        totalAmount += element.amount;
+      if (elementYear == monthlyDateList.value[i].year
+        && elementMonth == monthlyDateList.value[i].month
+        && element.type == "지출") {
+        monthlyAmount.value[i] += element.amount;
+        totalAmount.value += element.amount;
       }
     }
   });
 }
 setAverageMonthlyAmount();
-console.log(monthlyAmount);
+
+// 지난달 대비 소비 차액 계산
+const setDifferenceFromLastMonth = () => {
+  let lastIndex = monthlyAmount.value.length - 1;
+  let difference = monthlyAmount.value[lastIndex] - monthlyAmount.value[lastIndex - 1];
+
+  if (difference > 0) {
+    return `${addComma(difference)}원 더 썼어요`
+  } else if (difference < 0) {
+    return `${addComma(difference)}원 덜 썼어요`
+  }
+  return "지난달과 소비 금액이 같아요"
+}
+
+const formatAverageMonthlyAmount = () => {
+  let result = parseInt(Number(totalAmount.value / monthlyAmount.value.length));
+  console.log('result');
+  console.log(result);
+
+  if (result < 1_000) {
+    return result + '원';
+  } else if (result < 10_000) {
+    return Math.floor(result / 1000) + '천원';
+  } else if (result < 10_000_000) {
+    return Math.floor(result / 10000) + '만원';
+  } else {
+    return Math.floor(result / 100000000) + '억원';
+  }
+}
 </script>
