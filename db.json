@@ -415,30 +415,17 @@
       "area": "경기도"
     }
   ],
-  "meetingAccount": [
-    {
-      "id": "1",
-      "category": "고깃집",
-      "price": "55000",
-      "Date": "24/05/20"
-    },
-    {
-      "id": "2",
-      "category": "노래방",
-      "price": "13000",
-      "Date": "24/05/27"
-    },
-    {
-      "id": "3",
-      "category": "당구",
-      "price": "20000",
-      "Date": "24/06/02"
-    },
-    {
-      "id": "4",
-      "category": "박물관 관람비",
-      "price": "16000",
-      "Date": "24/06/10"
-    }
-  ]
+  "meetingAccounts":[
+      {"id":1, "category":"고깃집","price":"55000", "day":"2024-04-20"},
+      {"id":2,"category":"노래방","price":"13000", "day":"2024-05-01"},
+      {"id":3,"category":"당구","price":"20000", "day":"2024-05-15"},
+      {"id":4,"category":"박물관 관람비","price":"16000", "day":"2024-05-23"},
+      {"id":5, "category":"냉면","price":"40000","day":"2024-06-02"},
+      {"id":6,"category":"공연 관람비","price":"80000","day":"2024-06-11"},
+      {"id":7,"category":"고깃집","price":"75000","day":"2024-06-17"},
+      {"id":8,"category":"맥주집","price":"60000","day":"2024-06-23"}
+    ],
+    "totalBalance":[
+      {"id":1,"balance":100000}
+    ]
 }
