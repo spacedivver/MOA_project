@@ -51,7 +51,7 @@
 					<div class="shadow-xs card-rounded mx-9 mb-9 px-6 py-9 position-relative z-index-1 bg-body"
 						style="margin-top: -100px">
 						<!--begin::Item-->
-						<div v-for="meetingAccount in meetingAccounts.slice(0,4)" :key="meetingAccount.id"	class="d-flex align-items-center mb-4">
+						<div v-for="meetingAccount in sortedMeetingAccounts.slice(0,4)" :key="meetingAccount.id" class="d-flex align-items-center mb-4">
 							<div class="fw-bold d-flex flex-column flex-grow-1">
 								<span class="text-gray-800">{{ meetingAccount.day }} {{ meetingAccount.category }}</span>
 							</div>
@@ -90,70 +90,6 @@
 								<!--begin::Menu 2-->
 								<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px"
 									data-kt-menu="true">
-									<!--begin::Menu item-->
-									<div class="menu-item px-3">
-										<div class="menu-content fs-6 text-gray-900 fw-bold px-3 py-4">Quick Actions
-										</div>
-									</div>
-									<!--end::Menu item-->
-									<!--begin::Menu separator-->
-									<div class="separator mb-3 opacity-75"></div>
-									<!--end::Menu separator-->
-									<!--begin::Menu item-->
-									<div class="menu-item px-3">
-										<a href="#" class="menu-link px-3">New Ticket</a>
-									</div>
-									<!--end::Menu item-->
-									<!--begin::Menu item-->
-									<div class="menu-item px-3">
-										<a href="#" class="menu-link px-3">New Customer</a>
-									</div>
-									<!--end::Menu item-->
-									<!--begin::Menu item-->
-									<div class="menu-item px-3" data-kt-menu-trigger="hover"
-										data-kt-menu-placement="right-start">
-										<!--begin::Menu item-->
-										<a href="#" class="menu-link px-3">
-											<span class="menu-title">New Group</span>
-											<span class="menu-arrow"></span>
-										</a>
-										<!--end::Menu item-->
-										<!--begin::Menu sub-->
-										<div class="menu-sub menu-sub-dropdown w-175px py-4">
-											<!--begin::Menu item-->
-											<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3">Admin Group</a>
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-											<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3">Staff Group</a>
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-											<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3">Member Group</a>
-											</div>
-											<!--end::Menu item-->
-										</div>
-										<!--end::Menu sub-->
-									</div>
-									<!--end::Menu item-->
-									<!--begin::Menu item-->
-									<div class="menu-item px-3">
-										<a href="#" class="menu-link px-3">New Contact</a>
-									</div>
-									<!--end::Menu item-->
-									<!--begin::Menu separator-->
-									<div class="separator mt-3 opacity-75"></div>
-									<!--end::Menu separator-->
-									<!--begin::Menu item-->
-									<div class="menu-item px-3">
-										<div class="menu-content px-3 py-3">
-											<a class="btn btn-primary btn-sm px-4" href="#">Generate Reports</a>
-										</div>
-									</div>
-									<!--end::Menu item-->
 								</div>
 								<!--end::Menu 2-->
 								<!--end::Menu-->
@@ -193,7 +129,7 @@
 							<!--end::Item-->
 							<!--begin::Item-->
 							<div class="d-flex mb-6">
-								<!--begin::Symbol-->
+									<!--begin::Symbol-->
 								<div class="symbol symbol-60px symbol-2by3 flex-shrink-0 me-4">
 								</div>
 								<!--end::Symbol-->
@@ -288,8 +224,6 @@
 	</div>
 </template>
 
-
-
 <script>
 import { ref, onMounted } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
@@ -317,6 +251,7 @@ export default {
 		}
 
 		const meetingAccounts = ref([]);
+		const sortedMeetingAccounts = ref([]);
 
 		const fetchMeetingAccountData = async () => {
 			try {
@@ -326,8 +261,9 @@ export default {
 						id: meetingAccount.id,
 						category: meetingAccount.category,
 						price: meetingAccount.price,
-						day:meetingAccount.day,
+						day: meetingAccount.day,
 					}));
+					sortedMeetingAccounts.value = meetingAccounts.value.sort((a, b) => new Date(b.day) - new Date(a.day));
 				} else {
 					console.error('API 응답에서 필요한 구조가 존재하지 않습니다.');
 				}
@@ -343,12 +279,12 @@ export default {
 		return {
 			calendarOptions,
 			addEvent,
-			meetingAccounts
+			meetingAccounts,
+			sortedMeetingAccounts
 		}
 	}
 }
 </script>
-
 
 <style scoped>
 .card {
