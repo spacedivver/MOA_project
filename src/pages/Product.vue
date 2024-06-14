@@ -136,7 +136,7 @@
                 </td>
                 <td>
                   <div class="d-flex flex-column w-100 me-2">
-                    <span class="text-gray-500 me-2 fw-bolder mb-2">4%</span>
+                    <span class="text-gray-500 me-2 fw-bolder mb-2">40%</span>
                     <div class="progress bg-light-success w-100 h-5px">
                       <div class="progress-bar bg-success" role="progressbar" style="width: 47%;"></div>
                     </div>
