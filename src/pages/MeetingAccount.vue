@@ -37,12 +37,12 @@
 						style="background-color: skyblue;">
 						<!--begin::Heading-->
 						<div class="d-flex flex-stack">
-							<h3 class="m-0 text-black fw-bold fs-3">남은 잔액</h3>
+							<h3 class="m-0 text-black fw-bold fs-2">남은 잔액</h3>
 						</div>
 						<!--end::Heading-->
 						<!--begin::Balance-->
 						<div class="fw-bold fs-7 text-center text-black pt-5">
-							<span class="fw-bolder fs-2hx d-block mt-n1">₩ 37,562</span>
+							<span class="fw-bolder fs-2hx d-block mt-n1">43,000원</span>
 						</div>
 						<!--end::Balance-->
 					</div>
@@ -120,7 +120,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">24,900</span>
+										<span class="text-gray-800 fw-bolder fs-3">100,000원</span>
 									</div>
 									<!--end::Info-->
 								</div>
@@ -149,7 +149,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">15,900</span>
+										<span class="text-gray-800 fw-bolder fs-3">100,000원</span>
 									</div>
 									<!--end::Info-->
 								</div>
@@ -178,7 +178,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">10,000</span>
+										<span class="text-gray-800 fw-bolder fs-3">100,000원</span>
 									</div>
 									<!--end::Info-->
 								</div>
@@ -207,7 +207,7 @@
 									<!--end::Title-->
 									<!--begin::Info-->
 									<div class="text-end py-lg-0 py-2">
-										<span class="text-gray-800 fw-bolder fs-3">7,500</span>
+										<span class="text-gray-800 fw-bolder fs-3">100,000원</span>
 									</div>
 									<!--end::Info-->
 								</div>
@@ -240,15 +240,24 @@ export default {
 			plugins: [dayGridPlugin],
 			initialView: 'dayGridMonth',
 			events: [
-				{ title: 'All Day Event', start: '2024-06-01' },
-				{ title: 'Long Event', start: '2024-06-07', end: '2024-06-10' },
-				{ title: 'Meeting', start: '2024-06-12T10:30:00', end: '2024-06-12T12:30:00' }
+				{ title: '야구 경기 관람', start: '2024-06-01' },
+				{ title: '춘천 여행', start: '2024-06-07', end: '2024-06-10' },
+				{ title: '점심 맛집 방문', start: '2024-06-12', end: '2024-06-12' }
 			]
 		})
 
+	
+
 		const addEvent = () => {
-			alert('Add Event button clicked!')
-		}
+      const eventName = window.prompt('일정 이름을 입력하세요.');
+      if (eventName) {
+        const newEvent = {
+          title: eventName,
+          start: new Date().toISOString().slice(0, 10) // 오늘 날짜를 ISO 형식으로 저장
+        };
+        calendarOptions.value.events = [...calendarOptions.value.events, newEvent];
+      }
+    };
 
 		const meetingAccounts = ref([]);
 		const sortedMeetingAccounts = ref([]);
