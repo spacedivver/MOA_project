@@ -266,6 +266,8 @@ setDateList();
 // 사용자의 자산 총액
 const setAsset = async () => {
   const response = await axios.get(BASE_URL + '/users' + '?userId=' + userId);
+  console.log('asset');
+  console.log(response.data);
 
   userName.value = response.data[0].name;
   asset.value = response.data[0].asset;
