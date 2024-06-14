@@ -445,7 +445,7 @@
       "id": "24",
       "userId": "aaa",
       "date": "2024-06-10",
-      "amount": 350000,
+      "amount": 35000,
       "type": "지출",
       "category": "쇼핑",
       "memo": "롯데백화점 노원점",
@@ -453,7 +453,7 @@
       "fix": true
     },
     {
-      "id": "24",
+      "id": "25",
       "userId": "aaa",
       "date": "2024-06-10",
       "amount": 54000,
@@ -464,7 +464,7 @@
       "fix": true
     },
     {
-      "id": "25",
+      "id": "26",
       "userId": "aaa",
       "date": "2024-06-20",
       "amount": 45000,
@@ -475,29 +475,29 @@
       "fix": true
     },
     {
-      "id": "26",
-      "userId": "aaa",
-      "date": "2024-03-02",
-      "amount": 50000,
-      "type": "지출",
-      "category": "문화",
-      "memo": "제주 바다 전시회 관람",
-      "payment": "카드",
-      "fix": true
-    },
-    {
-      "id": "26",
-      "userId": "aaa",
-      "date": "2024-03-02",
-      "amount": 50000,
-      "type": "지출",
-      "category": "문화",
-      "memo": "제주 바다 전시회 관람",
-      "payment": "카드",
-      "fix": true
-    },
-    {
       "id": "27",
+      "userId": "aaa",
+      "date": "2024-03-02",
+      "amount": 50000,
+      "type": "지출",
+      "category": "문화",
+      "memo": "제주 바다 전시회 관람",
+      "payment": "카드",
+      "fix": true
+    },
+    {
+      "id": "28",
+      "userId": "aaa",
+      "date": "2024-03-02",
+      "amount": 350000,
+      "type": "지출",
+      "category": "문화",
+      "memo": "제주 바다 전시회 관람",
+      "payment": "카드",
+      "fix": true
+    },
+    {
+      "id": "29",
       "userId": "aaa",
       "date": "2024-03-02",
       "amount": 150000,
@@ -508,7 +508,7 @@
       "fix": true
     },
     {
-      "id": "28",
+      "id": "30",
       "userId": "aaa",
       "date": "2024-06-25",
       "amount": 700000,
@@ -516,6 +516,17 @@
       "category": "문화",
       "memo": "프리랜서 프로젝트",
       "payment": "현금",
+      "fix": true
+    },
+    {
+      "id": "29",
+      "userId": "aaa",
+      "date": "2024-06-14",
+      "amount": 150000,
+      "type": "지출",
+      "category": "문화",
+      "memo": "영화 관람",
+      "payment": "카드",
       "fix": true
     }
   ],
