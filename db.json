@@ -160,6 +160,7 @@
     },
     {
       "id": "714b",
+      "userId": "aaa",
       "date": "2024-06-13",
       "amount": 5000,
       "category": "교통",
@@ -170,6 +171,7 @@
     },
     {
       "id": "2d0b",
+      "userId": "aaa",
       "date": "2024-06-14",
       "amount": 100000,
       "category": "저축",
@@ -180,6 +182,7 @@
     },
     {
       "id": "4a87",
+      "userId": "bbb",
       "date": "2024-06-14",
       "amount": 20000,
       "category": "세금/공과금",
@@ -187,6 +190,17 @@
       "payment": "현금",
       "fix": false,
       "memo": "6월 전기세"
+    },
+    {
+      "id": "1b14",
+      "userId": "bbb",
+      "date": "2024-06-15",
+      "amount": 100,
+      "category": "기타",
+      "type": "수입",
+      "payment": "현금",
+      "fix": false,
+      "memo": "길가다 줍줍"
     }
   ],
   "cardRecommendations": [
@@ -401,10 +415,30 @@
       "area": "경기도"
     }
   ],
-  "meetingAccount":[
-      {"id":1, "category":"고깃집","price":"55000", "Date":"24/05/20"},
-      {"id":2,"category":"노래방","price":"13000", "Date":"24/05/27"},
-      {"id":3,"category":"당구","price":"20000", "Date":"24/06/02"},
-      {"id":4,"category":"박물관 관람비","price":"16000", "Date":"24/06/10"}
-    ]
+  "meetingAccount": [
+    {
+      "id": "1",
+      "category": "고깃집",
+      "price": "55000",
+      "Date": "24/05/20"
+    },
+    {
+      "id": "2",
+      "category": "노래방",
+      "price": "13000",
+      "Date": "24/05/27"
+    },
+    {
+      "id": "3",
+      "category": "당구",
+      "price": "20000",
+      "Date": "24/06/02"
+    },
+    {
+      "id": "4",
+      "category": "박물관 관람비",
+      "price": "16000",
+      "Date": "24/06/10"
+    }
+  ]
 }

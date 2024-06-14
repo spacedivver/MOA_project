@@ -6,8 +6,17 @@
           <form class="needs-validation" novalidate @submit.prevent="submitForm">
             <div class="row g-3">
               <div class="col-12">
+                <label for="id" class="form-label">ID</label>
+                <input v-model="id" type="text" class="form-control" id="id" placeholder="ex) aaa">
+                <div class="invalid-feedback">
+                  아이디를 입력해주세요
+                </div>
+              </div>
+              <br>
+
+              <div class="col-12">
                 <label for="date" class="form-label">Date <span class="text-body-secondary">(YYYY-MM-DD)</span></label>
-                <input v-model="date" type="text" class="form-control" id="date" placeholder="2024-06-13">
+                <input v-model="date" type="text" class="form-control" id="date" placeholder="ex) 2024-06-13">
                 <div class="invalid-feedback">
                   날짜를 입력해주세요
                 </div>
@@ -16,7 +25,7 @@
   
               <div class="col-12">
                 <label for="amount" class="form-label">Amount</label>
-                <input v-model="amount" type="text" class="form-control" id="amount" placeholder="10000">
+                <input v-model="amount" type="text" class="form-control" id="amount" placeholder="ex) 10000">
                 <div class="invalid-feedback">
                   금액을 입력해주세요
                 </div>
@@ -46,7 +55,7 @@
                 <div class="form-check">
                   <input v-model="type" id="income" name="type" type="radio" class="form-check-input" value="수입" required>
                   <label class="form-check-label" for="income">수입</label>
-                </div>
+                </div><br>
                 <div class="form-check">
                   <input v-model="type" id="out" name="type" type="radio" class="form-check-input" value="지출" required>
                   <label class="form-check-label" for="out">지출</label>
@@ -59,7 +68,7 @@
                 <div class="form-check">
                   <input v-model="payment" id="credit" name="payment" type="radio" class="form-check-input" value="카드" required>
                   <label class="form-check-label" for="credit">Credit card</label>
-                </div>
+                </div><br>
                 <div class="form-check">
                   <input v-model="payment" id="account" name="payment" type="radio" class="form-check-input" value="현금" required>
                   <label class="form-check-label" for="account">Account</label>
@@ -69,7 +78,7 @@
               <h4 class="mb-3">Fix</h4>
   
               <div class="col-12 form-check form-switch">
-                <input v-model="fix" class="form-check-input" type="checkbox" id="fix" name="darkmode" value="yes">
+                <input v-model="fix" class="form-check-input" type="checkbox" id="fix" name="fix" value="yes">
                 <label class="form-check-label" for="fix">매 월 고정</label>
               </div>
   
@@ -93,6 +102,7 @@
   import { ref } from 'vue';
   import axios from 'axios';
   
+  const id=ref('');
   const date = ref('');
   const amount = ref('');
   const category = ref('');
@@ -103,6 +113,7 @@
   
   const submitForm = () => {
     let personalHistory = {
+      userId: id.value,
       date: date.value,
       amount: Number(amount.value),
       category: category.value,
