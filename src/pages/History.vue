@@ -33,7 +33,13 @@
                     </div>
                     <div class="card-body p-9">
                         <div class="row mb-7">
-                            <label class="col-lg-4 fw-semibold text-muted">{{ currentMonth }}월의 소비 금액은 ㅇㅇㅇ 입니다.</label>
+                            <label class="col-lg-4 fw-semibold text-muted">선택한 기간 동안의 수입 금액은 {{money.income}}원 입니다.</label>
+                            <div class="col-lg-8">
+                                <!-- <span class="fw-bold fs-6 text-gray-800">{{ item. }}</span> -->
+                            </div>
+                        </div>
+                        <div class="row mb-7">
+                            <label class="col-lg-4 fw-semibold text-muted">선택한 기간 동안의 지출 금액은 {{money.expense}}원 입니다.</label>
                             <div class="col-lg-8">
                                 <!-- <span class="fw-bold fs-6 text-gray-800">{{ item. }}</span> -->
                             </div>
@@ -176,7 +182,7 @@
 
 <script>
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -207,6 +213,30 @@ export default {
     const selectedType = ref(null);
     const selectedCategory = ref(null);
 
+    const money = computed(() => {
+      let totalIncome = 0;
+      let totalExpense = 0;
+
+      filteredData.value.forEach(transaction => {
+        if (transaction.type === '수입') {
+          totalIncome += transaction.amount;
+        } else if (transaction.type === '지출') {
+          totalExpense += transaction.amount;
+        }
+      });
+      const addComma = (number) => {
+        return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      };
+
+      const formattedIncome = addComma(totalIncome);
+      const formattedExpense = addComma(totalExpense);
+
+      return {
+        income: formattedIncome,
+        expense: formattedExpense
+      };
+    });
+
     // Fetch personal history data and calculate events
     const fetchAndCalculateEvents = async () => {
       try {
@@ -216,6 +246,9 @@ export default {
         calendarOptions.value.events = events;
         // Update filtered data initially
         filteredData.value = data.value;
+
+        // Calculate current year and month transactions
+        getCurrentYearAndMonthTransactions();
       } catch (error) {
         console.error('Error fetching personal history:', error);
       }
@@ -234,6 +267,13 @@ export default {
       const startOfMonth = info.view.currentStart;
       const endOfMonth = info.view.currentEnd;
       filteredData.value = filterDataByMonth(startOfMonth, endOfMonth);
+
+      // Update current month
+      const date = new Date(startOfMonth);
+      currentMonth.value = date.getMonth() + 1;
+
+      // Calculate transactions for the selected month
+      getCurrentMonthTransactions(startOfMonth, endOfMonth);
     };
 
     const filterDataByMonth = (startOfMonth, endOfMonth) => {
@@ -256,6 +296,37 @@ export default {
     const getCurrentMonth = () => {
       const date = new Date();
       currentMonth.value = date.getMonth() + 1;
+    };
+
+    const getCurrentMonthTransactions = (startOfMonth, endOfMonth) => {
+      const transactions = filterDataByMonth(startOfMonth, endOfMonth);
+      calculateMonthTotals(transactions);
+    };
+
+    const getCurrentYearAndMonthTransactions = () => {
+      const date = new Date();
+      const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      getCurrentMonthTransactions(startOfMonth, endOfMonth);
+    };
+
+    const calculateMonthTotals = (transactions) => {
+      let totalIncome = 0;
+      let totalExpense = 0;
+
+      transactions.forEach(transaction => {
+        if (transaction.type === '수입') {
+          totalIncome += transaction.amount;
+        } else if (transaction.type === '지출') {
+          totalExpense += transaction.amount;
+        }
+      });
+
+      console.log('Total Income:', totalIncome);
+      console.log('Total Expense:', totalExpense);
+
+      // Now you can use these totals as needed in your component
+      // For example, assign them to reactive variables to display in your template
     };
 
     const calculateEvents = (personalHistory) => {
@@ -326,11 +397,14 @@ export default {
       user,
       currentMonth,
       selectedType,
-      selectedCategory
+      selectedCategory,
+      money // Add the money computed property to the return object
     };
   }
 };
 </script>
+
+
 
 
 
