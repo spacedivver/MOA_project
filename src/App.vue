@@ -21,7 +21,7 @@ const isPage = ref(false)
 watch(
   () => route.path,
   (newPath) => {
-    isPage.value = newPath === '/signup' || newPath === '/login';
+    isPage.value = newPath === '/signup' || newPath === '/';
   },
   { immediate: true }
 );

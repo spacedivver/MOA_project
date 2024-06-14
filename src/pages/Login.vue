@@ -62,7 +62,7 @@
                 <!-- Actions -->
                 <div class="text-center">
                   <!-- Submit button -->
-                  <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                  <button type="submit" @click="redirectToHome" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
                     <span class="indicator-label">로그인</span>
                     <span class="indicator-progress">Please wait...
                       <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -103,7 +103,9 @@ import { useRouter } from 'vue-router';
 const userId = ref('');
 const password = ref('');
 const router = useRouter();
-
+const redirectToHome = () => {
+  router.push('/main');
+};
 const login = async () => {
   try {
     const response = await axios.post('http://localhost:3000/users', {

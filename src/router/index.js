@@ -14,14 +14,14 @@ import Setting from '@/pages/Setting.vue'
 const router = createRouter({
     history: createWebHistory(),
     routes : [
-        { path: '/', name: "Main", component: Main },
+        { path: '/main', name: "Main", component: Main },
         { path: '/home', name: "Home", component: Home },
         { path: '/history', name: "History", component: History }, // transaction history
         { path: '/product', name: "Product", component: Product },
         { path: '/culture', name: "Culture", component: Culture },
         { path: '/meeting-account', name: "MeetingAccount", component: MeetingAccount },
         { path: '/signup', name: "SignUp", component: SignUp },
-        { path: '/login', name: "Login", component: Login },
+        { path: '/', name: "Login", component: Login },
         { path: '/addlog', name: "AddLog", component: AddLog },
         { path: '/setting', name: "Setting", component: Setting },
     ]
