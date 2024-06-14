@@ -78,6 +78,69 @@
       "type": "지출",
       "category": "케이터링",
       "memo": "연말 케이터링"
+    },
+    {
+      "id": "4",
+      "groupId": 3,
+      "date": "2024-07-01",
+      "amount": 50000,
+      "type": "지출",
+      "category": "교통",
+      "memo": "버스 비용"
+    },
+    {
+      "id": "5",
+      "groupId": 3,
+      "date": "2024-07-01",
+      "amount": 300000,
+      "type": "지출",
+      "category": "숙박",
+      "memo": "펜션 예약"
+    },
+    {
+      "id": "6",
+      "groupId": 1,
+      "date": "2024-06-13",
+      "amount": 50000,
+      "type": "지출",
+      "category": "기타",
+      "memo": "기념품 구입"
+    },
+    {
+      "id": "7",
+      "groupId": 2,
+      "date": "2024-06-13",
+      "amount": 100000,
+      "type": "지출",
+      "category": "음료",
+      "memo": "음료 구입"
+    },
+    {
+      "id": "8",
+      "groupId": 3,
+      "date": "2024-07-02",
+      "amount": 200000,
+      "type": "지출",
+      "category": "식사",
+      "memo": "점심 식사"
+    },
+    {
+      "id": "9",
+      "groupId": 1,
+      "date": "2024-06-14",
+      "amount": 300000,
+      "type": "지출",
+      "category": "교통",
+      "memo": "택시 비용"
+    },
+    {
+      "id": "10",
+      "groupId": 2,
+      "date": "2024-06-14",
+      "amount": 150000,
+      "type": "지출",
+      "category": "음식",
+      "memo": "스낵 구입"
     }
   ],
   "personalHistory": [
@@ -201,6 +264,149 @@
       "payment": "현금",
       "fix": false,
       "memo": "길가다 줍줍"
+    },
+    {
+      "id": "8",
+      "userId": "ccc",
+      "date": "2024-06-16",
+      "amount": 300000,
+      "type": "수입",
+      "category": "보너스",
+      "memo": "회사 보너스",
+      "payment": "카드",
+      "fix": true
+    },
+    {
+      "id": "9",
+      "userId": "ccc",
+      "date": "2024-06-17",
+      "amount": 50000,
+      "type": "지출",
+      "category": "식사",
+      "memo": "점심 식사",
+      "payment": "카드",
+      "fix": false
+    },
+    {
+      "id": "10",
+      "userId": "ddd",
+      "date": "2024-06-18",
+      "amount": 200000,
+      "type": "수입",
+      "category": "주식",
+      "memo": "주식 수익",
+      "payment": "현금",
+      "fix": true
+    },
+    {
+      "id": "11",
+      "userId": "eee",
+      "date": "2024-06-19",
+      "amount": 100000,
+      "type": "지출",
+      "category": "쇼핑",
+      "memo": "옷 구입",
+      "payment": "카드",
+      "fix": false
+    },
+    {
+      "id": "12",
+      "userId": "aaa",
+      "date": "2024-06-20",
+      "amount": 150000,
+      "type": "지출",
+      "category": "여행",
+      "memo": "기차표 구입",
+      "payment": "현금",
+      "fix": true
+    },
+    {
+      "id": "13",
+      "userId": "bbb",
+      "date": "2024-06-21",
+      "amount": 75000,
+      "type": "지출",
+      "category": "교통",
+      "memo": "택시비",
+      "payment": "카드",
+      "fix": false
+    },
+    {
+      "id": "14",
+      "userId": "ccc",
+      "date": "2024-06-22",
+      "amount": 120000,
+      "type": "수입",
+      "category": "이자",
+      "memo": "은행 이자",
+      "payment": "현금",
+      "fix": true
+    },
+    {
+      "id": "15",
+      "userId": "ddd",
+      "date": "2024-06-23",
+      "amount": 90000,
+      "type": "지출",
+      "category": "식료품",
+      "memo": "주말 식료품 구입",
+      "payment": "카드",
+      "fix": false
+    },
+    {
+      "id": "16",
+      "userId": "eee",
+      "date": "2024-06-24",
+      "amount": 110000,
+      "type": "수입",
+      "category": "보너스",
+      "memo": "회사 보너스",
+      "payment": "현금",
+      "fix": true
+    },
+    {
+      "id": "17",
+      "userId": "aaa",
+      "date": "2024-06-25",
+      "amount": 50000,
+      "type": "지출",
+      "category": "엔터테인먼트",
+      "memo": "영화 티켓",
+      "payment": "카드",
+      "fix": false
+    },
+    {
+      "id": "18",
+      "userId": "bbb",
+      "date": "2024-06-26",
+      "amount": 25000,
+      "type": "지출",
+      "category": "기타",
+      "memo": "커피 구입",
+      "payment": "현금",
+      "fix": false
+    },
+    {
+      "id": "19",
+      "userId": "ccc",
+      "date": "2024-06-27",
+      "amount": 35000,
+      "type": "지출",
+      "category": "기타",
+      "memo": "선물 구입",
+      "payment": "카드",
+      "fix": false
+    },
+    {
+      "id": "20",
+      "userId": "ddd",
+      "date": "2024-06-28",
+      "amount": 45000,
+      "type": "지출",
+      "category": "쇼핑",
+      "memo": "책 구입",
+      "payment": "현금",
+      "fix": false
     }
   ],
   "cardRecommendations": [
@@ -415,16 +621,148 @@
       "area": "경기도"
     }
   ],
-  "meetingAccounts":[
-      {"id":1, "category":"고깃집","price":"55,000", "day":"2024-04-20"},
-      {"id":2,"category":"노래방","price":"13,000", "day":"2024-05-01"},
-      {"id":3,"category":"당구","price":"20,000", "day":"2024-05-15"},
-      {"id":4,"category":"박물관 관람비","price":"16,000", "day":"2024-05-23"},
-      {"id":5, "category":"냉면","price":"40,000","day":"2024-06-02"},
-      {"id":6,"category":"공연 관람비","price":"80,000","day":"2024-06-11"},
-      {"id":7,"category":"고깃집","price":"75,000","day":"2024-06-17"},
-      {"id":8,"category":"맥주집","price":"60,000","day":"2024-06-23"}
-    ],
+  "meetingAccounts": [
+    {
+      "id": "1",
+      "groupId": 1,
+      "userId": "aaa",
+      "amount": 100000,
+      "payment": "송금"
+    },
+    {
+      "id": "2",
+      "groupId": 1,
+      "userId": "bbb",
+      "amount": 150000,
+      "payment": "현금"
+    },
+    {
+      "id": "3",
+      "groupId": 2,
+      "userId": "ccc",
+      "amount": 200000,
+      "payment": "송금"
+    },
+    {
+      "id": "4",
+      "groupId": 2,
+      "userId": "ddd",
+      "amount": 50000,
+      "payment": "현금"
+    },
+    {
+      "id": "5",
+      "groupId": 3,
+      "userId": "aaa",
+      "amount": 100000,
+      "payment": "현금"
+    },
+    {
+      "id": "6",
+      "groupId": 3,
+      "userId": "bbb",
+      "amount": 150000,
+      "payment": "송금"
+    },
+    {
+      "id": "7",
+      "groupId": 1,
+      "userId": "ccc",
+      "amount": 30000,
+      "payment": "현금"
+    },
+    {
+      "id": "8",
+      "groupId": 1,
+      "userId": "ddd",
+      "amount": 40000,
+      "payment": "송금"
+    },
+    {
+      "id": "9",
+      "groupId": 2,
+      "userId": "eee",
+      "amount": 60000,
+      "payment": "현금"
+    },
+    {
+      "id": "10",
+      "groupId": 3,
+      "userId": "aaa",
+      "amount": 70000,
+      "payment": "송금"
+    },
+    {
+      "id": "11",
+      "groupId": 3,
+      "userId": "bbb",
+      "amount": 80000,
+      "payment": "현금"
+    },
+    {
+      "id": "12",
+      "groupId": 1,
+      "userId": "ccc",
+      "amount": 90000,
+      "payment": "송금"
+    },
+    {
+      "id": "13",
+      "groupId": 1,
+      "userId": "ddd",
+      "amount": 100000,
+      "payment": "현금"
+    },
+    {
+      "id": "14",
+      "groupId": 2,
+      "userId": "eee",
+      "amount": 110000,
+      "payment": "송금"
+    },
+    {
+      "id": "15",
+      "groupId": 3,
+      "userId": "aaa",
+      "amount": 120000,
+      "payment": "현금"
+    },
+    {
+      "id": "16",
+      "groupId": 3,
+      "userId": "bbb",
+      "amount": 130000,
+      "payment": "송금"
+    },
+    {
+      "id": "17",
+      "groupId": 1,
+      "userId": "ccc",
+      "amount": 140000,
+      "payment": "현금"
+    },
+    {
+      "id": "18",
+      "groupId": 1,
+      "userId": "ddd",
+      "amount": 150000,
+      "payment": "송금"
+    },
+    {
+      "id": "19",
+      "groupId": 2,
+      "userId": "eee",
+      "amount": 160000,
+      "payment": "현금"
+    },
+    {
+      "id": "20",
+      "groupId": 3,
+      "userId": "aaa",
+      "amount": 170000,
+      "payment": "송금"
+    }
+  ],
     "totalBalance":[
       {"id":1,"balance":100000}
     ],
