@@ -15,7 +15,7 @@ onMounted(() => {
                 fontFamily: 'inherit',
                 height: 300,
                 type: 'radialBar',
-                offsetY: 0
+                offsetY: -40
             },
             plotOptions: {
                 radialBar: {
@@ -24,7 +24,7 @@ onMounted(() => {
 
                     hollow: {
                         margin: 0,
-                        size: "70%"
+                        size: "50%",
                     },
                     dataLabels: {
                         showOn: "always",
@@ -44,7 +44,7 @@ onMounted(() => {
                         }
                     },
                     track: {
-                        background: '#87D4F9',
+                        background: '#F1F1F2',
                         strokeWidth: '100%'
                     }
                 }
@@ -54,7 +54,7 @@ onMounted(() => {
             stroke: {
                 lineCap: "round",
             },
-            labels: ["My Achievements"]
+            labels: ["목표 달성도"]
         };
 
     new ApexCharts(document.querySelector("#achievement_chart"), options).render();
@@ -62,4 +62,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+#achievement_chart{
+    margin-bottom: -100px;
+}
 </style>

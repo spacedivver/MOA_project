@@ -39,10 +39,12 @@
 
                   <!-- 현재 자산 카드 시작 -->
                   <div class="col-xl-6">
-                    <div class="card card-xl-stretch mb-5 mb-xl-8">
+                    <div class="card card-xl-stretch mb-xl-8">
                       <div class="card h-100">
                         <div class="card-body p-9">
                           <div class="fs-4 fw-semibold text-gray-500">총 자산</div>
+                          <!-- 숫자 시작 -->
+                          <CountUp />
                           <div>
                             <span class="fs-2hx fw-bold">{{ addComma(asset) }}</span>
                             <span class="fs-1hx">원</span>
@@ -180,6 +182,18 @@
               </div>
             </div>
             <!-- 거래 내역 카드 끝 -->
+            <!--begin::Action-->
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-6 text-center">
+                  <router-link to="/history">
+                    <div class="btn btn-lg btn-primary btn-active-light-primary mt-5">
+                      거래 내역 상세 보기
+                    </div>
+                  </router-link>
+                </div>
+              </div>
+            </div>
           </div>
           <!--end::Container-->
         </div>
