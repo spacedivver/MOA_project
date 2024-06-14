@@ -8,9 +8,9 @@
         <div class="container-fluid d-flex flex-stack flex-wrap flex-sm-nowrap py-4">
           <!-- 사용자 정보 -->
           <div class="d-flex flex-row align-items-center justify-content-start flex-wrap me-2">
-            <span class="text-gray-900 my-1 fs-2">
-              <img src="@/assets/images/profile-icon.png" alt="" style="width: auto; height: 50px; margin-right: 5px">
-              <b>{{ userName }}</b> 님
+            <span class="text-gray-900 my-1 fs-2 d-flex align-items-center">
+              <img src="@/assets/images/profile-icon.png" alt="" style="width: auto; height: 4rem; margin-right: 5px">
+              <span class="gothic-a1-bold-user-name">{{ userName }}</span><span>&nbsp님</span>
             </span>
           </div>
         </div>
@@ -18,7 +18,7 @@
         <div class="container-fluid d-flex flex-stack flex-wrap flex-sm-nowrap py-4">
           <!-- 소비 내역 제목 -->
           <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-2">
-            <h1 class="text-gray-900 fw-bold my-1 fs-2">{{ month }}월 내 소비
+            <h1 class="gothic-a1-bold-title my-1">{{ month }}월 내 소비
               <small class="text-muted fs-6 fw-normal ms-1"></small>
             </h1>
           </div>
@@ -42,7 +42,7 @@
                     <div class="card card-xl-stretch mb-xl-8">
                       <div class="card h-100">
                         <div class="card-body p-9">
-                          <div class="fs-4 fw-semibold text-gray-500">총 자산</div>
+                          <div class="gothic-a1-bold-content fw-semibold text-gray-600">총 자산</div>
                           <!-- 숫자 시작 -->
                           <CountUp />
                           <div>
@@ -50,9 +50,9 @@
                             <span class="fs-1hx">원</span>
                           </div>
                           <div class="fs-4 d-flex justify-content-between mt-4 mb-4">
-                            <div class="fw-semibold">입금</div>
+                            <div class="fw-semibold gothic-a1-bold-content text-gray-600">입금</div>
                             <div class="d-flex justify-content-center">
-                              <div class="fw-bold text-center">
+                              <div class="fw-bold gothic-a1-bold-content fw-semibold text-center">
                                 <i class="ki-duotone ki-plus fs-4 me-1 text-success">
                                   <span class="path1"></span>
                                   <span class="path2"></span>
@@ -63,9 +63,9 @@
                           </div>
                           <div class="separator separator-dashed"></div>
                           <div class="fs-4 d-flex justify-content-between my-4">
-                            <div class="fw-semibold">출금</div>
+                            <div class="gothic-a1-bold-content fw-semibold text-gray-600">출금</div>
                             <div class="d-flex justify-content-center">
-                              <div class="fw-bold text-center">
+                              <div class="gothic-a1-bold-content fw-semibold text-center">
                                 <i class="ki-duotone ki-minus fs-4 me-1 text-danger">
                                   <span class="path1"></span>
                                   <span class="path2"></span>
@@ -84,8 +84,8 @@
                     <div class="card card-xl-stretch">
                       <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-start flex-column">
-                          <span class="card-label fw-bolder text-gray-900 fs-2">이달의 목표 달성도</span>
-                          <span class="text-gray-500 mt-2 fw-semibold fs-5">{{ userName }}님의 목표 달성 금액을 확인해보세요</span>
+                          <span class="gothic-a1-bold-sub-title">이달의 목표 달성도</span>
+                          <span class="mt-2 gothic-a1-bold-content fw-semibold text-gray-500">{{ userName }}님의 목표 달성 금액을 확인해보세요</span>
                         </h3>
                       </div>
 
@@ -103,7 +103,7 @@
 
             <!-- 소비 내역 제목 -->
             <div class="flex-stack flex-wrap flex-sm-nowrap py-4 justify-content-center">
-              <h1 class="text-gray-900 fw-bold my-1 fs-2">{{ userName }}님의 지출 분석
+              <h1 class="gothic-a1-bold-title">{{ userName }}님의 지출 분석
                 <small class="text-muted fs-6 fw-normal ms-1"></small>
               </h1>
             </div>
@@ -119,12 +119,12 @@
                     <div class="card card-xl-stretch mb-5 mb-xl-8">
                       <div class="card h-100">
                         <div class="card-body p-9">
-                          <div class="fs-2 fw-bold">{{ month }}월에는 {{ setDifferenceFromLastMonth() }}</div>
-                          <div class="fs-6 fw-semibold text-gray-500">한 달에 평균 {{ setAverageMonthly() }} 정도 써요
+                          <div class="gothic-a1-bold-sub-title">{{ month }}월에는 {{ setDifferenceFromLastMonth() }}</div>
+                          <div class="gothic-a1-bold-content fw-semibold text-gray-500">한 달에 평균 {{ setAverageMonthly() }} 정도 써요
                           </div>
                         </div>
                         <!-- 월별 지출 내역 평균 그래프 그리기 시작 -->
-                        <div class="pt-1">
+                        <div class="pt-1 mx-4">
                           <Monthly :userId="userId" />
                         </div>
                         <!-- 월별 지출 내역 평균 그래프 그리기 끝 -->
@@ -139,11 +139,11 @@
                     <div class="card card-xl-stretch mb-5 mb-xl-8">
                       <div class="card-header border-0 py-5">
                         <h3 class="card-title align-items-start flex-column">
-                          <span class="card-label fw-bolder text-gray-900 fs-2">카테고리별 소비</span>
+                          <span class="gothic-a1-bold-sub-title">카테고리별 소비</span>
                           <span class="my-2">
-                            <span class="text-gray-500 mt-2 fw-semibold fs-5">{{ userName }}님은 </span>
-                            <span class="mt-2 fw-bold fs-5" style="color: #7239EA;">{{ topSpendingCategory }} </span>
-                            <span class="text-gray-500 mt-2 fw-semibold fs-5"> 지출이 가장 높아요</span>
+                            <span class="mt-2 gothic-a1-bold-content fw-semibold text-gray-500">{{ userName }}님은 </span>
+                            <span class="mt-2 gothic-a1-bold-content fw-semibold" style="color: #7239EA;">{{ topSpendingCategory }} </span>
+                            <span class="mt-2 gothic-a1-bold-content fw-semibold text-gray-500"> 지출이 가장 높아요</span>
                           </span>
                         </h3>
                       </div>
@@ -166,7 +166,7 @@
 
             <!-- 소비 내역 제목 -->
             <div class="flex-stack flex-wrap flex-sm-nowrap py-4 justify-content-center">
-              <h1 class="text-gray-900 fw-bold my-1 fs-2">최근 거래 내역
+              <h1 class="gothic-a1-bold-title my-1">최근 거래 내역
                 <small class="text-muted fs-6 fw-normal ms-1"></small>
               </h1>
             </div>
@@ -187,7 +187,7 @@
               <div class="row justify-content-center">
                 <div class="col-6 text-center">
                   <router-link to="/history">
-                    <div class="btn btn-lg btn-primary btn-active-light-primary mt-5">
+                    <div class="gothic-a1-bold-sub-title btn btn-lg btn-primary btn-active-light-primary mt-5">
                       거래 내역 상세 보기
                     </div>
                   </router-link>
@@ -388,3 +388,32 @@ const formatSimpleAmount = (amount) => {
   }
 }
 </script>
+<style scoped>
+.gothic-a1-bold-user-name {
+  font-family: "Gothic A1";
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2.5rem;
+}
+
+.gothic-a1-bold-title {
+  font-family: "Gothic A1";
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.7rem;
+}
+
+.gothic-a1-bold-sub-title {
+  font-family: "Gothic A1";
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.5rem;
+}
+
+.gothic-a1-bold-content {
+  font-family: "Gothic A1";
+  font-weight: 100;
+  font-style: normal;
+  font-size: 1.2rem;
+}
+</style>

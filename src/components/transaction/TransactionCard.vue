@@ -15,7 +15,7 @@
                         <span class="path6"></span>
                     </i>
                     <!-- 거래 내역 날짜 -->
-                    <h3 class="fw-bold m-0 text-gray-800"> {{ splitDate[0] }}년 {{ splitDate[1] }}월 {{ splitDate[2] }}일</h3>
+                    <h3 class="gothic-a1-bold-content m-0 text-gray-800"> {{ splitDate[0] }}년 {{ splitDate[1] }}월 {{ splitDate[2] }}일</h3>
                 </div>
                 <!--end::Title-->
             </div>
@@ -74,4 +74,11 @@ const setHistorys = async () => {
 setHistorys();
 
 </script>
-<style scoped></style>
+<style scoped>
+.gothic-a1-bold-content {
+    font-family: "Gothic A1";
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.2rem;
+}
+</style>
