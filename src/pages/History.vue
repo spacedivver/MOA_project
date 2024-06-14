@@ -57,7 +57,7 @@
                                 <div class="card-header pt-7">
                                     <!--begin::Title-->
                                     <h3 class="card-title align-items-start flex-column">
-                                        <span class="card-label fw-bold text-gray-900">거래내역</span>
+                                        <span class="card-label fw-bold text-gray-900">상세 거래 내역</span>
                                         <span class="text-gray-500 mt-1 fw-semibold fs-6">뭘 넣어야 할까</span>
                                     </h3>
                                     <!--end::Title-->
