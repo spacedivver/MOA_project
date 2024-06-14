@@ -10,6 +10,7 @@
                         <h1 class="text-gray-900 fw-bold my-1 fs-0">자산 정보</h1>
                         <!--end::Title-->
                     </div>
+                    <router-link to="/addlog" class="btn btn-sm btn-primary align-self-center">가계부 작성</router-link>
                     <!--end::Info-->
                 </div>
             </div>
@@ -28,7 +29,6 @@
                         <!--end::Card title-->
                         <!--begin::Action-->
                         <router-link to="/setting" class="btn btn-sm btn-primary align-self-center">자산 정보 수정</router-link>
-
                         <!--end::Action-->
                     </div>
                     <div class="card-body p-9">
