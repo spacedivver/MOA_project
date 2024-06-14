@@ -28,7 +28,7 @@
 
       <!-- 문화 정보 출력 -->
       <div class="sub1">
-        <h1>문화 소식</h1>
+        <h1>영화 소식</h1>
         <h4>관심있을 만한 공연, 영화 정보를 확인할 수 있어요</h4>
       </div>
       <hr style="border-style: solid; border-color: purple; border-width: 1px;">
