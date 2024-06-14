@@ -27,7 +27,8 @@
                         </div>
                         <!--end::Card title-->
                         <!--begin::Action-->
-                        <a href="account/settings.html" class="btn btn-sm btn-primary align-self-center">자산 정보 수정</a>
+                        <router-link to="/setting" class="btn btn-sm btn-primary align-self-center">자산 정보 수정</router-link>
+
                         <!--end::Action-->
                     </div>
                     <div class="card-body p-9">
