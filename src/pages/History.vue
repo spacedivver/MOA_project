@@ -21,10 +21,10 @@
                 <div class="container-xxl">
                     <!--begin::details View-->
                     <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
-                      <div class="card-header cursor-pointer" v-if="user">
+                      <div class="card-header cursor-pointer">
                         <!--begin::Card title-->
                         <div class="card-title m-0">
-                            <h3 class="fw-bold m-0">{{ user.name }}님의 보유 자산은 {{ user.asset }}원 입니다.</h3>
+                            <h3 class="fw-bold m-0">{{ users.name }}님의 보유 자산은 {{ users.asset }}원 입니다.</h3>
                         </div>
                         <!--end::Card title-->
                         <!--begin::Action-->
@@ -183,6 +183,7 @@
 <script>
 import axios from 'axios';
 import { ref, onMounted, computed } from 'vue';
+import { getUserInfo } from '@/utils/auth';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -199,6 +200,8 @@ export default {
     const data = ref([]);
     const filteredData = ref([]);
     const formattedCurrentDate = ref('');
+    const userInfo = ref(getUserInfo());
+    const userId = userInfo.value.userId;
 
     const calendarOptions = ref({
       plugins: [dayGridPlugin, interactionPlugin],
@@ -212,6 +215,18 @@ export default {
     const currentMonth = ref('');
     const selectedType = ref(null);
     const selectedCategory = ref(null);
+    const users = ref({});
+
+    const getUsername = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/users?userId=${userId}`);
+        const userData = response.data[0]; 
+        users.value.name = userData.name;
+        users.value.asset = userData.asset;
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
 
     const money = computed(() => {
       let totalIncome = 0;
@@ -240,7 +255,7 @@ export default {
     // Fetch personal history data and calculate events
     const fetchAndCalculateEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/personalHistory');
+        const response = await axios.get(`http://localhost:3000/personalHistory?userId=${userId}`);
         data.value = response.data;
         const events = calculateEvents(data.value);
         calendarOptions.value.events = events;
@@ -281,16 +296,6 @@ export default {
         const date = new Date(item.date);
         return date >= startOfMonth && date < endOfMonth;
       }).sort((a, b) => new Date(a.date) - new Date(b.date));
-    };
-
-    const getList = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/users');
-        const users = response.data;
-        user.value = users.find(u => u.id === '1');
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
     };
 
     const getCurrentMonth = () => {
@@ -381,10 +386,8 @@ export default {
     };
 
     onMounted(() => {
+      getUsername();
       fetchAndCalculateEvents();
-      getList().then(() => {
-        console.log("User loaded:", user.value);
-      });
       getCurrentMonth();
     });
 
@@ -398,7 +401,8 @@ export default {
       currentMonth,
       selectedType,
       selectedCategory,
-      money // Add the money computed property to the return object
+      money,
+      users
     };
   }
 };
