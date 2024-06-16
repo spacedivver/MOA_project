@@ -11,7 +11,7 @@
                     <div style="color: gray;">아이디 : {{ user.userId }}</div>
                 </div>
                 
-                <button @click="goToLogin" class="btn btn-danger" style="margin-left: 700px;">로그 아웃</button>
+                <button @click="logout" class="btn btn-danger" style="margin-left: 700px;">로그 아웃</button>
             </div>
             <br>
 
@@ -64,25 +64,20 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { logoutProcess } from '@/utils/auth';
 
-// user 변수를 객체로 초기화
 const user = ref({});
 const alert = ref(true);
 const dark = ref(false);
 const simple = ref(false);
 const router = useRouter();
 
-const goToLogin = () => {
-  router.push({ name: 'Login' });
-};
-
 const fetchUserData = async () => {
   try {
     const response = await axios.get('http://localhost:3000/users');
     const userId = 'aaa';
     
-    // 서버 응답 구조에 따라 'value' 부분을 조정하세요.
-    const users = response.data; // 또는 response.data.value
+    const users = response.data;
 
     user.value = users.find(u => u.userId === userId);
   } catch (error) {
@@ -99,6 +94,13 @@ const updateUserData = async () => {
     console.error('Error updating user data:', error);
     window.alert('Failed to update user data');
   }
+};
+
+const logout = () => {
+  logoutProcess(()=>{
+    router.push({name: 'Login'});
+  })
+  
 };
 
 onMounted(fetchUserData);

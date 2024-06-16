@@ -62,13 +62,13 @@
                 <!-- Actions -->
                 <div class="text-center">
                   <!-- Submit button -->
-                  <button type="submit" @click="redirectToHome" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                  <button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
                     <span class="indicator-label">로그인</span>
                     <span class="indicator-progress">Please wait...
                       <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                   </button>
-                  <!-- Separator -->
-                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                  <!-- Error message -->
+                  <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
                 </div>
               </form>
               <!-- Form end -->
@@ -95,30 +95,30 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router';
+<script>
+import { loginProcess } from "@/utils/auth";
 
-const userId = ref('');
-const password = ref('');
-const router = useRouter();
-const redirectToHome = () => {
-  router.push('/main');
-};
-const login = async () => {
-  try {
-    const response = await axios.post('http://localhost:3000/users', {
-      userId: userId.value,
-      password: password.value
-    });
-
-    const { data } = response;
-    localStorage.setItem('user', JSON.stringify(data)); // 로컬 스토리지에 사용자 정보 저장
-    router.push('/'); // 로그인 성공 후 홈 페이지로 이동
-  } catch (error) {
-    console.error('로그인 오류:', error);
-    alert('아이디 또는 비밀번호가 잘못되었습니다.');
+export default {
+  data() {
+    return {
+      userId: "",
+      password: "",
+      errorMessage: ""
+    };
+  },
+  methods: {
+    login() {
+      loginProcess(
+        this.userId,
+        this.password,
+        () => {
+          this.$router.push("/main"); // 로그인 성공 시 메인 페이지로 이동
+        },
+        () => {
+          this.errorMessage = "아이디나 비밀번호가 맞지 않습니다.";
+        }
+      );
+    }
   }
 };
 </script>
