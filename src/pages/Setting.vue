@@ -10,8 +10,6 @@
                     <h1>{{ user.name }}</h1>
                     <div style="color: gray;">아이디 : {{ user.userId }}</div>
                 </div>
-                
-                <button @click="logout" class="btn btn-danger" style="margin-left: 700px;">로그 아웃</button>
             </div>
             <br>
 
@@ -96,12 +94,6 @@ const updateUserData = async () => {
   }
 };
 
-const logout = () => {
-  logoutProcess(()=>{
-    router.push({name: 'Login'});
-  })
-  
-};
 
 onMounted(fetchUserData);
 </script>

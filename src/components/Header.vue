@@ -179,8 +179,11 @@
                                         <div class="cursor-pointer symbol symbol-35px symbol-lg-35px"
                                             data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                                             data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                                            <img @click="goToSetting" alt="Pic" src="https://cdn-icons-png.freepik.com/512/4945/4945750.png" />
+                                            <h5>{{ users.name }}님 안녕하세요</h5>
+                                            <button @click="logout" class="btn btn-danger" style="margin-right: 20px;">로그 아웃</button>
+                                            <img @click="goToSetting" alt="Pic" src="https://cdn-icons-png.freepik.com/512/4945/4945750.png" style="margin-right: 10px;" />
                                         </div>
+                                        
                                         <!--begin::User account menu-->
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
                                             data-kt-menu="true">
@@ -400,6 +403,9 @@ import '@/assets/plugins/global/plugins.bundle.css'
 import '@/assets/css/style.bundle.css'
 
 import { useRouter } from 'vue-router';
+import { logoutProcess, getUserInfo } from '@/utils/auth';
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
 
 const router = useRouter();
 
@@ -407,6 +413,26 @@ const goToSetting = () => {
   router.push({ name: 'Setting' });
 };
 
+const logout = () => {
+  logoutProcess(()=>{
+    router.push({name: 'Login'});
+  })
+  
+};
+const userInfo = ref(getUserInfo());
+const userId = userInfo.value.userId;
+const users = ref({});
+
+const getUsername = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/users?userId=${userId}`);
+        const userData = response.data[0]; 
+        users.value.name = userData.name;
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+      return users;
+    };
 
 // 스크립트 추가
 var defaultThemeMode = "light";
@@ -426,4 +452,9 @@ if (document.documentElement) {
     }
     document.documentElement.setAttribute("data-bs-theme", themeMode);
 }
+
+onMounted(() => {
+      getUsername();
+    });
+
 </script>
